@@ -1,0 +1,64 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<!--Content-->
+<div class="content">
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align: center;">Add Evaluator Form</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p><b>First Name</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter First Name" name="first_name" value="{{first_name}}" disabled>
+            </td>
+            <td>
+                <p><b>Email</b></p>
+                <input type="email" data-role="input" class="" placeholder="Enter  Email" name="email" value="{{email}}" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Middle Name</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Middle Name" name="middle_name" value="{{middle_name}}" disabled>
+            </td>
+            <td>
+                <p><b>Gender</b></p>
+                <select data-role="select" name="gender" disabled>
+                    <optgroup label="Current Value">
+                        <option value="{{gender}}" selected>{{gender}}</option>
+                    </optgroup>
+                    <optgroup label="Other Value">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </optgroup>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Last Name</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Last Name" name="last_name" value="{{last_name}}" disabled>
+            </td>
+            <td>
+                <p><b>Address</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Address" name="address" value="{{address}}" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Phone Number</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number" value="{{phone_number}}" disabled>
+            </td>
+            <td>
+                <p><b>Birth Date</b></p>
+                <input type="input" data-role="input" class="" placeholder="Enter Birth Date" name="birth_date" value="{{birth_date}}" disabled>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>  
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<h3 class="p-5">Total Evaluations</h3>
+<div style="display: flex; width: 100%;">
+    <div style="width:100%; padding: 5px;">
+        <table class="table" data-role="table">
+            <thead>
+                <tr>
+                    <th data-sortable="true" data-sort-dir="asc">Seminar ID</th>
+                    <th data-sortable="true">Name</th>
+                    <th data-sortable="true" data-format="number">Date</th>
+                    <th data-sortable="true" data-format="number">View</th>
+                </tr>
+             </thead>
+             <tbody>
+                 {% for evaluation in evaluation_data %}
+                 <tr style="cursor: pointer;">
+                     <td>{{evaluation.seminar_id}}</td>
+                     <td>{{evaluation.seminar_name}}</td>
+                     <td>{{evaluation.date}}</td>
+                     <td><button class="button primary mif-eye icon" onclick="report_view_evaluation_info('{{evaluation.seminar_id}}')"></button>  </td>
+                </tr>
+                {% endfor %}
+             </tbody>
+        </table>
+    </div>
+
+{% endblock %}

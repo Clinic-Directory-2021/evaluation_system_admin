@@ -1,0 +1,52 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<!--Content-->
+
+    
+<div class="content">
+    <h3 class="p-5">Manage Seminars</h3>
+    <button class="button primary m-3"  onclick="add_seminar()"><icon class="mif-add icon mr-3"></icon>Add Seminar</button>
+    <table class="table" data-role="table">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-format='int'>Seminar #</th>
+                <th data-sortable="true">Seminar Name</th>
+                <th data-sortable="true">Status</th>
+                <th data-sortable="true">Facilitator Assigned</th>
+                <th data-sortable="true">Tools</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for seminar_field in seminar_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{seminar_field.seminar_name}}</td>
+                    <!-- <td><color class="fg-red">{{seminar_field.status}}</color></td> -->
+                    {% if seminar_field.status == "close" %}
+                      <td><color class="fg-red">{{seminar_field.status}}</color></td>
+                    {% else %}
+                    <td><color class="fg-green">{{seminar_field.status}}</color></td>
+                    {% endif %}
+                    <td>{{seminar_field.facilitator}}</td>
+                
+                    <td>
+                        <div style="display: flex;">
+                            <form action="/post_start_seminar/" method="POST">
+                                {% csrf_token %}
+                                    {% if seminar_field.ongoing == "false" %}
+                                        <button type="submit" class="button primary mr-3"><icon class="mif-checkmark icon mr-3"></icon>Start</button>
+                                        <input type="hidden" value="{{seminar_field.seminar_id}}" name="seminar_id">
+                                    {% endif %}
+                                </form>
+                                <button class="button success mr-3" onclick="edit_seminar('{{seminar_field.seminar_id}}')"><icon class="mif-pencil icon mr-3"></icon>Edit</button>
+                                <button class="button alert" onclick="delete_seminar('{{seminar_field.seminar_id}}')"><icon class="mif-bin icon mr-3"></icon>Delete</button>
+                        </div>
+                   </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+</div>
+
+{% endblock %}

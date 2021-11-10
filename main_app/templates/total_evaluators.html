@@ -1,0 +1,29 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<div class="content">
+    <h3 class="p-5">Total Evaluators</h3>
+    <table class="table" data-role="table">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-format='int'>#</th>
+                <th data-sortable="true">First Name</th>
+                <th data-sortable="true">Middle Name</th>
+                <th data-sortable="true">Last Name</th>
+                <th data-sortable="true">Tools</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for evaluator_field in evaluator_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{evaluator_field.first_name}}</td>
+                    <td>{{evaluator_field.middle_name}}</td>
+                    <td>{{evaluator_field.last_name}}</td>
+                    <td><button class="button primary mr-3" onclick="report_view_evaluator('{{evaluator_field.evaluator_id}}')"><icon class="mif-eye icon mr-3"></icon>View</button>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'header.html' %}
+{% block content %}
+{% if message %}
+<script>
+  swal({
+  title: "Good job!",
+  text: "{{ message }}",
+  icon: "success",
+  button: "Aww yiss!",
+});
+</script>
+{% endif %}
+{% if register_message %}
+<script>
+  swal({
+  title: "Error in registering your account.",
+  text: "{{ register_message }}",
+  icon: "error",
+  button: "Okay",
+});
+</script>
+{% endif %}
+<form action="/postsignUp/" method="post">
+  {% csrf_token %}
+<div class="content">
+    <div class="logo">
+    <img src="../static/images/deped_logo.png" alt="logo" class="deped_logo">
+    </div>
+    <div class="form">
+        <h1 align='center'>Register</h1>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="first_name" required>
+            <label for="floatingInput">First name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="last_name" required>
+            <label for="floatingInput">Last name</label>
+          </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" required>
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="confirm_password" required>
+            <label for="floatingPassword">Confirm Password</label>
+          </div>
+          <button class="login-button" type="submit">Register</button>
+          Already an Admin? Login your account  <a href="{% url 'login' %}" class="fst-normal">here.</a>
+    </div>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../static/images/deped_logo.png">
+    <link rel="stylesheet" href="{% static 'css/home_header.css' %}">
+    <script src="{% static 'js/home_header.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
+    <script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="{% static 'js/donut_chart.js' %}" defer></script>
+    <script type="text/javascript" src="{% static 'js/bar_chart.js' %}" defer></script>
+    <script type="text/javascript" src="{% static 'js/pie_chart.js' %}" defer></script>
+    <script type="text/javascript" src="{% static 'js/manage.js' %}" defer></script>
+    <script type="text/javascript" src="{% static 'js/seminar.js' %}" defer></script>
+    <script type="text/javascript" src="{% static 'js/dashboard_tools.js' %}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div data-role="appbar" data-expand-point="md" class="bg-cyan fg-white">
+        <a href="#" class="brand no-hover">
+            <img src="../static/images/deped_logo.png" alt="" width="50" height="50">
+         </a>
+        <ul class="app-bar-menu">
+            <!-- <li>
+                <a href="#" class="dropdown-toggle">{{admin_data.first_name}}</a>
+                <ul class="d-menu" data-role="dropdown">
+                    <li><a href="#">Edit Profile</a></li>
+                    <li><a href="#" class="fg-red">Logout</a></li>
+                </ul>
+            </li> -->
+            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li>
+                <a href="#" class="dropdown-toggle">Seminar</a>
+                <ul class="d-menu" data-role="dropdown">
+                    <li><a href="{% url 'manage_seminar' %}">Manage Seminar</a></li>
+                    <li><a href="{% url 'manage_facilitator' %}">Manage Facilitator</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="dropdown-toggle">Evaluators</a>
+                <ul class="d-menu" data-role="dropdown">
+                    <li><a href="{% url 'manage_evaluator' %}">Manage Evaluators</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'report' %}">Reports</a></li>
+            <li class="fg-red"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+    <br>
+    <br>
+    <br>
+</ul>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

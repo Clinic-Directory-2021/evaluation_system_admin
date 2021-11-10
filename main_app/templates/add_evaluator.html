@@ -1,0 +1,68 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<!--Content-->
+<button class="button warning" type="submit" name="cancel">Cancel</button>
+<form action="/post_add_evaluator/" method="POST">
+    {% csrf_token %}
+<div class="content">
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align: center;">Add Evaluator Form</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p><b>First Name</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter First Name" name="first_name">
+            </td>
+            <td>
+                <p><b>Email</b></p>
+                <input type="email" data-role="input" class="" placeholder="Enter  Email" name="email">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Middle Name</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Middle Name" name="middle_name">
+            </td>
+            <td>
+                <p><b>Gender</b></p>
+                <select data-role="select" name="gender">
+                        <option value="dedicated_corei3_hp">Male</option>
+                        <option value="dedicated_pentium_hp">Female</option>
+                        <option value="dedicated_smart_corei3_hp">Other</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Last Name</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Last Name" name="last_name">
+            </td>
+            <td>
+                <p><b>Address</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Address" name="address">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Phone Number</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number">
+            </td>
+            <td>
+                <p><b>Birth Date</b></p>
+                <input type="date" data-role="input" class="" placeholder="Enter Birth Date" name="birth_date">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="button success" type="submit" name="create">Create</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>  
+</form>
+{% endblock %}

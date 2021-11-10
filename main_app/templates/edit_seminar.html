@@ -1,0 +1,55 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<!--Content-->
+<button class="button primary" onclick="back_to_seminar()"><icon class="mif-arrow-left icon mr-3"></icon>Seminars</button>
+<form action="/post_edit_seminar/" method="POST">
+    {% csrf_token %} 
+<div class="content">
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align: center;">Edit Seminar Form</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p><b>Seminar Name</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="seminar_name" value="{{seminar_name}}">
+            </td>
+            <td>
+                <p><b>Select Facilitator</b></p>
+                <select data-role="select" name="facilitator" >
+                    <optgroup label="Current Facilitator"> 
+                    <option value="{{facilitator}}" selected="{{facilitator}}">{{facilitator}}</option>
+                    </optgroup>
+                    <optgroup label="Available">
+                        {% for data in facilitators %}
+                        <option value="{{data.facilitator_name}}">{{data.facilitator_name}}</option>
+                        {% endfor %}
+                    </optgroup>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Status</b></p>
+                <select data-role="select" name="status">
+                         <optgroup label="Current Value"> 
+                        <option value="{{status}}" selected="{{status}}">{{status}}</option>
+                        </optgroup>
+                        <option value="open">Open</option>
+                        <option value="close">Close</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="button success" type="submit">Save changes</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>  
+</form>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'header.html' %}
+{% block content %}
+{% if message %}
+<script>
+  swal({
+  title: "Error Logging In.",
+  text: "{{ message }}",
+  icon: "error",
+  button: "Okay",
+});
+</script>
+{% endif %}
+{% if register_message %}
+<script>
+  swal({
+  title: "Success.",
+  text: "{{ register_message }}",
+  icon: "success",
+  button: "Okay",
+});
+</script>
+{% endif %}
+{% if forgot_password_message %}
+<script>
+  swal({
+  title: "Success.",
+  text: "{{ forgot_password_message }}",
+  icon: "success",
+  button: "Okay",
+});
+</script>
+{% endif %}
+<form action="/postsignIn/" method="post">
+<div class="content">
+<div class="logo">
+<img src="../static/images/deped_logo.png" alt="logo" class="deped_logo">
+</div>
+
+  {% csrf_token %}
+<div class="form">
+    <h1 align='center'>Login</h1>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+        <label for="floatingInput" >Email address</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword"  name="password"  placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <a href="{% url 'forgot_password'  %}" class="fst-normal forgot-pass">Forgot your password?</a>
+      <button class="login-button" type="submit">Login</button>
+      Not an admin? Create account <a href="{% url 'register' %}" class="fst-normal">here.</a>
+</div>
+</div>
+</form>
+{% endblock %}

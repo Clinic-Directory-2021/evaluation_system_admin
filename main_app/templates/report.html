@@ -1,0 +1,64 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<div class="report-content">
+    <h3 class="p-5">Reports</h3>
+    <div class="p-5" style="width: 80%;">
+        <div class="grid">
+            <div class="row">
+    
+            <div class="cell">
+                <div class="more-info-box bg-grayBlue fg-white">
+                    <div class="content">
+                        <h2 class="text-bold mb-0">{{evaluator_counter}}</h2>
+                        <div>Total Evaluators</div>
+                    </div>
+                    <div class="icon">
+                        <span class="mif-user-plus"></span>
+                    </div>
+                    <a href="{% url 'total_evaluators' %}" class="more"> More info <span class="mif-arrow-right"></span></a>
+                </div>
+            </div>
+    
+            <div class="cell">
+                <div class="more-info-box bg-emerald fg-white">
+                    <div class="content">
+                        <h2 class="text-bold mb-0">{{evaluation_counter}}</h2>
+                        <div>Total Evaluations</div>
+                    </div>
+                    <div class="icon">
+                        <span class="mif-list"></span>
+                    </div>
+                    <a href="{% url 'total_evaluations' %}" class="more"> More info <span class="mif-arrow-right"></span></a>
+                </div>
+            </div>
+
+            <div class="cell">
+                <div class="more-info-box bg-orange fg-white">
+                    <div class="content">
+                        <h2 class="text-bold mb-0">{{seminar_counter}}</h2>
+                        <div>Total Seminars</div>
+                    </div>
+                    <div class="icon">
+                        <span class="mif-dashboard"></span>
+                    </div>
+                    <a href="{% url 'total_seminars' %}" class="more"> More info <span class="mif-arrow-right"></span></a>
+                </div>
+            </div>
+    
+            <div class="cell">
+                <div class="more-info-box bg-red fg-white">
+                    <div class="content">
+                        <h2 class="text-bold mb-0">{{facilitator_counter}}</h2>
+                        <div>Total Facilitators</div>
+                    </div>
+                    <div class="icon">
+                        <span class="mif-profile"></span>
+                    </div>
+                    <a href="{% url 'total_facilitators' %}" class="more"> More info <span class="mif-arrow-right"></span></a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,203 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<!--Content-->
+
+<div class="content p-5">
+    <div style="display: flex;">
+    <button class="button primary mr-3" onclick="back_to_dashboard()"><icon class="mif-arrow-left icon mr-3"></icon>Dashboard</button>
+    <button class="button success mr-3"><icon class="mif-file-excel icon mr-3"></icon>Export to Excel</button>
+    <button class="button alert mr-3" onclick="Metro.dialog.open('#demoDialog1')"><icon class="mif-cancel icon mr-3"></icon>Stop Seminar</button>
+    
+    </div>
+    <h3 class="p-5">Seminar Information</h3>
+    
+    <h1 align='center'>{{seminar_name}}</h1>
+            <p align='center'>{{seminar_id}}</p>
+            <hr>
+            <br>
+            <div class="social-box">
+                <div class="header bg-cyan fg-white">
+                    <div class="title"><center>Total Statistc</center></div>
+                </div>
+                <ul class="skills">
+                    <li>
+                        <div class="text-bold">{{evaluator_count}}</div>
+                        <div>Total Evaluator</div>
+                    </li>
+                    <li>
+                        <div class="text-bold">{{evaluation_count}}</div>
+                        <div>Total Responses</div>
+                    </li>
+                </ul>
+            </div>
+            <div id="donutchart" style="width: 100%; height: 500px;"></div>
+            <br>
+    <table class="table table-border striped"
+       data-role="table"
+       data-rows-steps="-1, 5, 10"
+       data-rows="5"
+       data-horizontal-scroll="true">
+       <thead>
+        <tr>
+            <th>#</th>
+            <th>Timestamp</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Program objectives were clearly presented</th>
+            <th>Program objectives were attained</th>
+            <th>Program content was appropriate to trainees roles and responsibility</th>
+            <th>Content delivered was based on authoritative and reliable sources</th>
+            <th>Sessions activities were effective in generating learning</th>
+            <th>Adult learning methodologies were used</th>
+            <th>Program followed a logical order/structure</th>
+            <th>Contribution of all trainees was encouraged</th>
+            <th>Exhibited full grasp of the topic</th>
+            <th>Was sensitive to the participants' mood</th>
+            <th>Asked stimulating questions</th>
+            <th>Processed questions and responses to deepen learning</th>
+            <th>Maintained positive learning environment</th>
+            <th>Expressed ideas clearly</th>
+            <th>Used appropriate training aids</th>
+            <th>Observed appropriate attire</th>
+            <th>Was able to firm up attainment of objectives of the session</th>
+            <th>Training program was delivered as planned</th>
+            <th>Training program was managed effectively</th>
+            <th>Training program was well-structured</th>
+            <th>Appropriate to trainees' needs</th>
+            <th>Adequate</th>
+            <th>Given on time</th>
+            <th>Members were present when needed</th>
+            <th>Members were courteous</th>
+            <th>Members were efficient</th>
+            <th>Members were responsive to the needs of the trainees</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for data in evaluation_data %}
+            <td>{{forloop.counter}}</td>
+            <td>{{data.date}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.full_name}}</td>
+            <td>{{data.q1}}</td>
+            <td>{{data.q2}}</td>
+            <td>{{data.q3}}</td>
+            <td>{{data.q4}}</td>
+            <td>{{data.q5}}</td>
+            <td>{{data.q6}}</td>
+            <td>{{data.q7}}</td>
+            <td>{{data.q8}}</td>
+            <td>{{data.q9}}</td>
+            <td>{{data.q10}}</td>
+            <td>{{data.q11}}</td>
+            <td>{{data.q12}}</td>
+            <td>{{data.q13}}</td>
+            <td>{{data.q14}}</td>
+            <td>{{data.q15}}</td>
+            <td>{{data.q16}}</td>
+            <td>{{data.q17}}</td>
+            <td>{{data.q18}}</td>
+            <td>{{data.q19}}</td>
+            <td>{{data.q20}}</td>
+            <td>{{data.q21}}</td>
+            <td>{{data.q22}}</td>
+            <td>{{data.q23}}</td>
+            <td>{{data.q24}}</td>
+            <td>{{data.q25}}</td>
+            <td>{{data.q26}}</td>
+            <td>{{data.q27}}</td>
+            
+        </tr>
+        {% endfor %}
+        </tbody>
+</table>
+<hr>
+<br>
+<h6>Comments</h6>
+<table class="table table-border striped"
+       data-role="table"
+       data-rows-steps="-1, 5, 10"
+       data-rows="5"
+       data-horizontal-scroll="true">
+       <thead>
+        <tr>
+            <th>#</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>What is your most significant learning for the day?</th>
+            <th>What will you do differently as a School Head/Teacher/Personnel given your learning?</th>
+            <th>How can the session be improved, if at all?</th>
+            <th>Comments/Suggestions for the improvement of program management/operations.</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for data in evaluation_data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.full_name}}</td>
+            <td>{{data.c1}}</td>
+            <td>{{data.c2}}</td>
+            <td>{{data.c3}}</td>
+            <td>{{data.c4}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+</table>
+<hr>
+<br>
+<h6>Facilitator Rate</h6>
+<table class="table table-border striped"
+       data-role="table"
+       data-rows-steps="-1, 5, 10"
+       data-rows="5"
+       data-horizontal-scroll="true">
+       <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Current Seminar Rating</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for data in evaluation_data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.full_name}}</td>
+            <td>{{data.r1}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+</table>
+<hr>
+<br>
+
+<div class="dialog" data-role="dialog" id="demoDialog1">
+    
+        
+    <div class="dialog-title">Stop the seminar</div>
+    <div class="dialog-content">
+        By Stopping the seminar, It will stop the evaluator to push their evaluation and it will place this data to report. And it will back to zero again. Are you sure you want to stop the seminar?
+    </div>
+        
+    <div class="dialog-actions">
+        <div style="display: flex;">
+        <button type="submit" class="button alert js-dialog-close mr-3" name="no">No, Im not sure.</button>
+        <form method="POST" action="post_view_seminar_actions/">
+            {% csrf_token %}
+        <input type="hidden" id="evaluation_count" value="{{evaluation_count}}">
+        <input type="hidden" id="evaluator_count" value="{{evaluator_count}}">
+        <input type="hidden" id="seminar_date_id" value="{{seminar_date_id}}" name="seminar_date_id">
+        <input type="hidden" id="seminar_name" value="{{seminar_name}}" name="seminar_name">
+        <input type="hidden" id="seminar_id" value="{{seminar_id}}" name="seminar_id">
+        <input type="hidden" id="evaluator_id" value="{{evaluator_id}}" name="evaluator_id">
+        <input type="hidden" id="date" value="{{date}}" name="date">
+        <button class="button primary js-dialog-close" type="submit" name="yes">Yes</button>
+    </form>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

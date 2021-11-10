@@ -1,0 +1,31 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<!--Content-->
+<div class="content">
+    <h3 class="p-5">Manage Evaluators</h3>
+    <button class="button primary m-3"  onclick="add_evaluator()"><icon class="mif-add icon mr-3"></icon>Add Evaluator</button>
+    <table class="table" data-role="table">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-format='int'>#</th>
+                <th data-sortable="true">First Name</th>
+                <th data-sortable="true">Middle Name</th>
+                <th data-sortable="true">Last Name</th>
+                <th data-sortable="true">Tools</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for evaluator_field in evaluator_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{evaluator_field.first_name}}</td>
+                    <td>{{evaluator_field.middle_name}}</td>
+                    <td>{{evaluator_field.last_name}}</td>
+                    <td><button class="button success mr-3" onclick="edit_evaluator('{{evaluator_field.evaluator_id}}')"><icon class="mif-pencil icon mr-3"></icon>Edit</button><button class="button alert" onclick="delete_evaluator('{{evaluator_field.evaluator_id}}')"><icon class="mif-bin icon mr-3"></icon>Delete</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</div>
+
+{% endblock %}

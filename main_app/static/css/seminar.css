@@ -1,0 +1,110 @@
+*{
+    font-family: Bookman Old Style;
+    margin: 0;
+}
+button:active{
+    opacity: 0.7;
+}
+button:hover{
+    opacity: 0.9;
+    cursor: pointer;
+}
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ 
+    .content{
+        margin-top: 10px;
+        box-shadow: 0 0 50px #4B778D;;
+        width: 100%;
+        display: block;
+    }
+    .seminar-list{
+        width: 100%;
+        height: 50vh;
+        border-right: 2px solid #4B778D;
+        border-top: 2px solid #28B5B5;
+    }
+    .active-seminar{
+        width: 100%;;
+        height: 50vh;
+        border-top: 2px solid #4B778D;
+    }
+    .add-seminar{
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin: 10px;
+        font-size: 24px;
+        font-weight: bold;
+        border:0;
+        background-color: #8FD9A8;
+    }
+    .seminar-item{
+        width: 100%;
+        background-color: gainsboro;
+        border-right: 5px solid #4B778D;
+        display: flex;
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom:5px ;
+    }
+    .active-item{
+        width: 100%;
+        background-color: #8FD9A8;
+        cursor: pointer;
+        border-right: 5px solid #4B778D;
+        display: flex;
+        text-align: center;
+    }
+    .seminar-item .action,p{
+        margin: auto;
+    }
+    .active-item .action,p{
+        margin: auto;
+    }
+    .pc{
+        display: none;
+    }
+}
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+
+}
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+    .pc{
+        display: block;
+    }
+    .actionbutton{
+        margin: auto;
+
+    }
+    .content{
+        margin-top: 10px;
+        width: 100%;
+        display: block;
+    }
+    .seminar-list{
+        width: 100%;
+        height: 50vh;
+    }
+    .active-seminar{
+        width: 100%;;
+        height: 50vh;
+    }
+}
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+   
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ 
+    
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */ 
+    .content{
+        display: flex;
+    }
+    .seminar-list{
+        width: 50%;
+        height: 100vh;
+    }
+    .active-seminar{
+        width: 50%;;
+        height: 100vh;
+    }
+}

@@ -1,0 +1,80 @@
+*{
+    font-family: Bookman Old Style;
+}
+.forgot-pass{
+    text-decoration: none;
+    color:black;
+    font-style: normal;
+}
+.login-button{
+        background-color: #4B778D;
+        border: 0;
+        border-radius: 5px;
+        color: white;
+        margin-bottom: 20px;
+}
+.login-button:hover{
+    opacity: 0.9;
+}
+.login-button:active{
+    opacity: 0.7;
+}
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ 
+    .content{
+        padding: 10px 50px 10px 50px;
+    }
+    .deped_logo{
+        width: 100%;
+        height: 100%;
+    }
+    .logo{
+        width: 100%;
+        height: 50%;
+        margin-bottom: 10px;
+    }
+    .form{
+        width: 100%;
+        height: 50%;
+    }
+    .login-button{
+        width: 100%;
+        height: 50px;
+        margin-top: 20px;
+    }
+}
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+    .content{
+        padding: 10px 100px 10px 100px;
+    }
+}
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+    .content{
+        padding: 10px 150px 10px 150px;
+    }
+    
+}
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+    .content{
+        padding: 10px 200px 10px 200px;
+    }
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ 
+    .content{
+        padding: 0;
+        display: flex;
+    }
+    .logo{
+        padding: 50px;
+    }
+    .form{
+        padding: 50px;
+    }
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */ 
+    .logo{
+        padding: 100px;
+    }
+    .form{
+        padding:100px;
+    }
+}

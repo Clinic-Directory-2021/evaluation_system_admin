@@ -1,0 +1,35 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<h1 class="welcome">Hello, {{admin_data.first_name}}  {{admin_data.last_name}} {{full_name.first_name}} {{full_name.last_name}}</h1>
+<h3 class="p-5">Dashboard</h3>
+<div style="display: flex; width: 100%;">
+    <div style="width:100%; padding: 5px;">
+        <table class="table" data-role="table">
+            <thead>
+                <tr>
+                    <th data-sortable="true" data-sort-dir="asc">Seminar ID</th>
+                    <th data-sortable="true">Seminar name</th>
+                    <th data-sortable="true" data-format="number">Status</th>
+                    <th data-sortable="true" data-format="number">View</th>
+                </tr>
+             </thead>
+             <tbody>
+                 {% for seminar in seminar_data %}
+                 {% if seminar.ongoing == "true" %}
+                 <tr style="cursor: pointer;">
+                     <td>{{seminar.seminar_id}}</td>
+                     <td>{{seminar.seminar_name}}</td>
+                     {% if seminar.status == "open" %}
+                     <td><text class="fg-green">{{seminar.status}}</text></td>
+                     {% else %}
+                     <td><text class="fg-red">{{seminar.status}}</text></td>
+                     {% endif %}
+                     <td><button class="button primary mif-eye icon" onclick="view_seminar_information('{{seminar.seminar_id}}')"></button>  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+             </tbody>
+        </table>
+    </div>
+
+{% endblock %}

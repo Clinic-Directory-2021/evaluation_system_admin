@@ -1,0 +1,40 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<!--Content-->
+<button class="button warning" type="submit" name="cancel">Cancel</button>
+<form action="/post_add_seminar/" method="POST">
+    {% csrf_token %}
+<div class="content">
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align: center;">Seminar Form</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p><b>Seminar Name</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="seminar_name">
+            </td>
+            <td>
+                <p><b>Select Facilitator</b></p>
+                <select data-role="select" name="facilitator" >
+                    <optgroup label="Available"> 
+                        {% for data in facilitators %}
+                        <option value="{{data.facilitator_name}}">{{data.facilitator_name}}</option>
+                        {% endfor %}
+                    </optgroup>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="button success" type="submit" name="submit">Submit</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>  
+</form>
+{% endblock %}

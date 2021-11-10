@@ -1,0 +1,38 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<!--Content-->
+
+    
+<div class="content">
+    <h3 class="p-5">Manage Seminars</h3>
+    <button class="button primary m-3"  onclick="add_seminar()"><icon class="mif-add icon mr-3"></icon>Add Seminar</button>
+    <table class="table" data-role="table">
+        <thead>
+            <tr>
+                <th data-sortable="true" data-format='int'>Seminar #</th>
+                <th data-sortable="true">Seminar Name</th>
+                <th data-sortable="true">Status</th>
+                <th data-sortable="true">Facilitator Assigned</th>
+                <th data-sortable="true">Tools</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for seminar_field in seminar_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{seminar_field.seminar_name}}</td>
+                    <!-- <td><color class="fg-red">{{seminar_field.status}}</color></td> -->
+                    {% if seminar_field.status == "close" %}
+                      <td><color class="fg-red">{{seminar_field.status}}</color></td>
+                    {% else %}
+                    <td><color class="fg-green">{{seminar_field.status}}</color></td>
+                    {% endif %}
+                    <td>{{seminar_field.facilitator}}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+</div>
+
+{% endblock %}
