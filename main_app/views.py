@@ -49,7 +49,7 @@ def dashboard(request):
         seminar_dict = {
         }
         for seminar in open_seminar:
-            # seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
+            #? seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
             return render(request,'dashboard.html', {'full_name': doc.to_dict,"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
     else:
         print(u'No such document!')
