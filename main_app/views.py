@@ -22,7 +22,7 @@ config={
     "measurementId": "G-687GYC9DLD"
 }
 #`Initialising database, auth and firebase for further use
-cred = credentials.Certificate("main_app\ServiceAccountKey.json")
+cred = credentials.Certificate("main_app/ServiceAccountKey.json")
 firebase=pyrebase.initialize_app(config)
 firebase_admin.initialize_app(cred)
 authe = firebase.auth()
