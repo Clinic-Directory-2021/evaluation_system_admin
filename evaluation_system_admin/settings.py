@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-pec)tg)fz@grj(7gnxlsddrx5q$600roymwh(lpq$*^(71l6g7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['evaluationsystem-deped.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -128,8 +128,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-ALLOWED_HOSTS = ['evaluationsystem-deped.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
