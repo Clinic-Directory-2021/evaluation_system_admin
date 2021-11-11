@@ -22,7 +22,7 @@ config={
     "measurementId": "G-687GYC9DLD"
 }
 #`Initialising database, auth and firebase for further use
-cred = credentials.Certificate("main_app/ServiceAccountKey.json")
+cred = credentials.Certificate("main_app\ServiceAccountKey.json")
 firebase=pyrebase.initialize_app(config)
 firebase_admin.initialize_app(cred)
 authe = firebase.auth()
@@ -49,7 +49,7 @@ def dashboard(request):
         seminar_dict = {
         }
         for seminar in open_seminar:
-            #? seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
+            # seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
             return render(request,'dashboard.html', {'full_name': doc.to_dict,"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
     else:
         print(u'No such document!')
