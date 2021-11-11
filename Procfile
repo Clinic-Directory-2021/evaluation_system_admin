@@ -1,1 +1,1 @@
-web: gunicorn myproject.wsgi
+web: gunicorn evaluation_system_admin.wsgi

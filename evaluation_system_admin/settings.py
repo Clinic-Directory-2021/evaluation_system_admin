@@ -129,7 +129,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ['deped-evaluationsystem.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['evaluationsystem-deped.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
