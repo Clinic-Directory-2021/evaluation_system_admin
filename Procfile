@@ -1,1 +1,1 @@
-web: gunicorn evaluation_system_admin.wsgi
+web: gunicorn evaluation_system_admin.wsgi --log-file -
