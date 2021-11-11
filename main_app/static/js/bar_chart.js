@@ -1,14 +1,12 @@
 google.charts.load('current', {'packages':['bar']});
 google.charts.setOnLoadCallback(drawStuff);
-
+var evaluation_count = parseInt($("#evaluation_count").val());
+var evaluator_count = parseInt($("#evaluator_count").val());
 function drawStuff() {
   var data = new google.visualization.arrayToDataTable([
-    ['Response', 'Rate'],
-    ["Strongly Agree", 0],
-    ["Agree", 0],
-    ["Uncertain", 0],
-    ["Disagree", 0],
-    ['Strongly Disagree', 0]
+    ['Title', 'Value'],
+    ["Evaluator", evaluation_count],
+    ["Response", evaluation_count],
   ]);
 
   var options = {

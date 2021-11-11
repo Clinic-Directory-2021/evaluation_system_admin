@@ -151,23 +151,24 @@ def view_seminar_information(request):
         evaluations = db.collection(u'evaluations').document(str(current_id))
         seminar = evaluations.get()
         seminar_name = u'{}'.format(seminar.to_dict()['seminar_name'])
-        seminar_date_id = str(u'{}'.format(seminar.to_dict()['seminar_date_id']))
+        # seminar_date_id = str(u'{}'.format(seminar.to_dict()['seminar_date_id']))
         seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
         date = u'{}'.format(seminar.to_dict()['date'])
 
 
         evaluation_data = evaluations.collection(u'evaluators').get()
         for doc in evaluation_data:
-            print(f'{doc.id} => {doc.to_dict()}')
             evaluator_id = str(doc.id)
-            evaluation_count = 0
+            print(evaluator_id)
+            evaluation_count = 1
             if doc.exists:
                 evaluation_count = evaluation_count + 1
-                return render(request, 'view_seminar_information.html',{"seminar_name":seminar_name,"seminar_id":seminar_id,"seminar_date_id":seminar_date_id,"evaluation_data":[doc.to_dict()],"evaluation_count":evaluation_count,"evaluator_id":evaluator_id,"evaluator_count":evaluator_count,"date":date})
-        else:
-            print(u'No such document!')
+            else:
+                print(u'No such document!')
+        return render(request, 'view_seminar_information.html',{"seminar_name":seminar_name,"seminar_id":seminar_id,"evaluation_data":[doc.to_dict() for doc in evaluation_data],"evaluation_count":evaluation_count,"evaluator_id":evaluator_id,"evaluator_count":evaluator_count,"date":date})
+        
     except:
-        print('ssss')
+        print('no data found')
     return render(request, 'view_seminar_information.html')
 
 def edit_seminar(request):
@@ -726,9 +727,9 @@ def export_evaluation(request):
     for doc in evaluator:
         rows = {
             str(0): counter + 1,
-            str(1): u'{}'.format(doc.to_dict()['date']),
-            str(2): u'{}'.format(doc.to_dict()['email']),
-            str(3): u'{}'.format(doc.to_dict()['full_name']),
+            str(1): u'{}'.format(doc.to_dict()['seminarDatePosted']),
+            str(2): u'{}'.format(doc.to_dict()['evaluatorEmail']),
+            str(3): u'{}'.format(doc.to_dict()['seminarFacilitator']),
             str(4): u'{}'.format(doc.to_dict()['q1']),
             str(5): u'{}'.format(doc.to_dict()['q2']),
             str(6): u'{}'.format(doc.to_dict()['q3']),
@@ -756,10 +757,10 @@ def export_evaluation(request):
             str(28): u'{}'.format(doc.to_dict()['q25']),
             str(29): u'{}'.format(doc.to_dict()['q26']),
             str(30): u'{}'.format(doc.to_dict()['q27']),
-            str(31): u'{}'.format(doc.to_dict()['c1']),
-            str(32): u'{}'.format(doc.to_dict()['c2']),
-            str(33): u'{}'.format(doc.to_dict()['c3']),
-            str(34): u'{}'.format(doc.to_dict()['c4']),
+            str(31): u'{}'.format(doc.to_dict()['comment1']),
+            str(32): u'{}'.format(doc.to_dict()['comment2']),
+            str(33): u'{}'.format(doc.to_dict()['comment3']),
+            str(34): u'{}'.format(doc.to_dict()['comment4']),
         }
         row_num += 1
         for col_num in range(len(rows)):

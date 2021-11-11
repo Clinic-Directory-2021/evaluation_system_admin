@@ -1,6 +1,7 @@
 {% extends 'home_header.html' %}
 {% block content %}
 <!--Content-->
+<button class="button warning" type="submit" name="cancel" onclick="back_to_facilitator()">Cancel</button>
 <form action="/post_add_facilitator/" method="POST">
     {% csrf_token %}
 <div class="content">
@@ -14,17 +15,16 @@
         <tr>
             <td>
                 <p><b>Facilitator First Name</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter first name" name="facilitator_first_name">
+                <input type="text" data-role="input" class="" placeholder="Enter first name" name="facilitator_first_name" required>
             </td>
             <td>
                 <p><b>Facilitator Last Name</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter first name" name="facilitator_last_name">
+                <input type="text" data-role="input" class="" placeholder="Enter last name" name="facilitator_last_name" required>
             </td>
         </tr>
         <tr>
             <td>
                 <button class="button success" type="submit" name="submit">Submit</button>
-                <button class="button warning" type="submit" name="cancel">Cancel</button>
             </td>
         </tr>
         </tbody>

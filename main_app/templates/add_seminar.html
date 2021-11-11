@@ -1,7 +1,7 @@
 {% extends 'home_header.html' %}
 {% block content %}
 <!--Content-->
-<button class="button warning" type="submit" name="cancel">Cancel</button>
+<button class="button warning" type="submit" name="cancel" onclick="back_to_seminar()">Cancel</button>
 <form action="/post_add_seminar/" method="POST">
     {% csrf_token %}
 <div class="content">
@@ -15,11 +15,11 @@
         <tr>
             <td>
                 <p><b>Seminar Name</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="seminar_name">
+                <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="seminar_name" required>
             </td>
             <td>
                 <p><b>Select Facilitator</b></p>
-                <select data-role="select" name="facilitator" >
+                <select data-role="select" name="facilitator" required>
                     <optgroup label="Available"> 
                         {% for data in facilitators %}
                         <option value="{{data.facilitator_name}}">{{data.facilitator_name}}</option>

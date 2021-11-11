@@ -58,8 +58,8 @@
         <tr>
             {% for data in evaluation_data %}
             <td>{{forloop.counter}}</td>
-            <td>{{data.date}}</td>
-            <td>{{data.email}}</td>
+            <td>{{data.seminarDatePosted}}</td>
+            <td>{{data.evaluatorEmail}}</td>
             <td>{{data.full_name}}</td>
             <td>{{data.q1}}</td>
             <td>{{data.q2}}</td>
@@ -116,12 +116,12 @@
             {% for data in evaluation_data %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td>{{data.email}}</td>
+            <td>{{dataevaluatorEmail}}</td>
             <td>{{data.full_name}}</td>
-            <td>{{data.c1}}</td>
-            <td>{{data.c2}}</td>
-            <td>{{data.c3}}</td>
-            <td>{{data.c4}}</td>
+            <td>{{data.comment1}}</td>
+            <td>{{data.comment2}}</td>
+            <td>{{data.comment3}}</td>
+            <td>{{data.comment4}}</td>
         </tr>
         {% endfor %}
         </tbody>
@@ -139,16 +139,16 @@
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Current Seminar Rating</th>
+            <!-- <th>Current Seminar Rating</th> -->
         </tr>
         </thead>
         <tbody>
             {% for data in evaluation_data %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td>{{data.email}}</td>
-            <td>{{data.full_name}}</td>
-            <td>{{data.r1}}</td>
+            <td>{{data.seminarFacilitator}}</td>
+            <td>{{data.evaluatorEmail}}</td>
+            <!-- <td>{{data.}}</td> -->
         </tr>
         {% endfor %}
         </tbody>

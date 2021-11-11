@@ -1,7 +1,7 @@
 {% extends 'home_header.html' %}
 {% block content %}
 <!--Content-->
-<button class="button warning" type="submit" name="cancel">Cancel</button>
+<button class="button warning" type="submit" name="cancel" onclick="back_to_evaluator()">Cancel</button>
 <form action="/post_add_evaluator/" method="POST">
     {% csrf_token %}
 <div class="content">
@@ -15,21 +15,21 @@
         <tr>
             <td>
                 <p><b>First Name</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter First Name" name="first_name">
+                <input type="text" data-role="input" class="" placeholder="Enter First Name" name="first_name" required>
             </td>
             <td>
                 <p><b>Email</b></p>
-                <input type="email" data-role="input" class="" placeholder="Enter  Email" name="email">
+                <input type="email" data-role="input" class="" placeholder="Enter  Email" name="email" required>
             </td>
         </tr>
         <tr>
             <td>
                 <p><b>Middle Name</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Middle Name" name="middle_name">
+                <input type="text" data-role="input" class="" placeholder="Enter Middle Name" name="middle_name" required>
             </td>
             <td>
                 <p><b>Gender</b></p>
-                <select data-role="select" name="gender">
+                <select data-role="select" name="gender" required>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
@@ -39,21 +39,21 @@
         <tr>
             <td>
                 <p><b>Last Name</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Last Name" name="last_name">
+                <input type="text" data-role="input" class="" placeholder="Enter Last Name" name="last_name" required>
             </td>
             <td>
                 <p><b>Address</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Address" name="address">
+                <input type="text" data-role="input" class="" placeholder="Enter Address" name="address" required>
             </td>
         </tr>
         <tr>
             <td>
                 <p><b>Phone Number</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number">
+                <input type="text" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number" required>
             </td>
             <td>
                 <p><b>Birth Date</b></p>
-                <input type="date" data-role="input" class="" placeholder="Enter Birth Date" name="birth_date">
+                <input type="date" data-role="input" class="" placeholder="Enter Birth Date" name="birth_date" required>
             </td>
         </tr>
         <tr>
