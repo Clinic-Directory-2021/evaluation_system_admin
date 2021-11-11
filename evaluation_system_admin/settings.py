@@ -129,4 +129,4 @@ STATIC_ROOT = 'E:\web_application\capstone_project\evaluation_system_admin\main_
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
