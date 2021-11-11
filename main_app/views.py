@@ -338,7 +338,7 @@ def postsignIn(request):
                 return render(request,'dashboard.html', {'full_name': doc.to_dict,"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
         else:
             print(u'No such document!')
-    
+    return render(request, "login.html")
 
 def postsignUp(request):
      first_name = request.POST.get('first_name')
