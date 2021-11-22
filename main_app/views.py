@@ -42,31 +42,23 @@ def register(request):
     return render(request, 'register.html')
 
 def dashboard(request):
-    doc_ref = db.collection(u'admins').document(request.session.get('admin_id'))
-    doc = doc_ref.get()
-    if doc.exists:
-        open_seminar = db.collection(u'seminars').get()
-        seminar_dict = {
-        }
-        for seminar in open_seminar:
-            # seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
-            return render(request,'dashboard.html', {'full_name': doc.to_dict,"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
-    else:
-        print(u'No such document!')
-        return render(request,'dashboard.html')
-    return render(request,'dashboard.html')
+    open_seminar = db.collection(u'seminars').get()
+    return render(request,'dashboard.html', {"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
     
 
 def manage_seminar(request):
-    docs = db.collection(u'seminars').get()
-    seminar_id = {
-        
-    }
-    ctr = 0
-    for doc in docs:
-        ctr = ctr + 1
-        seminar_id[ctr] = doc.id 
-        return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
+    try:
+        docs = db.collection(u'seminars').get()
+        seminar_id = {
+            
+        }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            seminar_id[ctr] = doc.id 
+            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
+    except:
+        return render(request,'manage_seminar.html')
     return render(request,'manage_seminar.html')
 
 def manage_facilitator(request):
@@ -94,23 +86,34 @@ def manage_evaluator(request):
     return render(request, 'manage_evaluator.html')
 
 def report(request):
-    evaluation_report = db.collection(u'evaluation_report').get()
-    seminar_report = db.collection(u'seminar_report').get()
-    evaluator_report = db.collection(u'evaluator_report').get()
-    facilitator_report = db.collection(u'facilitator_report').get()
-    evaluation_counter = 0
-    seminar_counter = 0
-    evaluator_counter = 0
-    facilitator_counter = 0
-    for doc in evaluation_report:
-        evaluation_counter = evaluation_counter + 1
-    for doc in seminar_report:
-        seminar_counter = seminar_counter + 1
-    for doc in evaluator_report:
-        evaluator_counter = evaluator_counter + 1
-    for doc in facilitator_report:
-        facilitator_counter = facilitator_counter + 1
-    return render(request, 'report.html',{"evaluation_counter":evaluation_counter,"seminar_counter":seminar_counter,"evaluator_counter":evaluator_counter,"facilitator_counter":facilitator_counter})
+    try:
+        evaluation_report = db.collection(u'evaluation_report').get()
+        seminar_report = db.collection(u'seminar_report').get()
+        evaluator_report = db.collection(u'evaluator_report').get()
+        # facilitator_report = db.collection(u'facilitator_report').get()
+        evaluation_counter = 0
+        seminar_counter = 0
+        evaluator_counter = 0
+        facilitator_counter = 0
+        for doc in evaluation_report:
+            evaluation_counter = evaluation_counter + 1
+        for doc in seminar_report:
+            seminar_counter = seminar_counter + 1
+        for doc in evaluator_report:
+            evaluator_counter = evaluator_counter + 1
+        # for doc in facilitator_report:
+        #     facilitator_counter = facilitator_counter + 1
+        
+        pass_data = {
+            "evaluation_counter":evaluation_counter,
+            "seminar_counter":seminar_counter,
+            "evaluator_counter":evaluator_counter,
+            # "facilitator_counter":facilitator_counter
+            }
+        return render(request, 'report.html',pass_data)
+    except Exception as e:
+        print('Your Error is: ' + str(e))
+        return render(request, 'report.html')
 
 def logout(request):
     try:
@@ -165,24 +168,39 @@ def view_seminar_information(request):
                 evaluation_count = evaluation_count + 1
             else:
                 print(u'No such document!')
-        return render(request, 'view_seminar_information.html',{"seminar_name":seminar_name,"seminar_id":seminar_id,"evaluation_data":[doc.to_dict() for doc in evaluation_data],"evaluation_count":evaluation_count,"evaluator_id":evaluator_id,"evaluator_count":evaluator_count,"date":date})
+        pass_data = {
+            "seminar_name":str(seminar_name),
+            "seminar_id":str(seminar_id),
+            "evaluation_data":[doc.to_dict() for doc in evaluation_data],
+            "evaluation_count":str(evaluation_count),
+            "evaluator_id":str(evaluator_id),
+            "evaluator_count":str(evaluator_count),
+            "date":str(date)}
+        return render(request, 'view_seminar_information.html',pass_data)
         
-    except:
-        print('no data found')
+    except Exception as e:
+        print('Your error is: ' + str(e))
     return render(request, 'view_seminar_information.html')
 
 def edit_seminar(request):
     current_id = request.GET.get('current_id')
     request.session['current_id'] =  current_id
-    doc_ref = db.collection(u'seminars').document(current_id)
-    doc = doc_ref.get()
-    seminar_name = u'{}'.format(doc.to_dict()['seminar_name'])
-    facilitator = u'{}'.format(doc.to_dict()['facilitator'])
-    status = u'{}'.format(doc.to_dict()['status'])
+    seminars = db.collection(u'seminars').document(current_id)
+    seminar = seminars.get()
 
-    facilitators = db.collection(u'facilitators').get()
-    for facilitator_data in facilitators:
-        return render(request,'edit_seminar.html',{"seminar_name":seminar_name,"facilitator":facilitator,"status":status,"facilitators":[facilitator_data.to_dict()]})
+    seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
+    program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
+    status = u'{}'.format(seminar.to_dict()['status'])
+    
+    
+    facilitators = seminars.collection(u'facilitators').get()
+    pass_data = {
+        "seminar_title":seminar_title,
+        "program_owner":program_owner,
+        "status":status,
+        "facilitator":[facilitator_data.to_dict() for facilitator_data in facilitators]
+    }
+    return render(request,'edit_seminar.html',pass_data)
     
 def edit_facilitator(request):
     current_id = request.GET.get('current_id')
@@ -215,15 +233,19 @@ def edit_evaluator(request):
     return render(request,'edit_evaluator.html')
 
 def total_evaluations(request):
-    docs = db.collection(u'evaluation_report').get()
-    evaluation_id = {
-        
-    }
-    ctr = 0
-    for doc in docs:
-        ctr = ctr + 1
-        evaluation_id[ctr] = doc.id 
-        return render(request,'total_evaluations.html',{"evaluation_data":[doc.to_dict() for doc in docs],"evaluation_id":id})
+    try:
+        docs = db.collection(u'evaluation_report').get()
+        evaluation_id = {
+            
+        }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            evaluation_id[ctr] = doc.id 
+            return render(request,'total_evaluations.html',{"evaluation_data":[doc.to_dict() for doc in docs],"evaluation_id":id})
+    except Exception as e:
+        print('Your Error is: ' + str(e))
+        return render(request,'total_evaluations.html')
     return render(request,'total_evaluations.html')
 
 def total_seminars(request):
@@ -239,15 +261,19 @@ def total_seminars(request):
     return render(request,'total_seminars.html')
 
 def total_evaluators(request):
-    docs = db.collection(u'evaluator_report').get()
-    evaluator_id = {
-        
-    }
-    ctr = 0
-    for doc in docs:
-        ctr = ctr + 1
-        evaluator_id[ctr] = doc.id 
-        return render(request,'total_evaluators.html',{"evaluator_data":[doc.to_dict() for doc in docs],"evaluator_id":id})
+    try:
+        docs = db.collection(u'evaluator_report').get()
+        evaluator_id = {
+            
+        }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            evaluator_id[ctr] = doc.id 
+            return render(request,'total_evaluators.html',{"evaluator_data":[doc.to_dict() for doc in docs],"evaluator_id":id})
+    except Exception as e:
+        print('Your error is: ' + str(e))
+        return render(request,'total_evaluators.html')
     return render(request,'total_evaluators.html')
 
 def total_facilitators(request):
@@ -315,31 +341,12 @@ def report_view_evaluator(request):
 def postsignIn(request):
     email=request.POST.get('email')
     password=request.POST.get('password')
-    try:
-        # if there is no error then signin the user with given email and password
-        user=authe.sign_in_with_email_and_password(email,password)
-    except:
-        message="Email or Password is incorrect."
-        return render(request,"login.html",{"message":message})
-    # session_id=user['idToken']
-    request.session['admin_id'] =  user['localId']
-    doc_ref = db.collection(u'admins').document(request.session.get('admin_id'))
-    doc = doc_ref.get()
-    if doc.exists:
-        # request.session['uid']=str(session_id)  
-        doc_ref = db.collection(u'admins').document(request.session.get('admin_id'))
-        doc = doc_ref.get()
-        if doc.exists:
+    if email == 'DepedMalolos':
+        if password == 'DepedMalolos':
             open_seminar = db.collection(u'seminars').get()
-            seminar_dict = {
-            }
-            for seminar in open_seminar:
-                #? seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
-                request.session['session'] = True
-                return render(request,'dashboard.html', {'full_name': doc.to_dict,"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
-        else:
-            print(u'No such document!')
-    return render(request, "login.html")
+            return render(request,'dashboard.html', {"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
+    else:        
+        return render(request, "login.html")
 
 def postsignUp(request):
      first_name = request.POST.get('first_name')
@@ -375,33 +382,59 @@ def forgot_password_func(request):
         return render(request,'forgot_password.html',{"forgot_password_message","Email not found."})
 
 def post_add_seminar(request):
-        seminar_name = request.POST.get('seminar_name')
-        facilitator = request.POST.get('facilitator')
-        date_created = datetime.now()
-        seminar_id =  calendar.timegm(date_created.timetuple())
-        try:
-            data = {
-            u'seminar_name': seminar_name,
-            u'facilitator': facilitator,
-            u'date_created': date_created,
-            u'status':"close",
-            u'seminar_id':str(seminar_id),
-            u'ongoing':"false"
-            }
-            db.collection(u'seminars').document(str(seminar_id)).set(data)
-            db.collection(u'seminar_report').document(str(seminar_id)).set(data)
-        except:
-            return render(request,'add_seminar.html')
-        docs = db.collection(u'seminars').get()
-        seminar_id = {
-            
-        }
-        ctr = 0
-        for doc in docs:
-            ctr = ctr + 1
-            seminar_id[ctr] = doc.id 
-            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
-        return render(request,'manage_seminar.html')
+    seminar_title = request.POST.get('seminar_title')
+    program_owner = request.POST.get('program_owner')
+    facilitator_list = str(request.POST.get('facilitator_list'))
+    date_created = datetime.now()
+    seminar_id =  calendar.timegm(date_created.timetuple())
+    print("seminar name: " + seminar_title)
+    try:
+                
+                data = {
+                        u'seminar_title': seminar_title,
+                        u'program_owner':program_owner,
+                        u'date_created': date_created,
+                        u'status':"close",
+                        u'seminar_id':str(seminar_id),
+                        u'ongoing':"false"
+                    }
+                seminar = db.collection(u'seminars').document(str(seminar_id))
+                seminar.set(data)
+                seminar_report = db.collection(u'seminar_report').document(str(seminar_id))
+                seminar_report.set(data)
+                to_list = facilitator_list.split(';')
+                for data in to_list:
+                    if data == '':
+                        break
+                    else:
+                        to_list_2 = data.split('=')
+                        facilitator_name = to_list_2[0]
+                        facilitator_topic = to_list_2[1]
+                        facilitator_time = to_list_2[2]
+                        time = facilitator_time.split('-')
+                    facilitator_data = {
+                        "facilitator_name":facilitator_name,
+                        "topic":facilitator_topic,
+                        "start_time":time[0],
+                        "end_time":time[1]
+                    }
+                    seminar.collection('facilitators').document().set(facilitator_data)
+                    seminar_report.collection('facilitators').document().set(facilitator_data)
+                
+                #to traverse manage seminar
+                docs = db.collection(u'seminars').get()
+                seminar_id = {
+                    
+                }
+                ctr = 0
+                for doc in docs:
+                    ctr = ctr + 1
+                    seminar_id[ctr] = doc.id 
+                    return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
+                return render(request,'manage_seminar.html')
+    except Exception as e:
+                print('You error is: ' + str(e))
+                return render(request,'add_seminar.html')
 
 def post_add_facilitator(request):
         full_name = request.POST.get('facilitator_first_name') + " " + request.POST.get('facilitator_last_name')
@@ -437,9 +470,9 @@ def post_add_evaluator(request):
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         gender = request.POST.get('gender')
-        address = request.POST.get('address')
+        address = request.POST.get('school')
+        position = request.POST.get('position')
         phone_number = request.POST.get('phone_number')
-        birth_date = request.POST.get('birth_date ')
         date_created = datetime.now()
         evaluator_id =  calendar.timegm(date_created.timetuple())
         try:
@@ -450,9 +483,9 @@ def post_add_evaluator(request):
             u'last_name': last_name,
             u'email':email,
             u'gender': gender,
-            u'address': address,
+            u'school': school,
             u'phone_number': phone_number,
-            u'birth_date':birth_date,
+            u'position':position,
             u'date_created':date_created,
             }
             db.collection(u'evaluators').document(str(evaluator_id)).set(data)
@@ -472,17 +505,40 @@ def post_add_evaluator(request):
 
 def post_edit_seminar(request):
     try:
+        facilitator_list = str(request.POST.get('facilitator_list'))
         current_id = request.session['current_id']
-        seminar_name = request.POST.get('seminar_name')
-        facilitator = request.POST.get('facilitator')
+        seminar_title = request.POST.get('seminar_title')
+        program_owner = request.POST.get('program_owner')
         status = request.POST.get('status')
         update_seminar = db.collection(u'seminars').document(current_id)
+        update_seminar_report = db.collection(u'seminar_report').document(current_id)
         updated_data = {
-            u'seminar_name': seminar_name,
-            u'facilitator':facilitator,
+            u'seminar_title': seminar_title,
+            u'seminar_title': program_owner,
             u'status':status
             }
         update_seminar.update(updated_data)
+        update_seminar_report.update(updated_data)
+
+        to_list = facilitator_list.split(';')
+        for data in to_list:
+            if data == '':
+              break
+            else:
+                to_list_2 = data.split('=')
+                facilitator_name = to_list_2[0]
+                topic = to_list_2[1]
+                facilitator_time = to_list_2[2]
+                time = facilitator_time.split('-')
+                facilitator_data = {
+                "facilitator_name":facilitator_name,
+                "topic":topic,
+                "start_time":time[0],
+                "end_time":time[1]
+                }
+                update_seminar.collection('facilitators').document().set(facilitator_data)
+                update_seminar_report.collection('facilitators').document().set(facilitator_data)
+
         docs = db.collection(u'seminars').get()
         seminar_id = {
             
@@ -507,6 +563,7 @@ def post_edit_facilitator(request):
         u'rate':rate
         }
     update_seminar.update(updated_data)
+
 
     docs = db.collection(u'facilitators').get()
     seminar_id = {
@@ -607,11 +664,11 @@ def post_view_seminar_actions(request):
 
     #Evaluationlist traversion
             evaluations_list = db.collection(u'evaluations').document(seminar_id)
-            evaluation_sub = evaluations_list.collection('evaluators').document(evaluator_id)
+            evaluation_sub = evaluations_list.collection('evaluators')
             get_data = evaluation_sub.get()
-            if get_data.exists:
+            for doc in get_data:
                 #Set data of evaluation report
-                evaluations.set(get_data.to_dict())
+                evaluations.set(doc.to_dict())
     #Deleting seminar after closing
             db.collection(u'seminars').document(seminar_id).delete()
             # update_seminar = db.collection(u'seminars').document(seminar_id)

@@ -1,7 +1,11 @@
 {% extends 'home_header.html' %}
 {% block content %}
 <!--Content-->
+<div class="p-5">
 <button class="button warning" type="submit" name="cancel" onclick="back_to_evaluator()">Cancel</button>
+<div class="window-content p-2">
+    <p class="mif-question icon"></p> You can add evaluator/repondents using this page/form.
+</div>
 <form action="/post_add_evaluator/" method="POST">
     {% csrf_token %}
 <div class="content">
@@ -42,8 +46,8 @@
                 <input type="text" data-role="input" class="" placeholder="Enter Last Name" name="last_name" required>
             </td>
             <td>
-                <p><b>Address</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Address" name="address" required>
+                <p><b>School/Office</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter School/Office" name="school" required>
             </td>
         </tr>
         <tr>
@@ -52,8 +56,8 @@
                 <input type="text" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number" required>
             </td>
             <td>
-                <p><b>Birth Date</b></p>
-                <input type="date" data-role="input" class="" placeholder="Enter Birth Date" name="birth_date" required>
+                <p><b>Position</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Evaluator's Position" name="position" required>
             </td>
         </tr>
         <tr>
@@ -65,4 +69,5 @@
     </table>
 </div>  
 </form>
+</div>
 {% endblock %}

@@ -4,12 +4,14 @@
 
 <div class="content p-5">
     <div style="display: flex;">
-    <button class="button primary mr-3" onclick="back_to_dashboard()"><icon class="mif-arrow-left icon mr-3"></icon>Dashboard</button>
+    <button class="button primary mr-3" onclick="back_to_dashboard()"><icon class="mif-arrow-left icon mr-3"></icon>Back to Dashboard</button>
     <button class="button alert mr-3" onclick="Metro.dialog.open('#demoDialog1')"><icon class="mif-cancel icon mr-3"></icon>Stop Seminar</button>
     
     </div>
     <h3 class="p-5">Seminar Information</h3>
-    
+    <div class="window-content p-2">
+        <p class="mif-question icon"></p> This page will show you the number of responses in the selected seminar.
+    </div>
     <h1 align='center'>{{seminar_name}}</h1>
             <p align='center'>{{seminar_id}}</p>
             <hr>
@@ -31,6 +33,7 @@
             </div>
             <div id="top_x_div" style="width: 900px; height: 500px;"></div>
             <br>
+            <h6>Already Evaluated</h6>
     <table class="table table-border striped"
        data-role="table"
        data-rows-steps="-1, 5, 10"
@@ -42,7 +45,8 @@
             <th>Timestamp</th>
             <th>Email</th>
             <th>Name</th>
-            <th>Program objectives were clearly presented</th>
+            <th>Status</th>
+            <!-- <th>Program objectives were clearly presented</th>
             <th>Program objectives were attained</th>
             <th>Program content was appropriate to trainees roles and responsibility</th>
             <th>Content delivered was based on authoritative and reliable sources</th>
@@ -68,17 +72,18 @@
             <th>Members were present when needed</th>
             <th>Members were courteous</th>
             <th>Members were efficient</th>
-            <th>Members were responsive to the needs of the trainees</th>
+            <th>Members were responsive to the needs of the trainees</th> -->
         </tr>
         </thead>
         <tbody>
         <tr>
             {% for data in evaluation_data %}
             <td>{{forloop.counter}}</td>
-            <td>{{data.date}}</td>
-            <td>{{data.email}}</td>
+            <td>{{data.seminarDatePosted}}</td>
+            <td>{{data.evaluatorEmail}}</td>
             <td>{{data.full_name}}</td>
-            <td>{{data.q1}}</td>
+            <td><text class="fg-green">Already Evaluated</text></td>
+            <!-- <td>{{data.q1}}</td>
             <td>{{data.q2}}</td>
             <td>{{data.q3}}</td>
             <td>{{data.q4}}</td>
@@ -104,16 +109,16 @@
             <td>{{data.q24}}</td>
             <td>{{data.q25}}</td>
             <td>{{data.q26}}</td>
-            <td>{{data.q27}}</td>
+            <td>{{data.q27}}</td> -->
             
         </tr>
         {% endfor %}
         </tbody>
 </table>
-<hr>
+<!-- <hr>
 <br>
-<h6>Comments</h6>
-<table class="table table-border striped"
+<h6>Comments</h6> -->
+<!-- <table class="table table-border striped"
        data-role="table"
        data-rows-steps="-1, 5, 10"
        data-rows="5"
@@ -142,11 +147,11 @@
         </tr>
         {% endfor %}
         </tbody>
-</table>
-<hr>
+</table> -->
+<!-- <hr>
 <br>
-<h6>Facilitator Rate</h6>
-<table class="table table-border striped"
+<h6>Facilitator Rate</h6> -->
+<!-- <table class="table table-border striped"
        data-role="table"
        data-rows-steps="-1, 5, 10"
        data-rows="5"
@@ -169,7 +174,7 @@
         </tr>
         {% endfor %}
         </tbody>
-</table>
+</table> -->
 <hr>
 <br>
 

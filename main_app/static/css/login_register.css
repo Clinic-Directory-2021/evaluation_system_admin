@@ -24,8 +24,12 @@
         padding: 10px 50px 10px 50px;
     }
     .deped_logo{
-        width: 100%;
-        height: 100%;
+        position: relative;
+        left: 20%;
+        width: 60%;
+        height: 60%;
+        text-align: center;
+        margin: auto;
     }
     .logo{
         width: 100%;

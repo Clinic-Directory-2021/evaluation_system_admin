@@ -1,10 +1,46 @@
 {% extends 'home_header.html' %}
 {% block content %}
 <!--Content-->
-<button class="button primary" onclick="back_to_seminar()"><icon class="mif-arrow-left icon mr-3"></icon>Seminars</button>
-<form action="/post_edit_seminar/" method="POST">
-    {% csrf_token %} 
+<div class="p-5">
+<button class="button dark" onclick="back_to_seminar()"><icon class="mif-arrow-left icon mr-3"></icon>Seminars</button>
+<div class="window-content p-2">
+    <p class="mif-question icon"></p> You can edit seminar details using this page/form.
+</div>
 <div class="content">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>
+                    <p><b>Facilitator Table</b></p>
+                    <br>
+                    <button onclick="Metro.dialog.open('#add_facilitator')" class="button primary">Add Facilitator</button>
+                    <table class="table striped">
+                        <thead class="bg-light">
+                            <th>#</th>
+                            <th>Facilitator Full Name</th>
+                            <th>Topic</th>
+                            <th>Start of Speak</th>
+                            <th>End of Speak</th>
+                        </thead>
+                        <tbody id="output">
+                            {% for facilitator_data in facilitator %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{facilitator_data.facilitator_name}}</td>
+                                <td>{{facilitator_data.topic}}</td>
+                                <td>{{facilitator_data.start_time}}</td>
+                                <td>{{facilitator_data.end_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form action="/post_edit_seminar/" method="POST">
+        {% csrf_token %} 
+        <input type="hidden" id="facilitator_list" name="facilitator_list">
     <table class="table">
         <thead>
         <tr>
@@ -14,32 +50,27 @@
         <tbody>
         <tr>
             <td>
-                <p><b>Seminar Name</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="seminar_name" value="{{seminar_name}}">
+                <p><b>Seminar Title</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="seminar_title" value="{{seminar_title}}">
             </td>
+        </tr>
+        <tr>
             <td>
-                <p><b>Select Facilitator</b></p>
-                <select data-role="select" name="facilitator" >
-                    <optgroup label="Current Facilitator"> 
-                    <option value="{{facilitator}}" selected="{{facilitator}}">{{facilitator}}</option>
-                    </optgroup>
-                    <optgroup label="Available">
-                        {% for data in facilitators %}
-                        <option value="{{data.facilitator_name}}">{{data.facilitator_name}}</option>
-                        {% endfor %}
-                    </optgroup>
-                </select>
+                <p><b>Program Owner</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="program_owner" value="{{program_owner}}">
             </td>
         </tr>
         <tr>
             <td>
                 <p><b>Status</b></p>
-                <select data-role="select" name="status">
-                         <optgroup label="Current Value"> 
-                        <option value="{{status}}" selected="{{status}}">{{status}}</option>
-                        </optgroup>
-                        <option value="open">Open</option>
-                        <option value="close">Close</option>
+                <select data-role="select" name='status'>
+                    <optgroup label="Selected Status"> 
+                        <option value="{{status}}">{{status}}</option>
+                    </optgroup>
+                    <optgroup label="Available Status">
+                        <option value="open">open</option>
+                        <option value="close">close</option>
+                    </optgroup>
                 </select>
             </td>
         </tr>
@@ -50,6 +81,26 @@
         </tr>
         </tbody>
     </table>
-</div>  
 </form>
+</div>  
+</div>
+<div class="dialog" data-role="dialog" id="add_facilitator">
+    <div class="dialog-title">Add Facilitator</div>
+    <div class="dialog-content">
+        <p><b>Facilitator name</b></p>
+        <input type="text" data-role="input" id="facilitator_name" placeholder="Enter Facilitator Name" name="facilitator_name" required>
+        <p><b>Topic</b></p>
+        <input type="text" data-role="input" id="topic" placeholder="Enter Facilitator's Topic" name="topic" required>
+        <p><b>Facilitator Speak TIme</b></p>
+        <p>Start</p><br>
+        <input type="time" data-role="input" id="start_time"  name="start_time" required>
+        <p>End</p><br>
+        <input type="time" data-role="input" id="end_time"  name="end_time" required>
+    </div>
+    <div class="dialog-actions">
+        <button class="button alert js-dialog-close">Cancel</button>
+        <button class="button primary js-dialog-close" onclick="add_facilitator()">Add</button>
+    </div>
+</div>
+</div>
 {% endblock %}

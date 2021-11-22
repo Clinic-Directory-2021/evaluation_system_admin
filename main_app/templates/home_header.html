@@ -10,7 +10,7 @@
     <script src="{% static 'js/home_header.js' %}"></script>
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
     <script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="{% static 'js/donut_chart.js' %}" defer></script>
     <script type="text/javascript" src="{% static 'js/bar_chart.js' %}" defer></script>
@@ -18,10 +18,16 @@
     <script type="text/javascript" src="{% static 'js/manage.js' %}" defer></script>
     <script type="text/javascript" src="{% static 'js/seminar.js' %}" defer></script>
     <script type="text/javascript" src="{% static 'js/dashboard_tools.js' %}" defer></script>
+    <script type="text/javascript" src="{% static 'js/add_facilitator.js' %}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Document</title>
+    <style>
+        table{
+            background-color: whitesmoke;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color: gainsboro;">
     <div data-role="appbar" data-expand-point="md" class="bg-cyan fg-white">
         <a href="#" class="brand no-hover">
             <img src="../static/images/deped_logo.png" alt="" width="50" height="50">
@@ -35,19 +41,9 @@
                 </ul>
             </li> -->
             <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li>
-                <a href="#" class="dropdown-toggle">Seminar</a>
-                <ul class="d-menu" data-role="dropdown">
-                    <li><a href="{% url 'manage_seminar' %}">Manage Seminar</a></li>
-                    <li><a href="{% url 'manage_facilitator' %}">Manage Facilitator</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" class="dropdown-toggle">Evaluators</a>
-                <ul class="d-menu" data-role="dropdown">
-                    <li><a href="{% url 'manage_evaluator' %}">Manage Evaluators</a></li>
-                </ul>
-            </li>
+            <li><a href="{% url 'manage_seminar' %}">Manage Seminar</a></li>
+        <!--<li><a href="{% url 'manage_facilitator' %}">Manage Facilitator</a></li> -->
+            <li><a href="{% url 'manage_evaluator' %}">Manage Evaluators</a></li>
             <li><a href="{% url 'report' %}">Reports</a></li>
             <li class="fg-red"><a href="{% url 'logout' %}">Logout</a></li>
         </ul>

@@ -5,7 +5,7 @@ var evaluator_count = parseInt($("#evaluator_count").val());
 function drawStuff() {
   var data = new google.visualization.arrayToDataTable([
     ['Title', 'Value'],
-    ["Evaluator", evaluation_count],
+    ["Evaluator", evaluator_count],
     ["Response", evaluation_count],
   ]);
 

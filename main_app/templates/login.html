@@ -34,14 +34,19 @@
 <div class="content">
 <div class="logo">
 <img src="../static/images/deped_logo.png" alt="logo" class="deped_logo">
+<br>
+<br>
+<h1 align='center'>DepED Malolos Evaluation System Admin</h1>
 </div>
 
   {% csrf_token %}
 <div class="form">
-    <h1 align='center'>Login</h1>
+    <br>
+    <br>
+    <p style="font-size: 24px;">Login your Admin Account</[p]>
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
-        <label for="floatingInput" >Email address</label>
+        <input type="text" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+        <label for="floatingInput" >Username</label>
       </div>
       <div class="form-floating">
         <input type="password" class="form-control" id="floatingPassword"  name="password"  placeholder="Password">
@@ -49,7 +54,6 @@
       </div>
       <a href="{% url 'forgot_password'  %}" class="fst-normal forgot-pass">Forgot your password?</a>
       <button class="login-button" type="submit">Login</button>
-      Not an admin? Create account <a href="{% url 'register' %}" class="fst-normal">here.</a>
 </div>
 </div>
 </form>

@@ -3,16 +3,24 @@
 <!--Content-->
 
     
-<div class="content">
+<div class="content p-5">
     <h3 class="p-5">Manage Seminars</h3>
-    <button class="button primary m-3"  onclick="add_seminar()"><icon class="mif-add icon mr-3"></icon>Add Seminar</button>
-    <table class="table" data-role="table">
+    <br>
+    <br>
+    <div class="window-content p-2">
+        <p class="mif-question icon"></p> The Manage Seminar page will allow you to create new seminar, edit and delete current Seminar.
+    </div>
+    <button class="button primary m-3"  onclick="add_seminar()"
+    data-role="hint"
+                        data-hint-position="right"
+                        data-hint-text="This will lead you to add seminar form"
+                        data-cls-hint="bg-cyan fg-white drop-shadow"><icon class="mif-add icon mr-3"></icon>Add Seminar</button>
+    <table class="table striped" data-role="table" data-rows-steps="5, 10" 	data-rows="5">
         <thead>
             <tr>
                 <th data-sortable="true" data-format='int'>Seminar #</th>
                 <th data-sortable="true">Seminar Name</th>
                 <th data-sortable="true">Status</th>
-                <th data-sortable="true">Facilitator Assigned</th>
                 <th data-sortable="true">Tools</th>
             </tr>
             </thead>
@@ -20,15 +28,13 @@
                 {% for seminar_field in seminar_data %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{seminar_field.seminar_name}}</td>
+                    <td>{{seminar_field.seminar_title}}</td>
                     <!-- <td><color class="fg-red">{{seminar_field.status}}</color></td> -->
                     {% if seminar_field.status == "close" %}
                       <td><color class="fg-red">{{seminar_field.status}}</color></td>
                     {% else %}
                     <td><color class="fg-green">{{seminar_field.status}}</color></td>
                     {% endif %}
-                    <td>{{seminar_field.facilitator}}</td>
-                
                     <td>
                         <div style="display: flex;">
                             <form action="/post_start_seminar/" method="POST">
@@ -38,8 +44,16 @@
                                         <input type="hidden" value="{{seminar_field.seminar_id}}" name="seminar_id">
                                     {% endif %}
                                 </form>
-                                <button class="button success mr-3" onclick="edit_seminar('{{seminar_field.seminar_id}}')"><icon class="mif-pencil icon mr-3"></icon>Edit</button>
-                                <button class="button alert" onclick="delete_seminar('{{seminar_field.seminar_id}}')"><icon class="mif-bin icon mr-3"></icon>Delete</button>
+                                <button class="button success mr-3" onclick="edit_seminar('{{seminar_field.seminar_id}}')"
+                                data-role="hint"
+                                data-hint-position="top"
+                                data-hint-text="This will allow you to edit seminar's info"
+                                data-cls-hint="bg-green fg-white drop-shadow"><icon class="mif-pencil icon mr-3"></icon>Edit</button>
+                                <button class="button alert" onclick="delete_seminar('{{seminar_field.seminar_id}}')"
+                                data-role="hint"
+                                data-hint-position="top"
+                                data-hint-text="This will allow you to delete seminar's info"
+                                data-cls-hint="bg-red fg-white drop-shadow"><icon class="mif-bin icon mr-3"></icon>Delete</button>
                         </div>
                    </td>
                 </tr>

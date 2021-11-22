@@ -19,3 +19,6 @@ function back_to_facilitator(){
 function back_to_evaluator(){
     window.location.href = "/manage_evaluator";
 }
+function back_to_reports(){
+    window.location.href = "/report/";
+}

@@ -1,6 +1,11 @@
 {% extends 'home_header.html' %}
 {% block content %}
+<div class="p-5">
+<button class="button dark mr-3" onclick="back_to_reports()"><icon class="mif-arrow-left icon mr-3"></icon>Back to Report</button>
 <h3 class="p-5">Total Evaluations</h3>
+<div class="window-content p-2">
+    <p class="mif-question icon"></p> The list of total evaluations(Deleted or Existing).
+</div>
 <div style="display: flex; width: 100%;">
     <div style="width:100%; padding: 5px;">
         <table class="table" data-role="table">
@@ -24,5 +29,5 @@
              </tbody>
         </table>
     </div>
-
+</div>
 {% endblock %}
