@@ -1,11 +1,15 @@
 {% extends 'home_header.html' %}
 {% block content %}
 <!--Content-->
-<div class="content">
+<div class="content p-5">
+<button class="button dark" onclick="back_to_total_evaluator()"><icon class="mif-arrow-left icon mr-3"></icon>Back to total Seminar list</button>
+<div class="window-content p-2">
+    <p class="mif-question icon"></p> You can see evaluator details in this page/form.
+</div>
     <table class="table">
         <thead>
         <tr>
-            <th colspan="2" style="text-align: center;">Add Evaluator Form</th>
+            <th colspan="2" style="text-align: center;"> Evaluator Details</th>
         </tr>
         </thead>
         <tbody>
@@ -45,7 +49,7 @@
             </td>
             <td>
                 <p><b>Address</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Address" name="address" value="{{address}}" disabled>
+                <input type="text" data-role="input" class="" placeholder="school" name="address" value="{{school}}" disabled>
             </td>
         </tr>
         <tr>
@@ -55,7 +59,7 @@
             </td>
             <td>
                 <p><b>Birth Date</b></p>
-                <input type="input" data-role="input" class="" placeholder="Enter Birth Date" name="birth_date" value="{{birth_date}}" disabled>
+                <input type="text" data-role="input" class="" placeholder="Enter position" name="birth_date" value="{{position}}" disabled>
             </td>
         </tr>
         </tbody>

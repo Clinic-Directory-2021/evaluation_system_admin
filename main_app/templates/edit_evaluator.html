@@ -1,13 +1,28 @@
 {% extends 'home_header.html' %}
 {% block content %}
+{% if validation_text %}
+<script>
+  swal({
+  title: "Error.",
+  text: "{{ validation_text }}",
+  icon: "error",
+  button: "Okay",
+});
+</script>
+{% endif %}
 <!--Content-->
+<div class="p-10">
+<button class="button warning" type="submit" name="cancel" onclick="back_to_evaluator()">Cancel</button>
+<div class="window-content p-2">
+    <p class="mif-question icon"></p> You can edit evaluator/repondents using this page/form.
+</div>
 <form action="/post_edit_evaluator/" method="POST">
     {% csrf_token %}
 <div class="content">
     <table class="table">
         <thead>
         <tr>
-            <th colspan="2" style="text-align: center;">Add Evaluator Form</th>
+            <th colspan="2" style="text-align: center;">Edit Evaluator Form</th>
         </tr>
         </thead>
         <tbody>
@@ -47,17 +62,17 @@
             </td>
             <td>
                 <p><b>Address</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Address" name="address" value="{{address}}">
+                <input type="text" data-role="input" class="" placeholder="Enter Address" name="school" value="{{school}}">
             </td>
         </tr>
         <tr>
             <td>
                 <p><b>Phone Number</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number" value="{{phone_number}}">
+                <input type="number" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number" value="{{phone_number}}">
             </td>
             <td>
                 <p><b>Birth Date</b></p>
-                <input type="date" data-role="input" class="" placeholder="Enter Birth Date" name="birth_date" value="{{birth_date}}">
+                <input type="text" data-role="input" class="" placeholder="Enter Position" name="birth_date" value="{{position}}">
             </td>
         </tr>
         <tr>
@@ -69,4 +84,5 @@
     </table>
 </div>  
 </form>
+</div>
 {% endblock %}

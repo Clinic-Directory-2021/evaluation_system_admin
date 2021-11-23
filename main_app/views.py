@@ -4,12 +4,20 @@ import firebase_admin
 from django.shortcuts import render,redirect
 from firebase_admin import credentials
 from firebase_admin import firestore
+from firebase_admin import auth
 import pyrebase
 from datetime import datetime
+import datetime
 import calendar
 import time
 from django.http import JsonResponse, request
 import xlwt
+import os
+from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
 
 config={
     "apiKey": "AIzaSyCRm30U4IA0BFi85g_5qfjF8QB4hF_iuqU",
@@ -213,24 +221,37 @@ def edit_facilitator(request):
     return render(request,'edit_facilitator.html',{"facilitator_name":facilitator_name,"department":department,"rate":rate})
 
 def edit_evaluator(request):
-    current_id = str(request.GET.get('current_id'))
-    request.session['current_id'] =  current_id
-    doc_ref = db.collection(u'evaluators').document(current_id)
-    doc = doc_ref.get()
-    if doc.exists:
-        first_name = u'{}'.format(doc.to_dict()['first_name'])
-        middle_name = u'{}'.format(doc.to_dict()['middle_name'])
-        last_name = u'{}'.format(doc.to_dict()['last_name'])
-        email= u'{}'.format(doc.to_dict()['email'])
-        gender = u'{}'.format(doc.to_dict()['gender'])
-        address = u'{}'.format(doc.to_dict()['address'])
-        phone_number = u'{}'.format(doc.to_dict()['phone_number'])
-        birth_date = u'{}'.format(doc.to_dict()['birth_date'])
-
-        return render(request,'edit_evaluator.html',{"first_name":first_name,"middle_name":middle_name,"last_name":last_name,"email":email,"gender":gender,"address":address,"phone_number":phone_number,"birth_date":birth_date})
-    else:
-        print('ssss')
-    return render(request,'edit_evaluator.html')
+    try:
+        current_id = str(request.GET.get('current_id'))
+        request.session['current_id'] =  current_id
+        doc_ref = db.collection(u'evaluators').document(current_id)
+        doc = doc_ref.get()
+        if doc.exists:
+            first_name = u'{}'.format(doc.to_dict()['first_name'])
+            middle_name = u'{}'.format(doc.to_dict()['middle_name'])
+            last_name = u'{}'.format(doc.to_dict()['last_name'])
+            email= u'{}'.format(doc.to_dict()['email'])
+            gender = u'{}'.format(doc.to_dict()['gender'])
+            school = u'{}'.format(doc.to_dict()['school'])
+            phone_number = u'{}'.format(doc.to_dict()['phone_number'])
+            position = u'{}'.format(doc.to_dict()['position'])
+            pass_data = {
+                "first_name":first_name,
+                "middle_name":middle_name,
+                "last_name":last_name,
+                "email":email,
+                "gender":gender,
+                "school":school,
+                "phone_number":phone_number,
+                "position":position}
+            return render(request,'edit_evaluator.html',pass_data)
+        else:
+            print('ssss')
+        return render(request,'edit_evaluator.html')
+    except Exception as e:
+        print(str(e))
+        validation_text = str(e)
+        return render(request,"manage_evaluator",{"validation_text":validation_text})
 
 def total_evaluations(request):
     try:
@@ -311,7 +332,15 @@ def report_view_evaluation_info(request):
             evaluation_count = 0
             if doc.exists:
                 evaluation_count = evaluation_count + 1
-                return render(request, 'report_view_evaluation_info.html',{"seminar_name":seminar_name,"seminar_id":seminar_id,"seminar_date_id":seminar_date_id,"evaluation_data":[doc.to_dict()],"evaluation_count":evaluation_count,"evaluator_id":evaluator_id,"date":date})
+                pass_data = {
+                    "seminar_name":seminar_name,
+                    "seminar_id":seminar_id,
+                    "seminar_date_id":seminar_date_id,
+                    "evaluation_data":[doc.to_dict()],
+                    "evaluation_count":evaluation_count,
+                    "evaluator_id":evaluator_id,
+                    "date":date}
+                return render(request, 'report_view_evaluation_info.html',pass_data)
         else:
             print(u'No such document!')
     except:
@@ -329,11 +358,11 @@ def report_view_evaluator(request):
         last_name = u'{}'.format(doc.to_dict()['last_name'])
         email= u'{}'.format(doc.to_dict()['email'])
         gender = u'{}'.format(doc.to_dict()['gender'])
-        address = u'{}'.format(doc.to_dict()['address'])
+        school = u'{}'.format(doc.to_dict()['school'])
         phone_number = u'{}'.format(doc.to_dict()['phone_number'])
-        birth_date = u'{}'.format(doc.to_dict()['birth_date'])
+        position = u'{}'.format(doc.to_dict()['position'])
 
-        return render(request,'report_view_evaluator.html',{"first_name":first_name,"middle_name":middle_name,"last_name":last_name,"email":email,"gender":gender,"address":address,"phone_number":phone_number,"birth_date":birth_date})
+        return render(request,'report_view_evaluator.html',{"first_name":first_name,"middle_name":middle_name,"last_name":last_name,"email":email,"gender":gender,"school":school,"phone_number":phone_number,"position":position})
     else:
         print('ssss')
     return render(request,'report_view_evaluator.html')
@@ -341,12 +370,17 @@ def report_view_evaluator(request):
 def postsignIn(request):
     email=request.POST.get('email')
     password=request.POST.get('password')
-    if email == 'DepedMalolos':
-        if password == 'DepedMalolos':
-            open_seminar = db.collection(u'seminars').get()
-            return render(request,'dashboard.html', {"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
-    else:        
-        return render(request, "login.html")
+    validation_text = "";
+    if email == "" or password == "":
+        validation_text = "Please input all required fields."
+        return render(request, "login.html",{"validation_text":validation_text})
+    else:
+        if email == 'DepedMalolos':
+            if password == 'DepedMalolos':
+                open_seminar = db.collection(u'seminars').get()
+                return render(request,'dashboard.html', {"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
+        else:        
+            return render(request, "login.html")
 
 def postsignUp(request):
      first_name = request.POST.get('first_name')
@@ -387,7 +421,6 @@ def post_add_seminar(request):
     facilitator_list = str(request.POST.get('facilitator_list'))
     date_created = datetime.now()
     seminar_id =  calendar.timegm(date_created.timetuple())
-    print("seminar name: " + seminar_title)
     try:
                 
                 data = {
@@ -470,38 +503,54 @@ def post_add_evaluator(request):
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         gender = request.POST.get('gender')
-        address = request.POST.get('school')
+        school = request.POST.get('school')
         position = request.POST.get('position')
         phone_number = request.POST.get('phone_number')
-        date_created = datetime.now()
-        evaluator_id =  calendar.timegm(date_created.timetuple())
-        try:
-            data = {
-            u'evaluator_id':str(evaluator_id),
-            u'first_name': first_name ,
-            u'middle_name': middle_name,
-            u'last_name': last_name,
-            u'email':email,
-            u'gender': gender,
-            u'school': school,
-            u'phone_number': phone_number,
-            u'position':position,
-            u'date_created':date_created,
+        email_split = email.split('@')
+        password = "123456"
+        validation_text = ""
+        if email_split[1] != "deped.gov.ph":
+            validation_text = "Invalid email format.You should use deped.gov.ph i.e juan.delacruz@deped.gov.ph"
+            return render(request,'add_evaluator.html',{"validation_text":validation_text})
+        else:
+            date_created = datetime.now()
+            evaluator_id =  calendar.timegm(date_created.timetuple())
+           
+            try:
+                user=authe.create_user_with_email_and_password(email,password)
+                uid = user['localId']
+                data = {
+                u'evaluator_id':str(evaluator_id),
+                u'first_name': first_name ,
+                u'middle_name': middle_name,
+                u'last_name': last_name,
+                u'email':email,
+                u'gender': gender,
+                u'school': school,
+                u'phone_number': phone_number,
+                u'position':position,
+                u'date_created':date_created,
+                u'uid':uid
+                }
+                db.collection(u'evaluators').document(str(evaluator_id)).set(data)
+                db.collection(u'evaluator_report').document(str(evaluator_id)).set(data)
+            except Exception as e:
+                print(str(e))
+                print(email)
+                return render(request,'add_evaluator.html',{'validation_text':"Email Exist"})
+            docs = db.collection(u'evaluators').get()
+            evaluator_id = {
+                
             }
-            db.collection(u'evaluators').document(str(evaluator_id)).set(data)
-            db.collection(u'evaluator_report').document(str(evaluator_id)).set(data)
-        except:
-            print('ssss')
-            return render(request,'add_evaluator.html')
-        docs = db.collection(u'evaluators').get()
-        evaluator_id = {
-            
-        }
-        ctr = 0
-        for doc in docs:
-            ctr = ctr + 1
-            evaluator_id[ctr] = doc.id 
-            return render(request,'manage_evaluator.html',{"evaluator_data":[doc.to_dict() for doc in docs],"evaluator_id":id})
+            ctr = 0
+            for doc in docs:
+                ctr = ctr + 1
+                evaluator_id[ctr] = doc.id 
+                pass_data = {
+                "validation_text":"Successfully Add A Evaluator. His/Her Default password is 123456",
+                "evaluator_data":[doc.to_dict() for doc in docs],
+                "evaluator_id":id}
+                return render(request,'manage_evaluator.html',pass_data)
 
 def post_edit_seminar(request):
     try:
@@ -616,7 +665,7 @@ def post_start_seminar(request):
     seminar_document.update({u'status': "open"})
     docs = db.collection(u'seminars').get()
     seminar_docs =  seminar_document.get()
-    seminar_name = u'{}'.format(seminar_docs.to_dict()['seminar_name'])
+    seminar_name = u'{}'.format(seminar_docs.to_dict()['seminar_title'])
     date_created = datetime.now()
     seminar_date_id = calendar.timegm(date_created.timetuple())
     seminar_id = {
@@ -630,13 +679,9 @@ def post_start_seminar(request):
     u'seminar_id': current_id,
     u'seminar_name':seminar_name
     }
-    default = {
-        "default":""
-    }
     print(seminar_date_id)
     evaluations_collection = db.collection(u'evaluations').document(current_id)
     evaluations_collection.set(data)
-    evaluations_collection.collection('evaluators').document('evaluator_id').set(default)
     for doc in docs:
         ctr = ctr + 1
         seminar_id[ctr] = doc.id 
@@ -690,18 +735,31 @@ def post_view_seminar_actions(request):
             return render(request,'dashboard.html')
 
 def delete_seminar(request):
-    current_id = request.GET.get('current_id')
-    db.collection(u'seminars').document(current_id).delete()
-    docs = db.collection(u'seminars').get()
-    seminar_id = {
-        
-    }
-    ctr = 0
-    for doc in docs:
-        ctr = ctr + 1
-        seminar_id[ctr] = doc.id 
-        return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
-    return render(request,'manage_seminar.html')
+    try:
+        current_id = request.GET.get('current_id')
+        db.collection(u'seminars').document(current_id).delete()
+        docs = db.collection(u'seminars').get()
+        seminar_id = {
+            
+        }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            seminar_id[ctr] = doc.id 
+            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
+        return render(request,'manage_seminar.html')
+    except Exception as e:
+        print(str(e))
+        docs = db.collection(u'seminars').get()
+        seminar_id = {
+            
+        }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            seminar_id[ctr] = doc.id 
+            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
+        return render(request,'manage_seminar.html')
 
 def delete_facilitator(request):
     current_id = request.GET.get('current_id')
@@ -718,18 +776,34 @@ def delete_facilitator(request):
     return render(request,'manage_facilitator.html')
 
 def delete_evaluator(request):
-    current_id = request.GET.get('current_id')
-    db.collection(u'evaluators').document(current_id).delete()
-    docs = db.collection(u'evaluators').get()
-    evaluator_id = {
-        
-    }
-    ctr = 0
-    for doc in docs:
-        ctr = ctr + 1
-        evaluator_id[ctr] = doc.id 
-        return render(request,'manage_evaluator.html',{"evaluator_data":[doc.to_dict() for doc in docs],"evaluator_id":id})
-    return render(request, 'manage_evaluator.html')
+    try:
+        current_id = request.GET.get('current_id')
+        evaluator_document = db.collection(u'evaluators').document(current_id)
+        data = evaluator_document.get()
+        uid_token =  u'{}'.format(data.to_dict()['uid'])
+        evaluator_document.delete()
+        auth.delete_user(uid_token)
+        docs = db.collection(u'evaluators').get()
+        evaluator_id = {
+            
+        }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            evaluator_id[ctr] = doc.id 
+            return render(request,'manage_evaluator.html',{"evaluator_data":[doc.to_dict() for doc in docs],"evaluator_id":id})
+        return render(request,'manage_evaluator.html')
+    except Exception as e:
+        print(str(e) + "is your error")
+        docs = db.collection(u'evaluators').get()
+        evaluator_id = {
+            
+        }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            evaluator_id[ctr] = doc.id 
+            return render(request,'manage_evaluator.html',{"evaluator_data":[doc.to_dict() for doc in docs],"evaluator_id":id})
 
 #*Special function/s
 def export_evaluation(request):
@@ -824,3 +898,117 @@ def export_evaluation(request):
             ws.write(row_num, col_num, rows.get(str(col_num)))
     wb.save(response)
     return response
+def view_seminar(request):
+    try:
+        current_id = request.GET.get('current_id')
+        request.session['current_id'] =  current_id
+        seminars = db.collection(u'seminar_report').document(current_id)
+        seminar = seminars.get()
+
+        seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
+        program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
+        
+        
+        facilitators = seminars.collection(u'facilitators').get()
+        pass_data = {
+            "seminar_title":seminar_title,
+            "program_owner":program_owner,
+            "facilitator":[facilitator_data.to_dict() for facilitator_data in facilitators]
+        }
+        return render(request,'view_seminar.html',pass_data)
+    except Exception as e:
+        print('Your error is: ' + str(e))
+        return render(request,'view_seminar.html')
+
+
+
+def link_callback(uri, rel):
+            """
+            Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+            resources
+            """
+            result = finders.find(uri)
+            if result:
+                    if not isinstance(result, (list, tuple)):
+                            result = [result]
+                    result = list(os.path.realpath(path) for path in result)
+                    path=result[0]
+            else:
+                    sUrl = settings.STATIC_URL        # Typically /static/
+                    sRoot = settings.STATIC_ROOT      # Typically /home/userX/project_static/
+                    mUrl = settings.MEDIA_URL         # Typically /media/
+                    mRoot = settings.MEDIA_ROOT       # Typically /home/userX/project_static/media/
+
+                    if uri.startswith(mUrl):
+                            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+                    elif uri.startswith(sUrl):
+                            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+                    else:
+                            return uri
+
+            # make sure that file exists
+            if not os.path.isfile(path):
+                    raise Exception(
+                            'media URI must start with %s or %s' % (sUrl, mUrl)
+                    )
+            return path
+#PDF GENERATEDS
+# def generate_pdf(path,response_name):
+    
+
+def generate_evaluator(request):
+    try:
+        datetime_now = datetime.datetime.now()
+        template_path = "pdf_generated/generate_evaluators.html"
+
+
+        #Calling firestore data
+        evaluator_report = db.collection(u'evaluator_report').get()
+        context = {'evaluator_data': [evaluator_data.to_dict() for evaluator_data in evaluator_report]}
+
+        # Create a Django response object, and specify content_type as pdf
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="'+"generate_evaluator"+"-"+str(datetime_now)+".pdf"
+        # find the template and render it.
+        template = get_template(template_path)
+        html = template.render(context)
+
+        # create a pdf
+        pisa_status = pisa.CreatePDF(
+        html, dest=response, link_callback=link_callback)
+        # if error then show some funy view
+        if pisa_status.err:
+            print(html)
+            return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return response
+    except Exception as e:
+        print(str(e))
+
+def generate_seminar(request):
+    try:
+        datetime_now = datetime.datetime.now()
+        template_path = "pdf_generated/generate_seminars.html"
+
+
+        #Calling firestore data
+        evaluator_report = db.collection(u'seminar_report').get()
+        context = {'seminar_data': [evaluator_data.to_dict() for evaluator_data in evaluator_report]}
+
+        # Create a Django response object, and specify content_type as pdf
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="'+"generate_seminar"+"-"+str(datetime_now)+".pdf"
+        # find the template and render it.
+        template = get_template(template_path)
+        html = template.render(context)
+
+        # create a pdf
+        pisa_status = pisa.CreatePDF(
+        html, dest=response, link_callback=link_callback)
+        # if error then show some funy view
+        if pisa_status.err:
+            print(html)
+            return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return response
+    except Exception as e:
+        print(str(e))
+        

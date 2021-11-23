@@ -1,4 +1,14 @@
 {% extends 'home_header.html' %}
+{% if validation_text %}
+<script>
+  swal({
+  title: "Error.",
+  text: "{{ validation_text }}",
+  icon: "error",
+  button: "Okay",
+});
+</script>
+{% endif %}
 {% block content %}
 <!--Content-->
 <div class="p-5">
@@ -80,7 +90,7 @@
         <input type="time" data-role="input" id="end_time"  name="end_time" required>
     </div>
     <div class="dialog-actions">
-        <button class="button alert js-dialog-close">Cancel</button>
+        <button class="button alert js-dialog-close" onclick="close_add_modal()">Cancel</button>
         <button class="button primary js-dialog-close" onclick="add_facilitator()">Add</button>
     </div>
 </div>

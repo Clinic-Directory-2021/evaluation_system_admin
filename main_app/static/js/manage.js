@@ -1,3 +1,4 @@
+var current_id_var;
 function add_seminar(){
     window.location.href = '../add_seminar/';
 }
@@ -22,12 +23,16 @@ function view_evaluator(variable){
 function export_evaluation(){
     window.location.href = '../export_evaluator/';
 }
-function delete_seminar(variable){
-    window.location.href = '../delete_seminar?current_id=' + variable;
+function delete_seminar(){
+    window.location.href = '../delete_seminar?current_id=' +  current_id_var;
 }
-function delete_facilitator(variable){
-    window.location.href = '../delete_facilitator?current_id=' + variable;
+// function delete_facilitator(variable){
+//     window.location.href = '../delete_facilitator?current_id=' + variable;
+// }
+function delete_evaluator(){
+    window.location.href = '../delete_evaluator?current_id=' + current_id_var;
 }
-function delete_evaluator(variable){
-    window.location.href = '../delete_evaluator?current_id=' + variable;
+
+function current_id(variable){
+    current_id_var = variable
 }

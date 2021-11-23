@@ -22,3 +22,12 @@ function back_to_evaluator(){
 function back_to_reports(){
     window.location.href = "/report/";
 }
+function back_to_total_seminar(){
+    window.location.href = "/total_seminars/";
+}
+function back_to_total_evaluator(){
+    window.location.href = "/total_evaluators/";
+}
+function to_view_seminar(variable){
+    window.location.href = "/view_seminar?current_id="+variable;
+}

@@ -1,0 +1,66 @@
+{% extends 'home_header.html' %}
+{% block content %}
+<!--Content-->
+<div class="p-5">
+<button class="button dark" onclick="back_to_total_seminar()"><icon class="mif-arrow-left icon mr-3"></icon>Back to total Seminar list</button>
+<div class="window-content p-2">
+    <p class="mif-question icon"></p> You can see seminar details in this page/form.
+</div>
+<div class="content">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>
+                    <p><b>Facilitator Table</b></p>
+                    <br>
+                    <table class="table striped">
+                        <thead class="bg-light">
+                            <th>#</th>
+                            <th>Facilitator Full Name</th>
+                            <th>Topic</th>
+                            <th>Start of Speak</th>
+                            <th>End of Speak</th>
+                        </thead>
+                        <tbody id="output">
+                            {% for facilitator_data in facilitator %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{facilitator_data.facilitator_name}}</td>
+                                <td>{{facilitator_data.topic}}</td>
+                                <td>{{facilitator_data.start_time}}</td>
+                                <td>{{facilitator_data.end_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        <input type="hidden" id="facilitator_list" name="facilitator_list">
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align: center;">Edit Seminar Form</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p><b>Seminar Title</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="seminar_title" value="{{seminar_title}}" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Program Owner</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="program_owner" value="{{program_owner}}" disabled>
+            </td>
+        </tr>
+        </tr>
+        </tbody>
+    </table>
+</div>  
+</div>
+</div>
+{% endblock %}

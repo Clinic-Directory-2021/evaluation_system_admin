@@ -1,5 +1,15 @@
 {% extends 'home_header.html' %}
 {% block content %}
+{% if validation_text %}
+<script>
+  swal({
+  title: "Success Message.",
+  text: "{{ validation_text }}",
+  icon: "success",
+  button: "Okay",
+});
+</script>
+{% endif %}
 <!--Content-->
 <div class="content p-5">
     <h3 class="p-5">Manage Evaluators</h3><br>
@@ -32,14 +42,29 @@
                     <td><button class="button success mr-3" onclick="edit_evaluator('{{evaluator_field.evaluator_id}}')"  data-role="hint"
                         data-hint-position="top"
                         data-hint-text="This will allow you to edit evaluator's info"
-                        data-cls-hint="bg-green fg-white drop-shadow"><icon class="mif-pencil icon mr-3"></icon>Edit</button><button class="button alert" onclick="delete_evaluator('{{evaluator_field.evaluator_id}}')" data-role="hint"
+                        data-cls-hint="bg-green fg-white drop-shadow"><icon class="mif-pencil icon mr-3"></icon>Edit</button><button class="button alert"  data-role="hint"
                         data-hint-position="top"
                         data-hint-text="This will allow you to delete evaluator's info"
-                        data-cls-hint="bg-red fg-white drop-shadow"><icon class="mif-bin icon mr-3"></icon>Delete</button></td>
+                        data-cls-hint="bg-red fg-white drop-shadow"
+                        onclick="Metro.dialog.open('#delete_dialog'), current_id('{{evaluator_field.evaluator_id}}')"><icon class="mif-bin icon mr-3"></icon>Delete</button></td>
+                        
                 </tr>
+                <input type="hidden" id="current_value">
                 {% endfor %}
+                
             </tbody>
     </table>
+    
 </div>
 
+<div class="dialog bd-red" data-role="dialog" id="delete_dialog">
+    <div class="dialog-title bg-red fg-white">Confirmation Dialog</div>
+    <div class="dialog-content">
+        Are you sure you want to delete this seminar?
+    </div>
+    <div class="dialog-actions">
+        <button class="button js-dialog-close">No, Im not sure</button>
+        <button class="button alert js-dialog-close" onclick="delete_evaluator()">Yes, Im sure</button>
+    </div>
+</div>
 {% endblock %}

@@ -6,6 +6,21 @@ function add_facilitator(){
     var start_time = time_converter($('#start_time').val());
     var end_time = time_converter($('#end_time').val());
     
+    if(facilitator_name == "" || topic == "" || start_time == "Invalid Date" || end_time == "Invalid Date"){
+      swal({
+        title: "Error.",
+        text: "All fields are required",
+        icon: "error",
+        button: "Okay",
+      });
+      $('#facilitator_name').val("");
+    $('#topic').val("");
+    $('#start_time').val("");
+    $('#end_time').val("");
+    }
+    else{
+
+    
     $('#output').append("<tr><td>"+ctr+"</td><td>"+facilitator_name+"</td><td>"+topic+"</td><td>"+start_time+"</td><td>"+end_time+"</td></tr>");
     facilitator_list_holder += facilitator_name + "=" + topic + "=" +  start_time + "-" + end_time + ";"
     $('#facilitator_list').val(facilitator_list_holder)
@@ -13,9 +28,17 @@ function add_facilitator(){
     ctr++;
 
     $('#facilitator_name').val("");
-    ('#topic').val("");
-    ('#start_time').val("");
-    ('#end_time').val("");
+    $('#topic').val("");
+    $('#start_time').val("");
+    $('#end_time').val("");
+  }
+}
+
+function close_add_modal(){
+  $('#facilitator_name').val("");
+  $('#topic').val("");
+  $('#start_time').val("");
+  $('#end_time').val("");
 }
 
 function time_converter(time){

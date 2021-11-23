@@ -1,5 +1,15 @@
 {% extends 'home_header.html' %}
 {% block content %}
+{% if validation_text %}
+<script>
+  swal({
+  title: "Error.",
+  text: "{{ validation_text }}",
+  icon: "error",
+  button: "Okay",
+});
+</script>
+{% endif %}
 <!--Content-->
 <div class="p-5">
 <button class="button warning" type="submit" name="cancel" onclick="back_to_evaluator()">Cancel</button>
@@ -53,7 +63,7 @@
         <tr>
             <td>
                 <p><b>Phone Number</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number" required>
+                <input type="number" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number" required>
             </td>
             <td>
                 <p><b>Position</b></p>

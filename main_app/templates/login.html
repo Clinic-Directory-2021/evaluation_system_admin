@@ -30,6 +30,17 @@
 });
 </script>
 {% endif %}
+
+{% if validation_text %}
+<script>
+  swal({
+  title: "Error.",
+  text: "{{ validation_text }}",
+  icon: "error",
+  button: "Okay",
+});
+</script>
+{% endif %}
 <form action="/postsignIn/" method="post">
 <div class="content">
 <div class="logo">

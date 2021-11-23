@@ -5,6 +5,7 @@
     
 <div class="content p-5">
     <button class="button dark mr-3" onclick="back_to_reports()"><icon class="mif-arrow-left icon mr-3"></icon>Back to Report</button>
+    <button class="button alert mif-file-pdf icon" onclick="generate_seminars()"> Generate This Report</button>
     <h3 class="p-5">Total Seminars</h3>
     <div class="window-content p-2">
         <p class="mif-question icon"></p> The list of total seminars(Deleted or Existing).
@@ -13,9 +14,8 @@
         <thead>
             <tr>
                 <th data-sortable="true" data-format='int'>Seminar #</th>
-                <th data-sortable="true">Seminar Name</th>
-                <th data-sortable="true">Status</th>
-                <th data-sortable="true">Facilitator Assigned</th>
+                <th data-sortable="true">Seminar Title</th>
+                <th data-sortable="true">Program Owner</th>
                 <th data-sortable="true">Tools</th>
             </tr>
             </thead>
@@ -23,14 +23,10 @@
                 {% for seminar_field in seminar_data %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{seminar_field.seminar_name}}</td>
+                    <td>{{seminar_field.seminar_title}}</td>
                     <!-- <td><color class="fg-red">{{seminar_field.status}}</color></td> -->
-                    {% if seminar_field.status == "close" %}
-                      <td><color class="fg-red">{{seminar_field.status}}</color></td>
-                    {% else %}
-                    <td><color class="fg-green">{{seminar_field.status}}</color></td>
-                    {% endif %}
-                    <td>{{seminar_field.facilitator}}</td>
+                    <td>{{seminar_field.program_owner}}</td>
+                    <td><button class="button primary mif-eye icon" onclick="to_view_seminar('{{seminar_field.seminar_id}}')"> View Full Details</button></td>
                 </tr>
                 {% endfor %}
 
