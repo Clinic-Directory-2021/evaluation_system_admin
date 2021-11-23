@@ -357,7 +357,7 @@ def report_view_evaluator(request):
         last_name = u'{}'.format(doc.to_dict()['last_name'])
         email= u'{}'.format(doc.to_dict()['email'])
         gender = u'{}'.format(doc.to_dict()['gender'])
-        school = u'{}'.format(doc.to_dict()['school'])
+        school = u'{}'.format(doc.to_dict()['school_office'])
         phone_number = u'{}'.format(doc.to_dict()['phone_number'])
         position = u'{}'.format(doc.to_dict()['position'])
 
