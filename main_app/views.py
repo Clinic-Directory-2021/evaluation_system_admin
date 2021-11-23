@@ -680,7 +680,9 @@ def post_start_seminar(request):
     }
     print(seminar_date_id)
     evaluations_collection = db.collection(u'evaluations').document(current_id)
+    evaluation_report =  db.collection(u'evaluation_report').document(current_id)
     evaluations_collection.set(data)
+    evaluation_report.set(data)
     for doc in docs:
         ctr = ctr + 1
         seminar_id[ctr] = doc.id 
@@ -689,6 +691,7 @@ def post_start_seminar(request):
 
 def post_view_seminar_actions(request):
     #POST VALUES      
+    try:
             seminar_date_id = request.POST.get('seminar_date_id')
             seminar_id = request.POST.get('seminar_id')
             evaluator_id = request.POST.get('evaluator_id')
@@ -720,18 +723,19 @@ def post_view_seminar_actions(request):
             # update_seminar.update({u'status': u'close'})
 
     #Calling again the seminars in dashboard
-            doc_ref = db.collection(u'admins').document(request.session.get('admin_id'))
-            doc = doc_ref.get()
-            if doc.exists:
-                open_seminar = db.collection(u'seminars').get()
-                seminar_dict = {
-                }
-                for seminar in open_seminar:
-                    #? seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
-                    return render(request,'dashboard.html', {'full_name': doc.to_dict,"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
-            else:
-                print(u'No such document!')
-            return render(request,'dashboard.html')
+            open_seminar = db.collection(u'seminars').get()
+            return render(request,'dashboard.html', {"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
+    except Exception as e:
+        print(str(e))
+        #Deleting seminar after closing
+        db.collection(u'seminars').document(seminar_id).delete()
+            # update_seminar = db.collection(u'seminars').document(seminar_id)
+            # update_seminar.update({u'ongoing': "false"})
+            # update_seminar.update({u'status': u'close'})
+
+    #Calling again the seminars in dashboard
+        open_seminar = db.collection(u'seminars').get()
+        return render(request,'dashboard.html', {"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
 
 def delete_seminar(request):
     try:
