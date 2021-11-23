@@ -525,7 +525,7 @@ def post_add_evaluator(request):
                 u'last_name': last_name,
                 u'email':email,
                 u'gender': gender,
-                u'school': school,
+                u'school_office': school,
                 u'phone_number': phone_number,
                 u'position':position,
                 u'date_created':date_created,
