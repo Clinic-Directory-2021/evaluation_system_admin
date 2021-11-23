@@ -7,7 +7,6 @@ from firebase_admin import firestore
 from firebase_admin import auth
 import pyrebase
 from datetime import datetime
-import datetime
 import calendar
 import time
 from django.http import JsonResponse, request
