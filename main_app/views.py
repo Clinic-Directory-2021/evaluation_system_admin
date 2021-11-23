@@ -957,7 +957,7 @@ def link_callback(uri, rel):
 
 def generate_evaluator(request):
     try:
-        datetime_now = datetime.datetime.now()
+        datetime_now = datetime.now()
         template_path = "pdf_generated/generate_evaluators.html"
 
 
