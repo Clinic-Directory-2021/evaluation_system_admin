@@ -631,8 +631,8 @@ def post_edit_evaluator(request):
     email = request.POST.get('email')
     gender = request.POST.get('gender')
     phone_number = request.POST.get('phone_number')
-    address = request.POST.get('address')
-    birth_date = request.POST.get('birth_date')
+    school = request.POST.get('school')
+    position = request.POST.get('position')
     update_evaluator = db.collection(u'evaluators').document(current_id)
     updated_data = {
         u'first_name': first_name,
@@ -641,8 +641,8 @@ def post_edit_evaluator(request):
         u'email': email,
         u'gender':gender,
         u'phone_number':phone_number,
-        u'address': address,
-        u'birth_date':str(birth_date),
+        u'school': school,
+        u'position':position,
         }
     update_evaluator.update(updated_data)
 
