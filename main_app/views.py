@@ -231,7 +231,7 @@ def edit_evaluator(request):
             last_name = u'{}'.format(doc.to_dict()['last_name'])
             email= u'{}'.format(doc.to_dict()['email'])
             gender = u'{}'.format(doc.to_dict()['gender'])
-            school = u'{}'.format(doc.to_dict()['school'])
+            school = u'{}'.format(doc.to_dict()['school_office'])
             phone_number = u'{}'.format(doc.to_dict()['phone_number'])
             position = u'{}'.format(doc.to_dict()['position'])
             pass_data = {
@@ -250,7 +250,7 @@ def edit_evaluator(request):
     except Exception as e:
         print(str(e))
         validation_text = str(e)
-        return render(request,"manage_evaluator",{"validation_text":validation_text})
+        return render(request,"manage_evaluator.html",{"validation_text":validation_text})
 
 def total_evaluations(request):
     try:
@@ -562,7 +562,7 @@ def post_edit_seminar(request):
         update_seminar_report = db.collection(u'seminar_report').document(current_id)
         updated_data = {
             u'seminar_title': seminar_title,
-            u'seminar_title': program_owner,
+            u'program_owner': program_owner,
             u'status':status
             }
         update_seminar.update(updated_data)
