@@ -989,7 +989,7 @@ def generate_evaluator(request):
 
 def generate_seminar(request):
     try:
-        datetime_now = datetime.datetime.now()
+        datetime_now = datetime.now()
         template_path = "pdf_generated/generate_seminars.html"
 
 
@@ -1014,4 +1014,5 @@ def generate_seminar(request):
         return response
     except Exception as e:
         print(str(e))
+        return render(request,'total_seminars.html')
         
