@@ -13,7 +13,16 @@
                 <td>
                     <p><b>Facilitator Table</b></p>
                     <br>
-                    <button onclick="Metro.dialog.open('#add_facilitator')" class="button primary">Add Facilitator</button>
+                    <button onclick="Metro.dialog.open('#add_facilitator')" class="button primary"
+                    data-role="hint"
+                    data-hint-position="right"
+                    data-hint-text="This will add facilitator in list table"
+                    data-cls-hint="bg-cyan fg-white drop-shadow">Add Facilitator</button>
+                    <button onclick="clear_changes()" class="button alert"
+                    data-role="hint"
+                    data-hint-position="left"
+                    data-hint-text="This will clear your changes"
+                    data-cls-hint="bg-red fg-white drop-shadow" style="float: right;">Clear Changes</button>
                     <table class="table striped">
                         <thead class="bg-light">
                             <th>#</th>
@@ -21,17 +30,34 @@
                             <th>Topic</th>
                             <th>Start of Speak</th>
                             <th>End of Speak</th>
+                            <th>Actions</th>
                         </thead>
                         <tbody id="output">
-                            {% for facilitator_data in facilitator %}
+                           
+                                {% csrf_token %}
+                            {% for facilitator_data in facilitator%}
                             <tr>
                                 <td>{{forloop.counter}}</td>
                                 <td>{{facilitator_data.facilitator_name}}</td>
                                 <td>{{facilitator_data.topic}}</td>
                                 <td>{{facilitator_data.start_time}}</td>
                                 <td>{{facilitator_data.end_time}}</td>
+                                <td>
+                                    <button class="button success"
+                                    data-role="hint"
+                                    data-hint-position="top"
+                                    data-hint-text="Edit Facilitator Data"
+                                    data-cls-hint="bg-green fg-white drop-shadow" name="edit_button" onclick="Metro.dialog.open('#edit_dialog'), set_facilitator_data('{{facilitator_data.facilitator_name}}','{{facilitator_data.topic}}','{{facilitator_data.start_time}}','{{facilitator_data.end_time}}','{{facilitator_data.facilitator_id}}')">Edit</button>
+                                    <button class="button alert"
+                                    data-role="hint"
+                                    data-hint-position="top"
+                                    data-hint-text="Remove facilitator in list table"
+                                    data-cls-hint="bg-red fg-white drop-shadow" name="remove_button" onclick="Metro.dialog.open('#delete_dialog'), set_facilitator_id('{{facilitator_data.facilitator_id}}')">Remove</button>
+                                </td>
                             </tr>
+                            <input type="hidden" value="{{facilitator_data.id}}">
                             {% endfor %}
+                            
                         </tbody>
                     </table>
                 </td>
@@ -101,6 +127,39 @@
         <button class="button alert js-dialog-close">Cancel</button>
         <button class="button primary js-dialog-close" onclick="add_facilitator()">Add</button>
     </div>
+</div>
+
+<!--Delete Facilitator-->
+<div class="dialog bd-red" data-role="dialog" id="delete_dialog">
+    <div class="dialog-title bg-red fg-white">Delete Confirmation</div>
+    <div class="dialog-content">
+    </div>
+    <div class="dialog-actions">
+        <button class="button js-dialog-close">Cancel</button>
+        <button class="button alert js-dialog-close" onclick="delete_facilitator()">Delete</button>
+    </div>
+</div>
+
+<div class="dialog bd-green" data-role="dialog" id="edit_dialog">
+    <!-- <form action="/post_edit_facilitator/" method="POST">
+        {% csrf_token %} -->
+    <div class="dialog-title fg-white bg-green">Edit Facilitator</div>
+    <div class="dialog-content">
+        <p><b>Facilitator name</b></p>
+        <input type="text" data-role="input" id="edit_facilitator_name" placeholder="Enter Facilitator Name" name="facilitator_name" required>
+        <p><b>Topic</b></p>
+        <input type="text" data-role="input" id="edit_topic" placeholder="Enter Facilitator's Topic" name="topic" required>
+        <p><b>Facilitator Speak TIme</b></p>
+        <p>Start</p><br>
+        <input type="text" data-role="input" id="edit_start_time"  name="start_time" required>
+        <p>End</p><br>
+        <input type="text" data-role="input" id="edit_end_time"  name="end_time" required>
+    </div>
+    <div class="dialog-actions">
+        <button class="button js-dialog-close">Cancel</button>
+        <button class="button success js-dialog-close" onclick="save_changes()">Save</button>
+    </div>
+<!-- </form> -->
 </div>
 </div>
 {% endblock %}

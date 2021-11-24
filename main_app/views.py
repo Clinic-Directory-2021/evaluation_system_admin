@@ -201,11 +201,13 @@ def edit_seminar(request):
     
     
     facilitators = seminars.collection(u'facilitators').get()
+    for id in facilitators:
+        print(str(id.id))
     pass_data = {
         "seminar_title":seminar_title,
         "program_owner":program_owner,
         "status":status,
-        "facilitator":[facilitator_data.to_dict() for facilitator_data in facilitators]
+        "facilitator":[facilitator_data.to_dict() for facilitator_data in facilitators],
     }
     return render(request,'edit_seminar.html',pass_data)
     
@@ -420,6 +422,7 @@ def post_add_seminar(request):
     facilitator_list = str(request.POST.get('facilitator_list'))
     date_created = datetime.now()
     seminar_id =  calendar.timegm(date_created.timetuple())
+    facilitator_id = calendar.timegm(date_created.timetuple())
     try:
                 
                 data = {
@@ -445,13 +448,14 @@ def post_add_seminar(request):
                         facilitator_time = to_list_2[2]
                         time = facilitator_time.split('-')
                     facilitator_data = {
+                        "facilitator_id":str(facilitator_id),
                         "facilitator_name":facilitator_name,
                         "topic":facilitator_topic,
                         "start_time":time[0],
                         "end_time":time[1]
                     }
-                    seminar.collection('facilitators').document().set(facilitator_data)
-                    seminar_report.collection('facilitators').document().set(facilitator_data)
+                    seminar.collection('facilitators').document(str(facilitator_id)).set(facilitator_data)
+                    seminar_report.collection('facilitators').document(str(facilitator_id)).set(facilitator_data)
                 
                 #to traverse manage seminar
                 docs = db.collection(u'seminars').get()
@@ -599,29 +603,29 @@ def post_edit_seminar(request):
     except:
           return render(request,'edit_seminar.html')
 
-def post_edit_facilitator(request):
-    current_id = request.session['current_id']
-    facilitator_name = request.POST.get('facilitator_name')
-    department = request.POST.get('department')
-    rate = request.POST.get('rate')
-    update_seminar = db.collection(u'facilitators').document(current_id)
-    updated_data = {
-        u'facilitator_name': facilitator_name,
-        u'department':department,
-        u'rate':rate
-        }
-    update_seminar.update(updated_data)
+# def post_edit_facilitator(request):
+#     current_id = request.session['current_id']
+#     facilitator_name = request.POST.get('facilitator_name')
+#     department = request.POST.get('department')
+#     rate = request.POST.get('rate')
+#     update_seminar = db.collection(u'facilitators').document(current_id)
+#     updated_data = {
+#         u'facilitator_name': facilitator_name,
+#         u'department':department,
+#         u'rate':rate
+#         }
+#     update_seminar.update(updated_data)
 
 
-    docs = db.collection(u'facilitators').get()
-    seminar_id = {
+#     docs = db.collection(u'facilitators').get()
+#     seminar_id = {
         
-    }
-    ctr = 0
-    for doc in docs:
-        ctr = ctr + 1
-        seminar_id[ctr] = doc.id 
-    return render(request,'manage_facilitator.html',{"facilitator_data":[doc.to_dict() for doc in docs]})
+#     }
+#     ctr = 0
+#     for doc in docs:
+#         ctr = ctr + 1
+#         seminar_id[ctr] = doc.id 
+#     return render(request,'manage_facilitator.html',{"facilitator_data":[doc.to_dict() for doc in docs]})
 
 def post_edit_evaluator(request):
     current_id = request.session['current_id']
@@ -1016,3 +1020,73 @@ def generate_seminar(request):
         print(str(e))
         return render(request,'total_seminars.html')
         
+def post_delete_facilitator(request):
+    #Calling session variables
+    facilitator_id = request.GET.get('facilitator_id')
+    current_id = request.session['current_id']
+
+    #Calling the parent collection named: seminar
+    seminars = db.collection(u'seminars').document(current_id)
+
+    #Delete the specific facilitator
+    seminars.collection(u'facilitators').document(facilitator_id).delete()
+
+    #Traversing the specific seminar details
+    seminar = seminars.get()
+    seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
+    program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
+    status = u'{}'.format(seminar.to_dict()['status'])
+    
+    
+    facilitators = seminars.collection(u'facilitators').get()
+    pass_data = {
+        "seminar_title":seminar_title,
+        "program_owner":program_owner,
+        "status":status,
+        "facilitator":[facilitator_data.to_dict() for facilitator_data in facilitators]
+    }
+    return render(request,'edit_seminar.html',pass_data)
+ 
+def post_edit_facilitator(request):
+    #Calling session variables
+    facilitator_id = request.GET.get('facilitator_id')
+    facilitator_name = request.GET.get('facilitator_name')
+    topic = request.GET.get('topic')
+    start_time = request.GET.get('start_time')
+    end_time = request.GET.get('end_time')
+    current_id = request.session['current_id']
+    try:
+        #Calling the parent collection named: seminar
+        seminars = db.collection(u'seminars').document(current_id)
+
+        #Traversing the specific seminar details
+        seminar = seminars.get()
+        seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
+        program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
+        status = u'{}'.format(seminar.to_dict()['status'])
+        
+        
+        facilitators = seminars.collection(u'facilitators')
+
+        #Update data in subcollection name: facilitator
+        update_data = {
+            "facilitator_name":facilitator_name,
+            "topic":topic,
+            "start_time":start_time,
+            "end_time":end_time   
+        }
+        facilitators.document(facilitator_id).update(update_data)
+
+        #Traverse Facilitators
+        traverse_facilitator = facilitators.get()
+        pass_data = {
+            "seminar_title":seminar_title,
+            "program_owner":program_owner,
+            "status":status,
+            "facilitator":[facilitator_data.to_dict() for facilitator_data in traverse_facilitator]
+        }
+        return render(request,'edit_seminar.html',pass_data)
+    except Exception as e:
+        print(str(e))
+        print(facilitator_id)
+        return render(request,'manage_seminar.html')

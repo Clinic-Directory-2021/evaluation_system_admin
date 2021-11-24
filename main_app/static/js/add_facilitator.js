@@ -21,7 +21,17 @@ function add_facilitator(){
     else{
 
     
-    $('#output').append("<tr><td>"+ctr+"</td><td>"+facilitator_name+"</td><td>"+topic+"</td><td>"+start_time+"</td><td>"+end_time+"</td></tr>");
+    $('#output').append("<tr><td>"+ctr+"</td><td>"+facilitator_name+"</td><td>"+topic+"</td><td>"+start_time+"</td><td>"+end_time+"</td>"
+    +"<td><button class='button success'\
+    data-role='hint'\
+    data-hint-position='top'\
+    data-hint-text='Edit Facilitator Data'\
+    data-cls-hint='bg-green fg-white drop-shadow' name='edit_button' disabled>Edit</button>\
+    <button class='button alert'\
+    data-role='hint'\
+    data-hint-position='top'\
+    data-hint-text='Remove facilitator in list table'\
+    data-cls-hint='bg-red fg-white drop-shadow' name='remove_button' onclick='Metro.dialog.open('#delete_dialog'), set_facilitator_id('{{facilitator_data.facilitator_id}}')\" disabled>Remove</button><br> <p style='font-size:12px;' '>(You Need To Save Changes to use use this Actions)<p></td></tr>");
     facilitator_list_holder += facilitator_name + "=" + topic + "=" +  start_time + "-" + end_time + ";"
     $('#facilitator_list').val(facilitator_list_holder)
     // alert($('#facilitator_list').val());
@@ -50,4 +60,13 @@ function time_converter(time){
     return timeString12hr;
 }
 
+function clear_list(){
+  facilitator_list_holder = "";
+  $('#facilitator_list').val(facilitator_list_holder)
+  $('#output').html(" ");
+}
+
+function clear_changes(){
+window.location.reload()
+}
 // ctr.toString() + ".Facilitator name: <u>"+ facilitator_name + "</u>" +" Time to Speak: <u>" + start_time + "-" + end_time +"</u>" + "<br>"

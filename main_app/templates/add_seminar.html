@@ -23,7 +23,17 @@
                 <td>
                     <p><b>Facilitator Table</b></p>
                     <br>
-                    <button onclick="Metro.dialog.open('#add_facilitator')" class="button primary">Add Facilitator</button>
+                    <button onclick="Metro.dialog.open('#add_facilitator')" class="button primary"
+                    data-role="hint"
+                    data-hint-position="right"
+                    data-hint-text="This will add facilitator in list table"
+                    data-cls-hint="bg-cyan fg-white drop-shadow">Add Facilitator</button>
+
+                    <button class="button alert" style="float: right;"
+                    data-role="hint"
+                    data-hint-position="left"
+                    data-hint-text="This will delete facilitator list table"
+                    data-cls-hint="bg-red fg-white drop-shadow" onclick="Metro.dialog.open('#delete_dialog')">Clear facilitator list</button>
                     <table class="table striped">
                         <thead class="bg-light">
                             <th>#</th>
@@ -92,6 +102,17 @@
     <div class="dialog-actions">
         <button class="button alert js-dialog-close" onclick="close_add_modal()">Cancel</button>
         <button class="button primary js-dialog-close" onclick="add_facilitator()">Add</button>
+    </div>
+</div>
+
+<div class="dialog bd-red" data-role="dialog" id="delete_dialog">
+    <div class="dialog-title fg-white bg-red">Delete Confirmation</div>
+    <div class="dialog-content">
+        Are you sure you want to clear facilitator list?
+    </div>
+    <div class="dialog-actions">
+        <button class="button  js-dialog-close">Cancel</button>
+        <button class="button alert js-dialog-close" onclick="clear_list()">Yes</button>
     </div>
 </div>
 </div>
