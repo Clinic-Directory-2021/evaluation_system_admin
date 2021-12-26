@@ -12,7 +12,7 @@
     <div class="window-content p-2">
         <p class="mif-question icon"></p> This page will show you the number of responses in the selected seminar.
     </div>
-    <h1 align='center'>{{seminar_name}}</h1>
+    <h1 align='center'>{{seminar_title}}</h1>
             <p align='center'>{{seminar_id}}</p>
             <hr>
             <br>
@@ -31,7 +31,8 @@
                     </li>
                 </ul>
             </div>
-            <div id="top_x_div" style="width: 900px; height: 500px;"></div>
+            <br>
+            <div id="top_x_div" style="width: 100%; height: 500px;"></div>
             <br>
             <h6>Already Evaluated</h6>
     <table class="table table-border striped"
@@ -79,7 +80,7 @@
         <tr>
             {% for data in evaluation_data %}
             <td>{{forloop.counter}}</td>
-            <td>{{data.seminarDatePosted}}</td>
+            <td>{{data.date_posted}}</td>
             <td>{{data.evaluatorEmail}}</td>
             <td>{{data.full_name}}</td>
             <td><text class="fg-green">Already Evaluated</text></td>
@@ -194,7 +195,7 @@
         <input type="hidden" id="evaluation_count" value="{{evaluation_count}}">
         <input type="hidden" id="evaluator_count" value="{{evaluator_count}}">
         <input type="hidden" id="seminar_date_id" value="{{seminar_date_id}}" name="seminar_date_id">
-        <input type="hidden" id="seminar_name" value="{{seminar_name}}" name="seminar_name">
+        <input type="hidden" id="seminar_title" value="{{seminar_title}}" name="seminar_name">
         <input type="hidden" id="seminar_id" value="{{seminar_id}}" name="seminar_id">
         <input type="hidden" id="evaluator_id" value="{{evaluator_id}}" name="evaluator_id">
         <input type="hidden" id="date" value="{{date}}" name="date">

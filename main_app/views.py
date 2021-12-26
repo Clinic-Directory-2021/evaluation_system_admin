@@ -160,10 +160,11 @@ def view_seminar_information(request):
         #Evaluation data
         evaluations = db.collection(u'evaluations').document(str(current_id))
         seminar = evaluations.get()
-        seminar_name = u'{}'.format(seminar.to_dict()['seminar_name'])
+        seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
         # seminar_date_id = str(u'{}'.format(seminar.to_dict()['seminar_date_id']))
         seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
         date = u'{}'.format(seminar.to_dict()['date'])
+        program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
 
 
         evaluation_data = evaluations.collection(u'evaluators').get()
@@ -176,13 +177,15 @@ def view_seminar_information(request):
             else:
                 print(u'No such document!')
         pass_data = {
-            "seminar_name":str(seminar_name),
+            "seminar_title":str(seminar_title),
             "seminar_id":str(seminar_id),
             "evaluation_data":[doc.to_dict() for doc in evaluation_data],
             "evaluation_count":str(evaluation_count),
             "evaluator_id":str(evaluator_id),
             "evaluator_count":str(evaluator_count),
-            "date":str(date)}
+            "date":str(date),
+            "program_owner":str(program_owner)}
+            
         return render(request, 'view_seminar_information.html',pass_data)
         
     except Exception as e:
@@ -699,7 +702,7 @@ def post_view_seminar_actions(request):
             seminar_date_id = request.POST.get('seminar_date_id')
             seminar_id = request.POST.get('seminar_id')
             evaluator_id = request.POST.get('evaluator_id')
-            seminar_name = request.POST.get('seminar_name')
+            seminar_name = request.POST.get('seminar_title')
             date_created = request.POST.get('date')
             evaluation_report_field = {
                 'date': date_created,
@@ -718,9 +721,9 @@ def post_view_seminar_actions(request):
             evaluation_sub = evaluations_list.collection('evaluators')
             get_data = evaluation_sub.get()
             for doc in get_data:
-                #Set data of evaluation report
                 evaluations.set(doc.to_dict())
     #Deleting seminar after closing
+            db.collection(u'seminars').document(seminar_id).collection('facilitators').delete()
             db.collection(u'seminars').document(seminar_id).delete()
             # update_seminar = db.collection(u'seminars').document(seminar_id)
             # update_seminar.update({u'ongoing': "false"})
