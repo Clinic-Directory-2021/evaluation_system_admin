@@ -45,4 +45,5 @@ path('generate_evaluator/',views.generate_evaluator),
 path('generate_seminar/',views.generate_seminar),
 path('post_delete_facilitator/', views.post_delete_facilitator),
 path('post_edit_facilitator/', views.post_edit_facilitator),
+path('pdf/', views.save_summary, name="save_summary"),
 ]
