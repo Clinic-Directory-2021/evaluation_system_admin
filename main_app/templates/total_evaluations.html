@@ -21,7 +21,7 @@
                  {% for evaluation in evaluation_data %}
                  <tr style="cursor: pointer;">
                      <td>{{evaluation.seminar_id}}</td>
-                     <td>{{evaluation.seminar_name}}</td>
+                     <td>{{evaluation.seminar_title}}</td>
                      <td>{{evaluation.date}}</td>
                      <td><button class="button primary mif-eye icon" onclick="report_view_evaluation_info('{{evaluation.seminar_id}}')"></button>  </td>
                 </tr>
