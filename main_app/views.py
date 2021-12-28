@@ -699,16 +699,16 @@ def post_start_seminar(request):
 def post_view_seminar_actions(request):
     #POST VALUES      
     try:
-            seminar_date_id = request.POST.get('seminar_date_id')
+            program_owner = request.POST.get('program_owner')
             seminar_id = request.POST.get('seminar_id')
             evaluator_id = request.POST.get('evaluator_id')
-            seminar_name = request.POST.get('seminar_title')
+            seminar_title = request.POST.get('seminar_title')
             date_created = request.POST.get('date')
             evaluation_report_field = {
                 'date': date_created,
-                "seminar_date_id":seminar_date_id,
+                "program_owner": program_owner,
                 "seminar_id":seminar_id,
-                "seminar_name":seminar_name
+                "seminar_title":seminar_title
             }
 
     #Evaluation Report collection creation
