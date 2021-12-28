@@ -714,17 +714,17 @@ def post_view_seminar_actions(request):
     #Evaluation Report collection creation
             evaluation_report = db.collection(u'evaluation_report').document(seminar_id) 
             evaluation_report.set(evaluation_report_field)
-            evaluations = evaluation_report.collection('evaluators').document(evaluator_id)
+            evaluations = evaluation_report.collection('evaluators')
 
     #Evaluationlist traversion
             evaluations_list = db.collection(u'evaluations').document(seminar_id)
             evaluation_sub = evaluations_list.collection('evaluators')
             get_data = evaluation_sub.get()
             for doc in get_data:
-                evaluations.set(doc.to_dict())
+                evaluations.document(doc.id).set(doc.to_dict())
     #Deleting seminar after closing
-            db.collection(u'seminars').document(seminar_id).collection('facilitators').delete()
-            db.collection(u'seminars').document(seminar_id).delete()
+            # db.collection(u'seminars').document(seminar_id).collection('facilitators').delete()
+            # db.collection(u'seminars').document(seminar_id).delete()
             # update_seminar = db.collection(u'seminars').document(seminar_id)
             # update_seminar.update({u'ongoing': "false"})
             # update_seminar.update({u'status': u'close'})
