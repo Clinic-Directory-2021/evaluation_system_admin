@@ -324,8 +324,7 @@ def report_view_evaluation_info(request):
         #Evaluation report data
         evaluations = db.collection(u'evaluation_report').document(str(current_id))
         seminar = evaluations.get()
-        seminar_name = u'{}'.format(seminar.to_dict()['seminar_name'])
-        seminar_date_id = str(u'{}'.format(seminar.to_dict()['seminar_date_id']))
+        seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
         seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
         date = u'{}'.format(seminar.to_dict()['date'])
 
@@ -338,10 +337,9 @@ def report_view_evaluation_info(request):
             if doc.exists:
                 evaluation_count = evaluation_count + 1
                 pass_data = {
-                    "seminar_name":seminar_name,
+                    "seminar_title":seminar_title,
                     "seminar_id":seminar_id,
-                    "seminar_date_id":seminar_date_id,
-                    "evaluation_data":[doc.to_dict()],
+                    "evaluation_data":[doc.to_dict() for doc in evaluation_data],
                     "evaluation_count":evaluation_count,
                     "evaluator_id":evaluator_id,
                     "date":date}

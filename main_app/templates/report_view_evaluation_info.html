@@ -31,7 +31,7 @@
         <tr>
             {% for data in evaluation_data %}
             <td>{{forloop.counter}}</td>
-            <td>{{data.seminarDatePosted}}</td>
+            <td>{{data.date_posted}}</td>
             <td>{{data.evaluatorEmail}}</td>
             <td>{{data.full_name}}</td>
         </tr>
@@ -84,7 +84,7 @@
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
-            <!-- <th>Current Seminar Rating</th> -->
+             <th>Current Seminar Rating</th> 
         </tr>
         </thead>
         <tbody>
@@ -93,7 +93,7 @@
             <td>{{forloop.counter}}</td>
             <td>{{data.seminarFacilitator}}</td>
             <td>{{data.evaluatorEmail}}</td>
-            <!-- <td>{{data.}}</td> -->
+            <td>{{data.}}</td> 
         </tr>
         {% endfor %}
         </tbody>
