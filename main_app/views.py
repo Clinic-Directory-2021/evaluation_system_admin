@@ -1129,7 +1129,7 @@ def link_callback(uri, rel):
 
 def save_summary(request):
     
-    template_path = 'generate_pdf/generate_summary.html'
+    template_path = 'pdf_generated/generate_summary.html'
     context = {'myvar': 'this is your template context'}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
