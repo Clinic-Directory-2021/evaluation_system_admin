@@ -1134,7 +1134,7 @@ def link_callback(uri, rel):
             return path
 
 def save_summary(request):
-    q1 = {
+    q1_dict = {
         "1":0,
         "2":0,
         "3":0,
@@ -1147,7 +1147,7 @@ def save_summary(request):
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     for data in evaluators_data:
-        q4 = u'{}'.format(data.to_dict()['q4'])
+        q1 = u'{}'.format(data.to_dict()['q1'])
         q2 = u'{}'.format(data.to_dict()['q2'])
         q3 = u'{}'.format(data.to_dict()['q3'])
         q4 = u'{}'.format(data.to_dict()['q4'])
@@ -1211,11 +1211,11 @@ def save_summary(request):
         'seminar_title': seminar_title,
         'program_owner': program_owner,
         'date_posted': date_posted,
-        'q1':[q1_data.to_dict() for q1_data in q1],
-        'q2':[q2_data.to_dict() for q2_data in q2],
-        'q3':[q3_data.to_dict() for q3_data in q3],
-        'q4':[q4_data.to_dict() for q4_data in q4],
-        'q5':[q5_data.to_dict() for q5_data in q5],
+        'q1':[q1_data.to_dict() for q1_data in q1_dict],
+        # 'q2':[q2_data.to_dict() for q2_data in q2],
+        # 'q3':[q3_data.to_dict() for q3_data in q3],
+        # 'q4':[q4_data.to_dict() for q4_data in q4],
+        # 'q5':[q5_data.to_dict() for q5_data in q5],
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
