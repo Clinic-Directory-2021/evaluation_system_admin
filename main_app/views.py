@@ -326,6 +326,7 @@ def report_view_evaluation_info(request):
         seminar = evaluations.get()
         seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
         seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
+        program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
         date = u'{}'.format(seminar.to_dict()['date'])
 
 
@@ -342,6 +343,7 @@ def report_view_evaluation_info(request):
                     "evaluation_data":[doc.to_dict() for doc in evaluation_data],
                     "evaluation_count":evaluation_count,
                     "evaluator_id":evaluator_id,
+                    'program_owner':program_owner,
                     "date":date}
                 return render(request, 'report_view_evaluation_info.html',pass_data)
         else:
@@ -721,6 +723,12 @@ def post_view_seminar_actions(request):
             get_data = evaluation_sub.get()
             for doc in get_data:
                 evaluations.document(doc.id).set(doc.to_dict())
+                facilitator = evaluation_sub.document(doc.id).collection('facilitators')
+                facilitator_report = evaluation_sub.document(doc.id).collection('facilitators')
+                get_facilitator = facilitator.get()
+                for facilitator_data in get_facilitator:
+                    facilitator_report.document(facilitator_data.id).set(facilitator_data.to_dict())
+                    
     #Deleting seminar after closing
             # db.collection(u'seminars').document(seminar_id).collection('facilitators').delete()
             # db.collection(u'seminars').document(seminar_id).delete()
@@ -1126,7 +1134,8 @@ def link_callback(uri, rel):
             return path
 
 def save_summary(request):
-    
+    current_id = request.GET.get('current_id')
+
     template_path = 'pdf_generated/generate_summary.html'
     context = {'myvar': 'this is your template context'}
     # Create a Django response object, and specify content_type as pdf
