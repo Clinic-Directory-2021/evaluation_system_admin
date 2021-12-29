@@ -13,17 +13,26 @@
     <h2>Total No. of Evaluators</h2>
     <h2>Percentage of Evaluation</h2>
     
+    <h2>EVALUATION OF SESSIONS AND FACILITATOR</h2>
     <table>
         <thead>
             <tr>
-                <th></th>
+                <th>Question</th>
+                <th>4</th>
+                <th>3</th>
+                <th>2</th>
+                <th>1</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>
-
-                </td>
+                <td>Program objectives were clearly presented</td>
+                {% for data in q1%}
+                <td>{{data.1}}</td>
+                <td>{{data.2}}</td>
+                <td>{{data.3}}></td>
+                <td>{{data4}}</td>
+                {% endfor %}
             </tr>
         </tbody>
     </table>

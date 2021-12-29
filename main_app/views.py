@@ -878,7 +878,7 @@ def export_evaluation(request):
             str(1): u'{}'.format(doc.to_dict()['seminarDatePosted']),
             str(2): u'{}'.format(doc.to_dict()['evaluatorEmail']),
             str(3): u'{}'.format(doc.to_dict()['seminarFacilitator']),
-            str(4): u'{}'.format(doc.to_dict()['q1']),
+            str(4): u'{}'.format(doc.to_dict()['q4']),
             str(5): u'{}'.format(doc.to_dict()['q2']),
             str(6): u'{}'.format(doc.to_dict()['q3']),
             str(7): u'{}'.format(doc.to_dict()['q4']),
@@ -887,16 +887,16 @@ def export_evaluation(request):
             str(10): u'{}'.format(doc.to_dict()['q7']),
             str(11): u'{}'.format(doc.to_dict()['q8']),
             str(12): u'{}'.format(doc.to_dict()['q9']),
-            str(13): u'{}'.format(doc.to_dict()['q10']),
-            str(14): u'{}'.format(doc.to_dict()['q11']),
-            str(15): u'{}'.format(doc.to_dict()['q12']),
-            str(16): u'{}'.format(doc.to_dict()['q13']),
-            str(17): u'{}'.format(doc.to_dict()['q14']),
-            str(18): u'{}'.format(doc.to_dict()['q15']),
-            str(19): u'{}'.format(doc.to_dict()['q16']),
-            str(20): u'{}'.format(doc.to_dict()['q17']),
-            str(21): u'{}'.format(doc.to_dict()['q18']),
-            str(22): u'{}'.format(doc.to_dict()['q19']),
+            str(13): u'{}'.format(doc.to_dict()['q40']),
+            str(14): u'{}'.format(doc.to_dict()['q41']),
+            str(15): u'{}'.format(doc.to_dict()['q42']),
+            str(16): u'{}'.format(doc.to_dict()['q43']),
+            str(17): u'{}'.format(doc.to_dict()['q44']),
+            str(18): u'{}'.format(doc.to_dict()['q45']),
+            str(19): u'{}'.format(doc.to_dict()['q46']),
+            str(20): u'{}'.format(doc.to_dict()['q47']),
+            str(21): u'{}'.format(doc.to_dict()['q48']),
+            str(22): u'{}'.format(doc.to_dict()['q49']),
             str(23): u'{}'.format(doc.to_dict()['q20']),
             str(24): u'{}'.format(doc.to_dict()['q21']),
             str(25): u'{}'.format(doc.to_dict()['q22']),
@@ -1134,10 +1134,86 @@ def link_callback(uri, rel):
             return path
 
 def save_summary(request):
+    q1 = {
+        "1":0,
+        "2":0,
+        "3":0,
+        "4":0,
+    }
     current_id = request.GET.get('current_id')
+    evaluation_report = db.collection(u'evaluation_report').document(current_id)
+    evaluation_data = evaluation_report.get()
+
+    evaluators = evaluation_report.collection('evaluators')
+    evaluators_data = evaluators.get()
+    for data in evaluators_data:
+        q4 = u'{}'.format(data.to_dict()['q4'])
+        q2 = u'{}'.format(data.to_dict()['q2'])
+        q3 = u'{}'.format(data.to_dict()['q3'])
+        q4 = u'{}'.format(data.to_dict()['q4'])
+        q5 = u'{}'.format(data.to_dict()['q5'])
+        #q1
+        if q1 ==  "1":
+           q1["1"] += 1
+        elif q1 == "2":
+            q1["2"] += 1
+        elif q1 == "3":
+            q1["3"] += 1
+        elif q1 == "4":
+            q1["4"] += 1
+        #q2
+        if q2 ==  "1":
+            q1["1"] += 1
+        elif q2 == "2":
+            q1["2"] += 1
+        elif q2 == "3":
+            q1["3"] += 1
+        elif q2 == "4":
+            q1["4"] += 1
+        #q3
+        if q3 ==  "1":
+            q1["1"] += 1
+        elif q3 == "2":
+            q1["2"] += 1
+        elif q3 == "3":
+            q1["3"] += 1
+        elif q3 == "4":
+           q1["4"] += 1
+        #q4
+        if q4 ==  "1":
+            q1["1"] += 1
+        elif q4 == "2":
+            q1["2"] += 1
+        elif q4 == "3":
+            q1["3"] += 1
+        elif q4 == "4":
+            q1["5"] += 1
+        #q5
+        if q5 ==  "1":
+            q1["1"] += 1
+        elif q5 == "2":
+            q1["2"] += 1
+        elif q5 == "3":
+            q1["3"] += 1
+        elif q5 == "4":
+            q1["4"] += 1
+
+    
+    seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
+    program_owner = u'{}'.format(evaluation_data.to_dict()['program_owner'])
+    date_posted = u'{}'.format(evaluation_data.to_dict()['date_posted'])
 
     template_path = 'pdf_generated/generate_summary.html'
-    context = {'myvar': 'this is your template context'}
+    context = {
+        'seminar_title': seminar_title,
+        'program_owner': program_owner,
+        'date_posted': date_posted,
+        'q1':[q1_data.to_dict() for q1_data in q1],
+        'q2':[q2_data.to_dict() for q2_data in q2],
+        'q3':[q3_data.to_dict() for q3_data in q3],
+        'q4':[q4_data.to_dict() for q4_data in q4],
+        'q5':[q5_data.to_dict() for q5_data in q5],
+        }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="report.pdf"'
