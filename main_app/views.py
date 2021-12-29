@@ -1154,49 +1154,49 @@ def save_summary(request):
         q5 = u'{}'.format(data.to_dict()['q5'])
         #q1
         if q1 ==  "1":
-           q1["1"] += 1
+           q1_dict["1"] += 1
         elif q1 == "2":
-            q1["2"] += 1
+            q1_dict["2"] += 1
         elif q1 == "3":
-            q1["3"] += 1
+            q1_dict["3"] += 1
         elif q1 == "4":
-            q1["4"] += 1
-        #q2
-        if q2 ==  "1":
-            q1["1"] += 1
-        elif q2 == "2":
-            q1["2"] += 1
-        elif q2 == "3":
-            q1["3"] += 1
-        elif q2 == "4":
-            q1["4"] += 1
-        #q3
-        if q3 ==  "1":
-            q1["1"] += 1
-        elif q3 == "2":
-            q1["2"] += 1
-        elif q3 == "3":
-            q1["3"] += 1
-        elif q3 == "4":
-           q1["4"] += 1
-        #q4
-        if q4 ==  "1":
-            q1["1"] += 1
-        elif q4 == "2":
-            q1["2"] += 1
-        elif q4 == "3":
-            q1["3"] += 1
-        elif q4 == "4":
-            q1["5"] += 1
-        #q5
-        if q5 ==  "1":
-            q1["1"] += 1
-        elif q5 == "2":
-            q1["2"] += 1
-        elif q5 == "3":
-            q1["3"] += 1
-        elif q5 == "4":
-            q1["4"] += 1
+            q1_dict["4"] += 1
+        # #q2
+        # if q2 ==  "1":
+        #     q1["1"] += 1
+        # elif q2 == "2":
+        #     q1["2"] += 1
+        # elif q2 == "3":
+        #     q1["3"] += 1
+        # elif q2 == "4":
+        #     q1["4"] += 1
+        # #q3
+        # if q3 ==  "1":
+        #     q1["1"] += 1
+        # elif q3 == "2":
+        #     q1["2"] += 1
+        # elif q3 == "3":
+        #     q1["3"] += 1
+        # elif q3 == "4":
+        #    q1["4"] += 1
+        # #q4
+        # if q4 ==  "1":
+        #     q1["1"] += 1
+        # elif q4 == "2":
+        #     q1["2"] += 1
+        # elif q4 == "3":
+        #     q1["3"] += 1
+        # elif q4 == "4":
+        #     q1["5"] += 1
+        # #q5
+        # if q5 ==  "1":
+        #     q1["1"] += 1
+        # elif q5 == "2":
+        #     q1["2"] += 1
+        # elif q5 == "3":
+        #     q1["3"] += 1
+        # elif q5 == "4":
+        #     q1["4"] += 1
 
     seminar_title = ""
     program_owner = ""
@@ -1211,7 +1211,7 @@ def save_summary(request):
         'seminar_title': seminar_title,
         'program_owner': program_owner,
         'date_posted': date_posted,
-        'q1':[q1_data.to_dict() for q1_data in q1_dict],
+        'q1':[q1_data for q1_data in q1_dict],
         # 'q2':[q2_data.to_dict() for q2_data in q2],
         # 'q3':[q3_data.to_dict() for q3_data in q3],
         # 'q4':[q4_data.to_dict() for q4_data in q4],
