@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{Seminar Title} Report</h1>
-    <h2>Date</h2>
+    <h1>{{seminar_title}} Report</h1>
+    <h2>{{date_posted}}</h2>
     <h2>Total No. Of Participants</h2>
     <h2>Total No. of Evaluators</h2>
     <h2>Percentage of Evaluation</h2>
@@ -27,11 +27,10 @@
         <tbody>
             <tr>
                 <td>Program objectives were clearly presented</td>
-                {% for data in q1 %}
-                <td>{{data.1}}</td>
-                <td>{{data.2}}</td>
-                <td>{{data.3}}</td>
-                <td>{{data.4}}</td>
+                {% for key,values in q1 %}
+                {% for v in values[0] %}
+                <td>{{v}}</td>
+                {% endfor %}
                 {% endfor %}
             </tr>
         </tbody>
