@@ -1198,10 +1198,10 @@ def save_summary(request):
         elif q5 == "4":
             q1["4"] += 1
 
-    
-    seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
-    program_owner = u'{}'.format(evaluation_data.to_dict()['program_owner'])
-    date_posted = u'{}'.format(evaluation_data.to_dict()['date_posted'])
+    for data in evaluators_data:
+        seminar_title = u'{}'.format(data.to_dict()['seminar_title'])
+        program_owner = u'{}'.format(data.to_dict()['program_owner'])
+        date_posted = u'{}'.format(data.to_dict()['date_posted'])
 
     template_path = 'pdf_generated/generate_summary.html'
     context = {
