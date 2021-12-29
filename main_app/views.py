@@ -1205,7 +1205,7 @@ def save_summary(request):
         seminar_title = u'{}'.format(data.to_dict()['seminar_title'])
         program_owner = u'{}'.format(data.to_dict()['program_owner'])
         date_posted = u'{}'.format(data.to_dict()['date_posted'])
-
+    print(q1_dict)
     template_path = 'pdf_generated/generate_summary.html'
     context = {
         'seminar_title': seminar_title,
