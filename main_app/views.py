@@ -724,7 +724,7 @@ def post_view_seminar_actions(request):
             for doc in get_data:
                 evaluations.document(doc.id).set(doc.to_dict())
                 facilitator = evaluation_sub.document(doc.id).collection('facilitators')
-                facilitator_report = evaluation_sub.document(doc.id).collection('facilitators')
+                facilitator_report = evaluations.document(doc.id).collection('facilitators')
                 get_facilitator = facilitator.get()
                 for facilitator_data in get_facilitator:
                     facilitator_report.document(facilitator_data.id).set(facilitator_data.to_dict())
