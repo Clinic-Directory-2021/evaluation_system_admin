@@ -1211,7 +1211,7 @@ def save_summary(request):
         'seminar_title': seminar_title,
         'program_owner': program_owner,
         'date_posted': date_posted,
-        'q1':[q1_data for q1_data in q1_dict],
+        'q1':q1_dict,
         # 'q2':[q2_data.to_dict() for q2_data in q2],
         # 'q3':[q3_data.to_dict() for q3_data in q3],
         # 'q4':[q4_data.to_dict() for q4_data in q4],
