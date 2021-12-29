@@ -1198,6 +1198,9 @@ def save_summary(request):
         elif q5 == "4":
             q1["4"] += 1
 
+    seminar_title = ""
+    program_owner = ""
+    date_posted = ""
     for data in evaluators_data:
         seminar_title = u'{}'.format(data.to_dict()['seminar_title'])
         program_owner = u'{}'.format(data.to_dict()['program_owner'])
