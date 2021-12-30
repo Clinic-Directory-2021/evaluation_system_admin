@@ -28,9 +28,7 @@
             <tr>
                 <td>Program objectives were clearly presented</td>
                 {% for key,values in q1.items %}
-                {% for v in values[0] %}
-                <td>{{v}}</td>
-                {% endfor %}
+                <td>{{values}}</td>
                 {% endfor %}
             </tr>
         </tbody>
