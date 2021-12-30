@@ -1135,10 +1135,10 @@ def link_callback(uri, rel):
 
 def save_summary(request):
     q1_dict = {
-        "1":0,
-        "2":0,
-        "3":0,
-        "4":0,
+        "1":1,
+        "2":2,
+        "3":3,
+        "4":4,
     }
     current_id = request.GET.get('current_id')
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
