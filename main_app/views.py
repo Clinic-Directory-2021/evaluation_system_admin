@@ -1135,10 +1135,10 @@ def link_callback(uri, rel):
 
 def save_summary(request):
     q1_dict = {
-        "1":1,
-        "2":2,
-        "3":3,
-        "4":4,
+        "1":0,
+        "2":0,
+        "3":0,
+        "4":0,
     }
     current_id = request.GET.get('current_id')
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
@@ -1212,6 +1212,7 @@ def save_summary(request):
         'program_owner': program_owner,
         'date_posted': date_posted,
         'q1':q1_dict,
+        'testing':q1,
         # 'q2':[q2_data.to_dict() for q2_data in q2],
         # 'q3':[q3_data.to_dict() for q3_data in q3],
         # 'q4':[q4_data.to_dict() for q4_data in q4],
