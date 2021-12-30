@@ -1144,7 +1144,7 @@ def save_summary(request):
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
     
-    if evaluation_data.exist:
+    if evaluation_data.exists:
         seminar_title = evaluation_data.to_dict()['seminar_title']
         evaluators = evaluation_report.collection('evaluators')
         evaluators_data = evaluators.get()
