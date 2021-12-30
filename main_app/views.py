@@ -1143,7 +1143,7 @@ def save_summary(request):
     current_id = request.GET.get('current_id')
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
-
+ 
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     for data in evaluators_data:
@@ -1198,15 +1198,11 @@ def save_summary(request):
         # elif q5 == "4":
         #     q1["4"] += 1
 
-    seminar_title = u'{}'.format(evaluation_data['seminar_title'])
-    program_owner = u'{}'.format(evaluation_data['program_owner'])
-    date_posted = u'{}'.format(evaluation_data['date_posted'])
+   
         
     template_path = 'pdf_generated/generate_summary.html'
     context = {
-        'seminar_title': seminar_title,
-        'program_owner': program_owner,
-        'date_posted': date_posted,
+        'evaluation_data':evaluation_data,
         'q1':q1_dict,
         # 'q2':[q2_data.to_dict() for q2_data in q2],
         # 'q3':[q3_data.to_dict() for q3_data in q3],
