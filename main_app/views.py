@@ -1135,10 +1135,34 @@ def link_callback(uri, rel):
 
 def save_summary(request):
     q1_dict = {
-        "1":0,
-        "2":0,
-        "3":0,
         "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q2_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q3_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q4_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q5_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
     }
     current_id = str(request.POST.get('seminar_id'))
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
@@ -1163,6 +1187,42 @@ def save_summary(request):
             q1_dict["3"] += 1
         elif q1 == "4":
             q1_dict["4"] += 1
+        #q2
+        if q2 ==  "1":
+            q2_dict["1"] += 1
+        elif q2 == "2":
+            q2_dict["2"] += 1
+        elif q2 == "3":
+            q2_dict["3"] += 1
+        elif q2 == "4":
+            q2_dict["4"] += 1
+        #q3
+        if q3 ==  "1":
+            q3_dict["1"] += 1
+        elif q3 == "2":
+            q3_dict["2"] += 1
+        elif q3 == "3":
+            q3_dict["3"] += 1
+        elif q3 == "4":
+            q3_dict["4"] += 1
+        #q4
+        if q4 ==  "1":
+            q4_dict["1"] += 1
+        elif q4 == "2":
+            q4_dict["2"] += 1
+        elif q4 == "3":
+            q4_dict["3"] += 1
+        elif q4 == "4":
+            q4_dict["4"] += 1
+        #q5
+        if q5 ==  "1":
+            q5_dict["1"] += 1
+        elif q5 == "2":
+            q5_dict["2"] += 1
+        elif q5 == "3":
+            q5_dict["3"] += 1
+        elif q5 == "4":
+            q5_dict["4"] += 1
             
 
     
