@@ -1140,8 +1140,8 @@ def save_summary(request):
         "3":0,
         "4":0,
     }
-    current_id = request.GET.get('current_id')
-    evaluation_report = db.collection(u'evaluation_report').document(str(current_id))
+    current_id = str(request.GET.get('current_id'))
+    evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
     seminar_title = f'Document data: {evaluation_data.to_dict()}'
     
