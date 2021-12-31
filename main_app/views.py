@@ -1142,8 +1142,7 @@ def save_summary(request):
     }
     current_id = request.GET.get('current_id')
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
-    evaluation_data = evaluation_report.get({u'seminar_title'})
-    seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
+    seminar_title = evaluation_report.get({u'seminar_title'})
 
     
     # if evaluation_data.exists:
