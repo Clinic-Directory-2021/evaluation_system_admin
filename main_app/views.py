@@ -1144,26 +1144,25 @@ def save_summary(request):
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
     seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
+    date_posted = u'{}'.format(evaluation_data.to_dict()['date_posted'])
     
-    # if evaluation_data.exists:
-    #     seminar_title = evaluation_data.to_dict()['seminar_title']
-    #     evaluators = evaluation_report.collection('evaluators')
-    #     evaluators_data = evaluators.get()
-    #     for data in evaluators_data:
-    #         q1 = u'{}'.format(data.to_dict()['q1'])
-    #         q2 = u'{}'.format(data.to_dict()['q2'])
-    #         q3 = u'{}'.format(data.to_dict()['q3'])
-    #         q4 = u'{}'.format(data.to_dict()['q4'])
-    #         q5 = u'{}'.format(data.to_dict()['q5'])
-    #         #q1
-    #         if q1 ==  "1":
-    #             q1_dict["1"] += 1
-    #         elif q1 == "2":
-    #             q1_dict["2"] += 1
-    #         elif q1 == "3":
-    #             q1_dict["3"] += 1
-    #         elif q1 == "4":
-    #             q1_dict["4"] += 1
+    evaluators = evaluation_report.collection('evaluators')
+    evaluators_data = evaluators.get()
+    for data in evaluators_data:
+        q1 = u'{}'.format(data.to_dict()['q1'])
+        q2 = u'{}'.format(data.to_dict()['q2'])
+        q3 = u'{}'.format(data.to_dict()['q3'])
+        q4 = u'{}'.format(data.to_dict()['q4'])
+        q5 = u'{}'.format(data.to_dict()['q5'])
+        #q1
+        if q1 ==  "1":
+            q1_dict["1"] += 1
+        elif q1 == "2":
+            q1_dict["2"] += 1
+        elif q1 == "3":
+            q1_dict["3"] += 1
+        elif q1 == "4":
+            q1_dict["4"] += 1
             
 
     
@@ -1171,8 +1170,8 @@ def save_summary(request):
     template_path = 'pdf_generated/generate_summary.html'
     context = {
         'seminar_title':seminar_title,
+        'date_posted':date_posted,
         'q1':q1_dict,
-        'current_id':current_id
         # 'q2':[q2_data.to_dict() for q2_data in q2],
         # 'q3':[q3_data.to_dict() for q3_data in q3],
         # 'q4':[q4_data.to_dict() for q4_data in q4],
