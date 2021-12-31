@@ -1232,10 +1232,10 @@ def save_summary(request):
         'seminar_title':seminar_title,
         'date_posted':date,
         'q1':q1_dict,
-        # 'q2':[q2_data.to_dict() for q2_data in q2],
-        # 'q3':[q3_data.to_dict() for q3_data in q3],
-        # 'q4':[q4_data.to_dict() for q4_data in q4],
-        # 'q5':[q5_data.to_dict() for q5_data in q5],
+        'q2':q2_dict,
+        'q3':q3_dict,
+        'q4':q4_dict,
+        'q5':q5_dict,
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
