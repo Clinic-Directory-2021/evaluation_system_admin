@@ -1170,7 +1170,7 @@ def save_summary(request):
     template_path = 'pdf_generated/generate_summary.html'
     context = {
         'seminar_title':seminar_title,
-        'date_posted':date_posted,
+        'date_posted':date,
         'q1':q1_dict,
         # 'q2':[q2_data.to_dict() for q2_data in q2],
         # 'q3':[q3_data.to_dict() for q3_data in q3],
