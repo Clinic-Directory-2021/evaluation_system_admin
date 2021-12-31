@@ -1143,85 +1143,51 @@ def save_summary(request):
     current_id = request.GET.get('current_id')
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
+    seminar_title =  evaluation_data['seminar_title']
     
-    if evaluation_data.exists:
-        seminar_title = evaluation_data.to_dict()['seminar_title']
-        evaluators = evaluation_report.collection('evaluators')
-        evaluators_data = evaluators.get()
-        for data in evaluators_data:
-            q1 = u'{}'.format(data.to_dict()['q1'])
-            q2 = u'{}'.format(data.to_dict()['q2'])
-            q3 = u'{}'.format(data.to_dict()['q3'])
-            q4 = u'{}'.format(data.to_dict()['q4'])
-            q5 = u'{}'.format(data.to_dict()['q5'])
-            #q1
-            if q1 ==  "1":
-                q1_dict["1"] += 1
-            elif q1 == "2":
-                q1_dict["2"] += 1
-            elif q1 == "3":
-                q1_dict["3"] += 1
-            elif q1 == "4":
-                q1_dict["4"] += 1
-            # #q2
-            # if q2 ==  "1":
-            #     q1["1"] += 1
-            # elif q2 == "2":
-            #     q1["2"] += 1
-            # elif q2 == "3":
-            #     q1["3"] += 1
-            # elif q2 == "4":
-            #     q1["4"] += 1
-            # #q3
-            # if q3 ==  "1":
-            #     q1["1"] += 1
-            # elif q3 == "2":
-            #     q1["2"] += 1
-            # elif q3 == "3":
-            #     q1["3"] += 1
-            # elif q3 == "4":
-            #    q1["4"] += 1
-            # #q4
-            # if q4 ==  "1":
-            #     q1["1"] += 1
-            # elif q4 == "2":
-            #     q1["2"] += 1
-            # elif q4 == "3":
-            #     q1["3"] += 1
-            # elif q4 == "4":
-            #     q1["5"] += 1
-            # #q5
-            # if q5 ==  "1":
-            #     q1["1"] += 1
-            # elif q5 == "2":
-            #     q1["2"] += 1
-            # elif q5 == "3":
-            #     q1["3"] += 1
-            # elif q5 == "4":
-            #     q1["4"] += 1
+    # if evaluation_data.exists:
+    #     seminar_title = evaluation_data.to_dict()['seminar_title']
+    #     evaluators = evaluation_report.collection('evaluators')
+    #     evaluators_data = evaluators.get()
+    #     for data in evaluators_data:
+    #         q1 = u'{}'.format(data.to_dict()['q1'])
+    #         q2 = u'{}'.format(data.to_dict()['q2'])
+    #         q3 = u'{}'.format(data.to_dict()['q3'])
+    #         q4 = u'{}'.format(data.to_dict()['q4'])
+    #         q5 = u'{}'.format(data.to_dict()['q5'])
+    #         #q1
+    #         if q1 ==  "1":
+    #             q1_dict["1"] += 1
+    #         elif q1 == "2":
+    #             q1_dict["2"] += 1
+    #         elif q1 == "3":
+    #             q1_dict["3"] += 1
+    #         elif q1 == "4":
+    #             q1_dict["4"] += 1
+            
 
     
             
-        template_path = 'pdf_generated/generate_summary.html'
-        context = {
-            'seminar_title':seminar_title,
-            'q1':q1_dict,
-            # 'q2':[q2_data.to_dict() for q2_data in q2],
-            # 'q3':[q3_data.to_dict() for q3_data in q3],
-            # 'q4':[q4_data.to_dict() for q4_data in q4],
-            # 'q5':[q5_data.to_dict() for q5_data in q5],
-            }
-        # Create a Django response object, and specify content_type as pdf
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-        # find the template and render it.
-        template = get_template(template_path)
-        html = template.render(context)
+    template_path = 'pdf_generated/generate_summary.html'
+    context = {
+        'seminar_title':seminar_title,
+        'q1':q1_dict,
+        # 'q2':[q2_data.to_dict() for q2_data in q2],
+        # 'q3':[q3_data.to_dict() for q3_data in q3],
+        # 'q4':[q4_data.to_dict() for q4_data in q4],
+        # 'q5':[q5_data.to_dict() for q5_data in q5],
+        }
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
 
-        # create a pdf
-        pisa_status = pisa.CreatePDF(
-        html, dest=response, link_callback=link_callback)
-        # if error then show some funy view
-        if pisa_status.err:
-            return HttpResponse('We had some errors <pre>' + html + '</pre>')
-        return response
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+    html, dest=response, link_callback=link_callback)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
