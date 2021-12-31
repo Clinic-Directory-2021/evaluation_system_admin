@@ -1172,6 +1172,7 @@ def save_summary(request):
     context = {
         'seminar_title':seminar_title,
         'q1':q1_dict,
+        'current_id':current_id
         # 'q2':[q2_data.to_dict() for q2_data in q2],
         # 'q3':[q3_data.to_dict() for q3_data in q3],
         # 'q4':[q4_data.to_dict() for q4_data in q4],
