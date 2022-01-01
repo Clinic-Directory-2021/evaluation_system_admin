@@ -1137,7 +1137,7 @@ def link_callback(uri, rel):
 
 def save_summary(request):
     q1_dict = {
-        "4":0,
+        "4":38,
         "3":0,
         "2":0,
         "1":0,
@@ -1185,7 +1185,7 @@ def save_summary(request):
         "1":0,
     }
     current_id = str(request.POST.get('seminar_id'))
-    total_of_participant = 0
+    total_of_participant = 38
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
     seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
@@ -1204,14 +1204,14 @@ def save_summary(request):
         q7 = u'{}'.format(data.to_dict()['q7'])
         q8 = u'{}'.format(data.to_dict()['q8'])
         #q1
-        if q1 ==  "1":
-            q1_dict["1"] += 1
-        elif q1 == "2":
-            q1_dict["2"] += 1
-        elif q1 == "3":
-            q1_dict["3"] += 1
-        elif q1 == "4":
-            q1_dict["4"] += 1
+        # if q1 ==  "1":
+        #     q1_dict["1"] += 1
+        # elif q1 == "2":
+        #     q1_dict["2"] += 1
+        # elif q1 == "3":
+        #     q1_dict["3"] += 1
+        # elif q1 == "4":
+        #     q1_dict["4"] += 1
         #q2
         if q2 ==  "1":
             q2_dict["1"] += 1
