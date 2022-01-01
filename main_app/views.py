@@ -1164,6 +1164,24 @@ def save_summary(request):
         "2":0,
         "1":0,
     }
+    q6_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q7_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q8_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
     current_id = str(request.POST.get('seminar_id'))
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
@@ -1178,6 +1196,9 @@ def save_summary(request):
         q3 = u'{}'.format(data.to_dict()['q3'])
         q4 = u'{}'.format(data.to_dict()['q4'])
         q5 = u'{}'.format(data.to_dict()['q5'])
+        q6 = u'{}'.format(data.to_dict()['q6'])
+        q7 = u'{}'.format(data.to_dict()['q7'])
+        q8 = u'{}'.format(data.to_dict()['q8'])
         #q1
         if q1 ==  "1":
             q1_dict["1"] += 1
@@ -1223,6 +1244,33 @@ def save_summary(request):
             q5_dict["3"] += 1
         elif q5 == "4":
             q5_dict["4"] += 1
+        #q6
+        if q6 ==  "1":
+            q6_dict["1"] += 1
+        elif q6 == "2":
+            q6_dict["2"] += 1
+        elif q6 == "3":
+            q6_dict["3"] += 1
+        elif q6 == "4":
+            q6_dict["4"] += 1
+        #q7
+        if q7 ==  "1":
+            q7_dict["1"] += 1
+        elif q7 == "2":
+            q7_dict["2"] += 1
+        elif q7 == "3":
+            q7_dict["3"] += 1
+        elif q7 == "4":
+            q7_dict["4"] += 1
+        #q8
+        if q8 ==  "1":
+            q8_dict["1"] += 1
+        elif q8 == "2":
+            q8_dict["2"] += 1
+        elif q8 == "3":
+            q8_dict["3"] += 1
+        elif q8 == "4":
+            q8_dict["4"] += 1
             
 
     
@@ -1236,6 +1284,9 @@ def save_summary(request):
         'q3':q3_dict,
         'q4':q4_dict,
         'q5':q5_dict,
+        'q6':q6_dict,
+        'q7':q7_dict,
+        'q8':q8_dict,
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
