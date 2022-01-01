@@ -22,6 +22,7 @@
                 <th>3</th>
                 <th>2</th>
                 <th>1</th>
+                <th>mean</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,7 @@
                 {% for key,values in q1.items %}
                 <td>{{values}}</td>
                 {% endfor %}
+                <td>{{q1_mean}}</td>
             </tr>
             <tr>
                 <td>Program objectives were attained</td>

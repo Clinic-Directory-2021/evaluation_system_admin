@@ -18,6 +18,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from io import BytesIO
+import statistics
 
 config={
     "apiKey": "AIzaSyCRm30U4IA0BFi85g_5qfjF8QB4hF_iuqU",
@@ -1272,7 +1273,7 @@ def save_summary(request):
         elif q8 == "4":
             q8_dict["4"] += 1
             
-
+    q1_mean = statistics.mean(q1_dict)
     
             
     template_path = 'pdf_generated/generate_summary.html'
@@ -1287,6 +1288,7 @@ def save_summary(request):
         'q6':q6_dict,
         'q7':q7_dict,
         'q8':q8_dict,
+        "q1_mean":q1_mean,
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
