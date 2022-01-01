@@ -1194,7 +1194,6 @@ def save_summary(request):
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     for data in evaluators_data:
-        total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
         q2 = u'{}'.format(data.to_dict()['q2'])
         q3 = u'{}'.format(data.to_dict()['q3'])
