@@ -1276,7 +1276,7 @@ def save_summary(request):
             
     new = [1,2,3,4,5]
     q1_mean = statistics.mean(new)
-    
+    hello = func.iterate(q1_dict)
             
     template_path = 'pdf_generated/generate_summary.html'
     context = {
@@ -1291,6 +1291,7 @@ def save_summary(request):
         'q7':q7_dict,
         'q8':q8_dict,
         "q1_mean":q1_mean,
+        "sss":hello
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
