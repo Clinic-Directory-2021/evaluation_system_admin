@@ -1185,6 +1185,7 @@ def save_summary(request):
         "1":0,
     }
     current_id = str(request.POST.get('seminar_id'))
+    total_of_participant = 0
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
     seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
@@ -1193,6 +1194,7 @@ def save_summary(request):
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     for data in evaluators_data:
+        total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
         q2 = u'{}'.format(data.to_dict()['q2'])
         q3 = u'{}'.format(data.to_dict()['q3'])
@@ -1274,8 +1276,7 @@ def save_summary(request):
         elif q8 == "4":
             q8_dict["4"] += 1
             
-    new = [1,2,3,4,5]
-    q1_mean = statistics.mean(func.iterate(q1_dict))
+    q1_mean = func.get_mean(q1_dict, total_of_participant)
             
     template_path = 'pdf_generated/generate_summary.html'
     context = {
