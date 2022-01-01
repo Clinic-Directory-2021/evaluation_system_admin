@@ -1137,7 +1137,7 @@ def link_callback(uri, rel):
 
 def save_summary(request):
     q1_dict = {
-        "4":38,
+        "4":0,
         "3":0,
         "2":0,
         "1":0,
@@ -1185,7 +1185,7 @@ def save_summary(request):
         "1":0,
     }
     current_id = str(request.POST.get('seminar_id'))
-    total_of_participant = 38
+    total_of_participant = 0
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
     seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
@@ -1194,6 +1194,7 @@ def save_summary(request):
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     for data in evaluators_data:
+        total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
         q2 = u'{}'.format(data.to_dict()['q2'])
         q3 = u'{}'.format(data.to_dict()['q3'])
@@ -1203,14 +1204,14 @@ def save_summary(request):
         q7 = u'{}'.format(data.to_dict()['q7'])
         q8 = u'{}'.format(data.to_dict()['q8'])
         #q1
-        # if q1 ==  "1":
-        #     q1_dict["1"] += 1
-        # elif q1 == "2":
-        #     q1_dict["2"] += 1
-        # elif q1 == "3":
-        #     q1_dict["3"] += 1
-        # elif q1 == "4":
-        #     q1_dict["4"] += 1
+        if q1 ==  "1":
+            q1_dict["1"] += 1
+        elif q1 == "2":
+            q1_dict["2"] += 1
+        elif q1 == "3":
+            q1_dict["3"] += 1
+        elif q1 == "4":
+            q1_dict["4"] += 1
         #q2
         if q2 ==  "1":
             q2_dict["1"] += 1
@@ -1276,6 +1277,13 @@ def save_summary(request):
             q8_dict["4"] += 1
             
     q1_mean = func.get_mean(q1_dict, total_of_participant)
+    q2_mean = func.get_mean(q2_dict, total_of_participant)
+    q3_mean = func.get_mean(q3_dict, total_of_participant)
+    q4_mean = func.get_mean(q4_dict, total_of_participant)
+    q5_mean = func.get_mean(q5_dict, total_of_participant)
+    q6_mean = func.get_mean(q6_dict, total_of_participant)
+    q7_mean = func.get_mean(q7_dict, total_of_participant)
+    q8_mean = func.get_mean(q8_dict, total_of_participant)
             
     template_path = 'pdf_generated/generate_summary.html'
     context = {
@@ -1290,6 +1298,13 @@ def save_summary(request):
         'q7':q7_dict,
         'q8':q8_dict,
         "q1_mean":q1_mean,
+        "q2_mean":q2_mean,
+        "q3_mean":q3_mean,
+        "q4_mean":q4_mean,
+        "q5_mean":q5_mean,
+        "q6_mean":q6_mean,
+        "q7_mean":q7_mean,
+        "q8_mean":q8_mean,
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
