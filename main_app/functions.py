@@ -5,5 +5,5 @@ def get_mean(evaluate_dict, total_of_participant):
         if value != 0:
             output += value * ctr
         ctr = ctr - 1
-    output = output/total_of_participant    
+    output = output  
     return output
