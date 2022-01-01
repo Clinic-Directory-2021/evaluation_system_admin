@@ -1184,6 +1184,66 @@ def save_summary(request):
         "2":0,
         "1":0,
     }
+    q18_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q19_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q20_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q21_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q22_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q23_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q24_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q25_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q26_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
+    q27_dict = {
+        "4":0,
+        "3":0,
+        "2":0,
+        "1":0,
+    }
     current_id = str(request.POST.get('seminar_id'))
     total_of_participant = 0
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
@@ -1203,6 +1263,16 @@ def save_summary(request):
         q6 = u'{}'.format(data.to_dict()['q6'])
         q7 = u'{}'.format(data.to_dict()['q7'])
         q8 = u'{}'.format(data.to_dict()['q8'])
+        q18 = u'{}'.format(data.to_dict()['q18'])
+        q19 = u'{}'.format(data.to_dict()['q19'])
+        q20 = u'{}'.format(data.to_dict()['q20'])
+        q21 = u'{}'.format(data.to_dict()['q21'])
+        q22 = u'{}'.format(data.to_dict()['q22'])
+        q23 = u'{}'.format(data.to_dict()['q23'])
+        q24 = u'{}'.format(data.to_dict()['q24'])
+        q25 = u'{}'.format(data.to_dict()['q25'])
+        q26 = u'{}'.format(data.to_dict()['q26'])
+        q27 = u'{}'.format(data.to_dict()['q27'])
         #q1
         if q1 ==  "1":
             q1_dict["1"] += 1
@@ -1275,6 +1345,96 @@ def save_summary(request):
             q8_dict["3"] += 1
         elif q8 == "4":
             q8_dict["4"] += 1
+        #q18
+        if q18 ==  "1":
+            q18_dict["1"] += 1
+        elif q18 == "2":
+            q18_dict["2"] += 1
+        elif q18 == "3":
+            q18_dict["3"] += 1
+        elif q18 == "4":
+            q18_dict["4"] += 1
+        #q19
+        if q19 ==  "1":
+            q19_dict["1"] += 1
+        elif q19 == "2":
+            q19_dict["2"] += 1
+        elif q19 == "3":
+            q19_dict["3"] += 1
+        elif q19 == "4":
+            q19_dict["4"] += 1
+        #q20
+        if q20 ==  "1":
+            q20_dict["1"] += 1
+        elif q20 == "2":
+            q20_dict["2"] += 1
+        elif q20 == "3":
+            q20_dict["3"] += 1
+        elif q20 == "4":
+            q20_dict["4"] += 1
+        #q21
+        if q21 ==  "1":
+            q21_dict["1"] += 1
+        elif q21 == "2":
+            q21_dict["2"] += 1
+        elif q21 == "3":
+            q21_dict["3"] += 1
+        elif q21 == "4":
+            q21_dict["4"] += 1
+        #q22
+        if q22 ==  "1":
+            q22_dict["1"] += 1
+        elif q22 == "2":
+            q22_dict["2"] += 1
+        elif q22 == "3":
+            q22_dict["3"] += 1
+        elif q22 == "4":
+            q22_dict["4"] += 1
+        #q23
+        if q23 ==  "1":
+            q23_dict["1"] += 1
+        elif q23 == "2":
+            q23_dict["2"] += 1
+        elif q23 == "3":
+            q23_dict["3"] += 1
+        elif q23 == "4":
+            q23_dict["4"] += 1
+        #q24
+        if q24 ==  "1":
+            q24_dict["1"] += 1
+        elif q24 == "2":
+            q24_dict["2"] += 1
+        elif q24 == "3":
+            q24_dict["3"] += 1
+        elif q24 == "4":
+            q24_dict["4"] += 1
+        #q25
+        if q25 ==  "1":
+            q25_dict["1"] += 1
+        elif q25 == "2":
+            q25_dict["2"] += 1
+        elif q25 == "3":
+            q25_dict["3"] += 1
+        elif q25 == "4":
+            q25_dict["4"] += 1
+        #q26
+        if q26 ==  "1":
+            q26_dict["1"] += 1
+        elif q26 == "2":
+            q26_dict["2"] += 1
+        elif q26 == "3":
+            q26_dict["3"] += 1
+        elif q26 == "4":
+            q26_dict["4"] += 1
+        #q27
+        if q27 ==  "1":
+            q27_dict["1"] += 1
+        elif q27 == "2":
+            q27_dict["2"] += 1
+        elif q27 == "3":
+            q27_dict["3"] += 1
+        elif q27 == "4":
+            q27_dict["4"] += 1
             
     q1_mean = func.get_mean(q1_dict, total_of_participant)
     q2_mean = func.get_mean(q2_dict, total_of_participant)
@@ -1284,6 +1444,16 @@ def save_summary(request):
     q6_mean = func.get_mean(q6_dict, total_of_participant)
     q7_mean = func.get_mean(q7_dict, total_of_participant)
     q8_mean = func.get_mean(q8_dict, total_of_participant)
+    q18_mean = func.get_mean(q8_dict, total_of_participant)
+    q19_mean = func.get_mean(q8_dict, total_of_participant)
+    q20_mean = func.get_mean(q8_dict, total_of_participant)
+    q21_mean = func.get_mean(q8_dict, total_of_participant)
+    q22_mean = func.get_mean(q8_dict, total_of_participant)
+    q23_mean = func.get_mean(q8_dict, total_of_participant)
+    q24_mean = func.get_mean(q8_dict, total_of_participant)
+    q25_mean = func.get_mean(q8_dict, total_of_participant)
+    q26_mean = func.get_mean(q8_dict, total_of_participant)
+    q27_mean = func.get_mean(q8_dict, total_of_participant)
             
     template_path = 'pdf_generated/generate_summary.html'
     context = {
