@@ -1,5 +1,6 @@
 def iterate(dictionary):
     new_list = []
-    for value in dictionary.items():
-        new_list.append(value)
+    for k, value in dictionary.items():
+        temp = [k , value]
+        new_list.append(temp)
     return new_list
