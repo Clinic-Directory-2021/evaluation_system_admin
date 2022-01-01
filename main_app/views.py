@@ -1274,8 +1274,8 @@ def save_summary(request):
         elif q8 == "4":
             q8_dict["4"] += 1
             
-    
-    q1_mean = statistics.mean(func.iterate(q1_dict))
+    new = [1,2,3,4,5]
+    q1_mean = statistics.mean(new)
     
             
     template_path = 'pdf_generated/generate_summary.html'
