@@ -1,4 +1,5 @@
 from logging import ERROR, error
+import statistics
 from django.http.response import HttpResponse
 import firebase_admin
 from django.shortcuts import render,redirect
@@ -18,7 +19,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from io import BytesIO
-import statistics
+from main_app import functions as func
 
 config={
     "apiKey": "AIzaSyCRm30U4IA0BFi85g_5qfjF8QB4hF_iuqU",
@@ -1273,7 +1274,8 @@ def save_summary(request):
         elif q8 == "4":
             q8_dict["4"] += 1
             
-    q1_mean = statistics.mean(q1_dict)
+    
+    q1_mean = statistics.mean(func.iterate(q1_dict))
     
             
     template_path = 'pdf_generated/generate_summary.html'
