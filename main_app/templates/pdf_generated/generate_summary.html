@@ -100,12 +100,10 @@
             </tr>
         </thead>
         <tbody>
-            
             <tr>
-                {% for key2,value2 in value1.items %}
                 <td>Program objectives were clearly presented</td>
-                
-                <td>{{value2}}</td>
+                {% for key2,value2 in value1.items %}
+                <td>{{value2.q9}}</td>
                 <td> </td>
                 {% endfor %}
             </tr>
