@@ -1260,8 +1260,8 @@ def save_summary(request):
     for data in evaluators_data:
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
+            temp_dict = {}
             for facilitators_data in facilitators:
-                temp_dict = {}
                 temp_dict[facilitator_ctr] = facilitators_data.to_dict()
                 facilitator_dict[evaluation_data.id] = temp_dict
                 facilitator_ctr += 1
