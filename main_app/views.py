@@ -1255,7 +1255,7 @@ def save_summary(request):
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     for data in evaluators_data:
-        for evaluator_data in evaluators:
+        for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
                 facilitator_dict = facilitators_data.to_dict()
