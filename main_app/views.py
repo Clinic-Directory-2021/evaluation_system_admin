@@ -1244,21 +1244,23 @@ def save_summary(request):
         "2":0,
         "1":0,
     }
-    facilitator_dict = "";
+    facilitator_dict = {
+
+    }
     current_id = str(request.POST.get('seminar_id'))
     total_of_participant = 0
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
     seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
     date = u'{}'.format(evaluation_data.to_dict()['date'])
-    
+    facilitator_ctr = 0
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     for data in evaluators_data:
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
-                facilitator_dict = facilitators_data.to_dict()
+                facilitator_dict[facilitator_ctr] = facilitators_data.to_dict()
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
         q2 = u'{}'.format(data.to_dict()['q2'])
