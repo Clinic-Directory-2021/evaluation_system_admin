@@ -1263,7 +1263,7 @@ def save_summary(request):
             temp_dict = {}
             for facilitators_data in facilitators:
                 temp_dict[facilitator_ctr] = facilitators_data.to_dict()
-                facilitator_dict[evaluation_data.id] = temp_dict
+                facilitator_dict[evaluator_data.id] = temp_dict
                 facilitator_ctr += 1
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
