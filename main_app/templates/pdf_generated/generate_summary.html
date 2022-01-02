@@ -86,7 +86,7 @@
     </table>
     <br>
     <!-- #facilitators -->
-    {% key1,value1 in facilitator_response.items %}
+    {% forkey1,value1 in facilitator_response.items %}
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
@@ -108,7 +108,7 @@
             </tr>
         </tbody>
     </table>
-
+    {% endfor %}
     <h2>PROGRAM MANAGEMENT AND OPERATIONS</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
