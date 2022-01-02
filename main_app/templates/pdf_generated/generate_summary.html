@@ -102,16 +102,10 @@
         <tbody>
             <tr>
                 <td>Program objectives were clearly presented</td>
-                {% for key2,value2 in value1.items %}
-                {% if value2.q9 == "4" %}
-                <td>{{value2.q9}}</td>
-                {% else %}
-                <td>0</td>
-                {% endif %}
+                <td>{{value1.q9}}</td>
                 <td> </td>
-                {% endfor %}
             </tr>
-            
+
         </tbody>
     </table>
     {% endfor %}
