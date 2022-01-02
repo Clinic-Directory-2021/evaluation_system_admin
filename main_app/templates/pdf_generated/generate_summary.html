@@ -85,6 +85,32 @@
         </tbody>
     </table>
     <br>
+    <!-- #facilitators -->
+    <h2>Facilitator 1</h2>
+    <table style="border: 1px solid black; text-align: center;">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>4</th>
+                <th>3</th>
+                <th>2</th>
+                <th>1</th>
+                <th>mean</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for facilitator_data in facilitator_dict %}
+            <tr>
+                <td>Program objectives were clearly presented</td>
+                {% for key,values in q9.items %}
+                <td>{{values}}</td>
+                {% endfor %}
+                <td>{{q1_mean}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
     <h2>PROGRAM MANAGEMENT AND OPERATIONS</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
