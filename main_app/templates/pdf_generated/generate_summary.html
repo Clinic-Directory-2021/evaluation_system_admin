@@ -86,6 +86,7 @@
     </table>
     <br>
     <!-- #facilitators -->
+    {% for facilitator_data in facilitator_dict %}
     <h2>Facilitator 1</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
@@ -99,18 +100,18 @@
             </tr>
         </thead>
         <tbody>
-            {% for facilitator_data in facilitator_dict %}
+            {% for key,values in facilitator_data.items %}
             <tr>
                 <td>Program objectives were clearly presented</td>
-                {% for key,values in facilitator_data.items %}
+                
                 <td>{{values}}</td>
-                {% endfor %}
-                <td>{{q1_mean}}</td>
+                
+                <td> </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
+    {% endfor %}
     <h2>PROGRAM MANAGEMENT AND OPERATIONS</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
