@@ -86,7 +86,7 @@
     </table>
     <br>
     <!-- #facilitators -->
-    {% for facilitator_data in facilitator_dict %}
+    {% for key1,value1 in facilitator_dict.items %}
     <h2>Facilitator {{forloop.counter}}</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
@@ -100,15 +100,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for key1,value1 in facilitator_data.items %}
             <tr>
                 <td>Program objectives were clearly presented</td>
                 
-                <td>{{facilitator_data}}</td>
+                <td>{{value1}}</td>
                 
                 <td> </td>
             </tr>
-            {% endfor %}
         </tbody>
     </table>
     {% endfor %}
