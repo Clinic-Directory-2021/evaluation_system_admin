@@ -102,7 +102,7 @@
             {% for facilitator_data in facilitator_dict %}
             <tr>
                 <td>Program objectives were clearly presented</td>
-                {% for key,values in q9.items %}
+                {% for key,values in facilitator_data.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q1_mean}}</td>
