@@ -1265,9 +1265,6 @@ def save_summary(request):
     facilitator_response ={
 
     }
-    sss = {
-
-    }
     current_id = str(request.POST.get('seminar_id'))
     total_of_participant = 0
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
@@ -1283,7 +1280,7 @@ def save_summary(request):
             for facilitators_data in facilitators:
                 facilitator_response[facilitators_data.id] = facilitators_data.to_dict()
                 for key,value in facilitator_response.items():
-                    sss[facilitator_ctr] = key
+                    facilitator_response[facilitator_ctr] = key
                     facilitator_ctr += 1
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
@@ -1526,7 +1523,7 @@ def save_summary(request):
         "q25_mean":q25_mean,
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
-        "facilitator_response":sss
+        "facilitator_response":facilitator_response
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
