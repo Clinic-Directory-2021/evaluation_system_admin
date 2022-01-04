@@ -1265,6 +1265,9 @@ def save_summary(request):
     facilitator_response ={
 
     }
+    faci_2 = {
+
+    }
     current_id = str(request.POST.get('seminar_id'))
     total_of_participant = 0
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
@@ -1277,9 +1280,10 @@ def save_summary(request):
     for data in evaluators_data:
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
-            temp_dict = {}
             for facilitators_data in facilitators:
                 facilitator_response[facilitators_data.id] = facilitators_data.to_dict()
+                for data in facilitator_response:
+                        faci_2["1"] = data.to_dict()
                 facilitator_ctr += 1
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
