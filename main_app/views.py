@@ -1282,8 +1282,8 @@ def save_summary(request):
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
                 facilitator_response[facilitators_data.id] = facilitators_data.to_dict()
-                for data in facilitator_response:
-                        faci_2["1"] = data.to_dict()
+                for key, data in facilitator_response:
+                        faci_2[key] = data
                 facilitator_ctr += 1
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
