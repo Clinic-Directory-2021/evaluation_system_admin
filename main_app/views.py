@@ -1284,7 +1284,7 @@ def save_summary(request):
                 sss[facilitators_data.id] = {
                     "q9":{"4":0,"3":0,"2":0,"1":0}
                     }
-                q9 = u'{}'.format(data.to_dict()['q9'])
+                q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
                 for key1,sss_data in sss:
                     for key2,sss_data2 in sss_data:
                         sss_data2["q9"] += 1 
