@@ -87,7 +87,7 @@
     <br>
     <!-- #facilitators -->
     {% for key1,value1 in facilitator_response.items %}
-    {% for key2,value2 in value1.items %}
+    
     <h2>Facilitator 1</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
@@ -101,6 +101,7 @@
             </tr>
         </thead>
         <tbody>
+            {% for key2,value2 in value1.items %}
             <tr>
                 <td>Program objectives were clearly presented</td>
                 {% for key3,value3 in value2.items %}
@@ -108,10 +109,11 @@
                 {% endfor %}
                 <td> </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
     <br>
-    {% endfor %}
+    
     {% endfor %}
     <h2>PROGRAM MANAGEMENT AND OPERATIONS</h2>
     <table style="border: 1px solid black; text-align: center;">
