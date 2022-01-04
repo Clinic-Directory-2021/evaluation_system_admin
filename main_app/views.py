@@ -1281,7 +1281,7 @@ def save_summary(request):
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
-                sss[facilitators_data.id] = {
+                sss["hello"] = {
                     "q9":{"4":0,"3":0,"2":0,"1":0}
                     }
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
