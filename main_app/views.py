@@ -1247,9 +1247,20 @@ def save_summary(request):
     facilitator_dict = {
 
     }
+    #This is the pattern for the facilitator
     facilitator_response = {
-        "123456":{"4":0,"3":0,"2":0,"1":0},
-        "78910":{"4":0,"3":0,"2":0,"1":0}
+        "123456":{
+            "q1":{"4":0,"3":0,"2":0,"1":0},
+            "q2":{"4":0,"3":0,"2":0,"1":0},
+            "q3":{"4":0,"3":0,"2":0,"1":0},
+            "q4":{"4":0,"3":0,"2":0,"1":0},
+        },
+        "78910":{
+            "q1":{"4":0,"3":0,"2":0,"1":0},
+            "q2":{"4":0,"3":0,"2":0,"1":0},
+            "q3":{"4":0,"3":0,"2":0,"1":0},
+            "q4":{"4":0,"3":0,"2":0,"1":0},
+        }
     }
     current_id = str(request.POST.get('seminar_id'))
     total_of_participant = 0
@@ -1266,7 +1277,6 @@ def save_summary(request):
             temp_dict = {}
             for facilitators_data in facilitators:
                 temp_dict[facilitator_ctr] = facilitators_data.to_dict()
-                facilitator_dict[evaluator_data.id] = temp_dict
                 facilitator_ctr += 1
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
