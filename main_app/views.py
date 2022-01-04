@@ -1265,6 +1265,9 @@ def save_summary(request):
     facilitator_response ={
 
     }
+    sss= {
+
+    }
     current_id = str(request.POST.get('seminar_id'))
     total_of_participant = 0
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
@@ -1278,6 +1281,12 @@ def save_summary(request):
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
+                sss = {
+                    "q9":{"4":0,"3":0,"2":0,"1":0}
+                    }
+                q9 = u'{}'.format(data.to_dict()['q9'])
+                if q9 == "4":
+                    sss["q9"] += 1
                 facilitator_response[facilitators_data.id] = facilitators_data.to_dict()
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
