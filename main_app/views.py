@@ -1279,8 +1279,7 @@ def save_summary(request):
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             temp_dict = {}
             for facilitators_data in facilitators:
-                facilitator_data = facilitators_data.get()
-                facilitator_response[facilitator_ctr] = facilitator_data.to_dict()
+                facilitator_response[facilitator_ctr] = facilitators_data.to_dict()
                 facilitator_ctr += 1
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
