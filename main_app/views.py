@@ -1290,6 +1290,7 @@ def save_summary(request):
                         sss_data2["4"] += 1 
                 facilitator_response[facilitators_data.id] = facilitators_data.to_dict()
                 facilitator_ctr += 1
+            facilitator_ctr = 0
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
         q2 = u'{}'.format(data.to_dict()['q2'])
