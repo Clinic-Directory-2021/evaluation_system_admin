@@ -1248,19 +1248,22 @@ def save_summary(request):
 
     }
     #This is the pattern for the facilitator
-    facilitator_response = {
-        "123456":{
-            "q1":{"4":0,"3":0,"2":0,"1":0},
-            "q2":{"4":0,"3":0,"2":0,"1":0},
-            "q3":{"4":0,"3":0,"2":0,"1":0},
-            "q4":{"4":0,"3":0,"2":0,"1":0},
-        },
-        "78910":{
-            "q1":{"4":0,"3":0,"2":0,"1":0},
-            "q2":{"4":0,"3":0,"2":0,"1":0},
-            "q3":{"4":0,"3":0,"2":0,"1":0},
-            "q4":{"4":0,"3":0,"2":0,"1":0},
-        }
+    # facilitator_response = {
+    #     "123456":{
+    #         "q1":{"4":0,"3":0,"2":0,"1":0},
+    #         "q2":{"4":0,"3":0,"2":0,"1":0},
+    #         "q3":{"4":0,"3":0,"2":0,"1":0},
+    #         "q4":{"4":0,"3":0,"2":0,"1":0},
+    #     },
+    #     "78910":{
+    #         "q1":{"4":0,"3":0,"2":0,"1":0},
+    #         "q2":{"4":0,"3":0,"2":0,"1":0},
+    #         "q3":{"4":0,"3":0,"2":0,"1":0},
+    #         "q4":{"4":0,"3":0,"2":0,"1":0},
+    #     }
+    # }
+    facilitator_response ={
+
     }
     current_id = str(request.POST.get('seminar_id'))
     total_of_participant = 0
@@ -1276,7 +1279,8 @@ def save_summary(request):
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             temp_dict = {}
             for facilitators_data in facilitators:
-                temp_dict[facilitator_ctr] = facilitators_data.to_dict()
+                facilitator_data = facilitators_data.get()
+                facilitator_response[facilitator_ctr] = facilitators_data.to_dict()
                 facilitator_ctr += 1
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
