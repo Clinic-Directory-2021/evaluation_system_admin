@@ -101,17 +101,18 @@
             </tr>
         </thead>
         <tbody>
+            {% for key3,value3 in value2.items %}
             <tr>
                 <td>Program objectives were clearly presented</td>
-                {% for key2,value2 in value1.items %}
-                <td>{{value2}}</td>
+                {% for key3,value3 in value2.items %}
+                <td>{{value3}}</td>
                 {% endfor %}
                 <td> </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
     <br>
-    
     {% endfor %}
     <h2>PROGRAM MANAGEMENT AND OPERATIONS</h2>
     <table style="border: 1px solid black; text-align: center;">
