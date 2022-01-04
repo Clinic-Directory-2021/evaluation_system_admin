@@ -1287,7 +1287,8 @@ def save_summary(request):
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
                 for key1,sss_data in sss.items():
                     for key2,sss_data2 in sss_data.items():
-                        sss_data2["4"] += 1 
+                        if q9 == "4":
+                            sss_data2["4"] += 1 
                 facilitator_response[facilitators_data.id] = facilitators_data.to_dict()
                 
         total_of_participant += 1
