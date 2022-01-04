@@ -1274,28 +1274,27 @@ def save_summary(request):
     evaluation_data = evaluation_report.get()
     seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
     date = u'{}'.format(evaluation_data.to_dict()['date'])
-    facilitator_ctr = 0
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
+    q9 = ""
     for data in evaluators_data:
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
-                sss[facilitators_data.id] = {
+                facilitator_response[facilitators_data.id] = {
                     "q9":{"4":0,"3":0,"2":0,"1":0}
                     }
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
-                for key1,sss_data in sss.items():
-                    for key2,sss_data2 in sss_data.items():
+                for key1,facilitator_response_data in sss.items():
+                    for key2,facilitator_response_data2 in facilitator_response_data.items():
                         if q9 == "4":
-                            sss_data2["4"] += 1 
+                            facilitator_response_data2["4"] += 1 
                         elif q9 == "3":
-                            sss_data2["3"] += 1 
+                            facilitator_response_data2["3"] += 1 
                         elif q9 == "2":
-                            sss_data2["2"] += 1 
+                            facilitator_response_data2["2"] += 1 
                         elif q9 == "1":
-                            sss_data2["1"] += 1 
-                facilitator_response[facilitators_data.id] = facilitators_data.to_dict()
+                            facilitator_response_data2["1"] += 1 
                 
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
@@ -1538,7 +1537,8 @@ def save_summary(request):
         "q25_mean":q25_mean,
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
-        "facilitator_response":sss
+        "facilitator_response":facilitator_response,
+        "q9":q9
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
