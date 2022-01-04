@@ -1280,7 +1280,7 @@ def save_summary(request):
             for facilitators_data in facilitators:
                 facilitator_response[facilitators_data.id] = facilitators_data.to_dict()
             for key,value in facilitator_response.items():
-                facilitator_response[facilitator_ctr] = key
+                facilitator_response[key] = value
                 facilitator_ctr += 1
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
