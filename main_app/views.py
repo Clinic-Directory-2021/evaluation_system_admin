@@ -1285,7 +1285,7 @@ def save_summary(request):
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
                 facilitator_response[facilitators_data.id] = {
-                    "q9":{"4":1,"3":0,"2":0,"1":0},
+                    "q9":{"4":0,"3":0,"2":0,"1":0},
                     # "q10":{"4":0,"3":0,"2":0,"1":0},
                     # "q11":{"4":0,"3":0,"2":0,"1":0},
                     # "q12":{"4":0,"3":0,"2":0,"1":0},
@@ -1310,7 +1310,6 @@ def save_summary(request):
                 # test[evaluator_data.id] = facilitators_data.to_dict()
                 for key1,facilitator_response_data in facilitator_response.items():
                     for key2,facilitator_response_data2 in facilitator_response_data.items():
-                        if key2 == "q9":
                             if q9 == "1":
                                 facilitator_response_data2["1"] += 1 
                             elif q9 == "2":
