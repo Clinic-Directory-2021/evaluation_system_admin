@@ -1318,7 +1318,7 @@ def save_summary(request):
                                 facilitator_response_data2["2"] += 1 
                             elif q9 == "1":
                                 facilitator_response_data2["1"] += 1 
-                sss+=""
+                sss+=" "
                         
                 
         total_of_participant += 1
