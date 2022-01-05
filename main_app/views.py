@@ -1275,6 +1275,7 @@ def save_summary(request):
     evaluators_data = evaluators.get()
     q9 = ""
     test = {}
+    ctr = 0
     for data in evaluators_data:
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
@@ -1292,7 +1293,8 @@ def save_summary(request):
                     }
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
                 the_id = evaluator_data.id
-                test[facilitators_data.id] = q9
+                test[ctr] = q9
+                ctr += 1
                 # q10 = u'{}'.format(facilitators_data.to_dict()['q10'])
                 # q11 = u'{}'.format(facilitators_data.to_dict()['q11'])
                 # q12 = u'{}'.format(facilitators_data.to_dict()['q12'])
