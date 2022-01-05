@@ -1291,7 +1291,7 @@ def save_summary(request):
                     # "q17":{"4":0,"3":0,"2":0,"1":0},
                     }
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
-                the_id = facilitators_data.id
+                the_id = evaluator_data.id
                 # q10 = u'{}'.format(facilitators_data.to_dict()['q10'])
                 # q11 = u'{}'.format(facilitators_data.to_dict()['q11'])
                 # q12 = u'{}'.format(facilitators_data.to_dict()['q12'])
