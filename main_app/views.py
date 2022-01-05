@@ -1306,9 +1306,9 @@ def save_summary(request):
                 # q17 = u'{}'.format(facilitators_data.to_dict()['q17'])
                 # test[evaluator_data.id] = facilitators_data.to_dict()
                 for key1,facilitator_response_data in facilitator_response.items():
-                    sss = key1
                     for key2,facilitator_response_data2 in facilitator_response_data.items():
                         #q9
+                        sss = " " + q9
                         if key2 == "q9":
                             if q9 == "4":
                                 facilitator_response_data2["4"] += 1 
