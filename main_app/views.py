@@ -1306,17 +1306,17 @@ def save_summary(request):
                 # q17 = u'{}'.format(facilitators_data.to_dict()['q17'])
                 # test[evaluator_data.id] = facilitators_data.to_dict()
                 for key1,facilitator_response_data in facilitator_response.items():
-                    sss = facilitator_response_data
-                    # for key2,facilitator_response_data2 in facilitator_response_data.items():
-                    #     #q9
-                    #     if q9 == "4":
-                    #         facilitator_response_data2["4"] += 1 
-                    #     elif q9 == "3":
-                    #         facilitator_response_data2["3"] += 1 
-                    #     elif q9 == "2":
-                    #         facilitator_response_data2["2"] += 1 
-                    #      elif q9 == "1":
-                    #         facilitator_response_data2["1"] += 1 
+                    for key2,facilitator_response_data2 in facilitator_response_data.items():
+                        #q9
+                        sss = key2
+                        if q9 == "4":
+                            facilitator_response_data2["4"] += 1 
+                        elif q9 == "3":
+                            facilitator_response_data2["3"] += 1 
+                        elif q9 == "2":
+                            facilitator_response_data2["2"] += 1 
+                         elif q9 == "1":
+                            facilitator_response_data2["1"] += 1 
                         
                 
         total_of_participant += 1
