@@ -1308,7 +1308,7 @@ def save_summary(request):
                 for key1,facilitator_response_data in facilitator_response.items():
                     for key2,facilitator_response_data2 in facilitator_response_data.items():
                         #q9
-                        sss = " " + q9
+                        sss += q9 + " "
                         if key2 == "q9":
                             if q9 == "4":
                                 facilitator_response_data2["4"] += 1 
