@@ -1283,7 +1283,7 @@ def save_summary(request):
                     "q9":{"4":0,"3":0,"2":0,"1":0}
                     }
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
-                test[evaluator_data.id] = "hello"
+                test[evaluator_data.id] = facilitators_data.to_dict()
                 for key1,facilitator_response_data in facilitator_response.items():
                     for key2,facilitator_response_data2 in facilitator_response_data.items():
                         if q9 == "4":
