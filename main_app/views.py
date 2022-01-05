@@ -1280,7 +1280,15 @@ def save_summary(request):
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
                 facilitator_response[facilitators_data.id] = {
-                    "q9":{"4":0,"3":0,"2":0,"1":0}
+                    "q9":{"4":0,"3":0,"2":0,"1":0},
+                    "q10":{"4":0,"3":0,"2":0,"1":0},
+                    "q11":{"4":0,"3":0,"2":0,"1":0},
+                    "q12":{"4":0,"3":0,"2":0,"1":0},
+                    "q13":{"4":0,"3":0,"2":0,"1":0},
+                    "q14":{"4":0,"3":0,"2":0,"1":0},
+                    "q15":{"4":0,"3":0,"2":0,"1":0},
+                    "q16":{"4":0,"3":0,"2":0,"1":0},
+                    "q17":{"4":0,"3":0,"2":0,"1":0},
                     }
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
                 q10 = u'{}'.format(facilitators_data.to_dict()['q10'])
