@@ -1297,8 +1297,7 @@ def save_summary(request):
                     }
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
                 the_id = evaluator_data.id
-                test[ctr] = q9
-                ctr += 1
+                
                 # q10 = u'{}'.format(facilitators_data.to_dict()['q10'])
                 # q11 = u'{}'.format(facilitators_data.to_dict()['q11'])
                 # q12 = u'{}'.format(facilitators_data.to_dict()['q12'])
@@ -1310,7 +1309,8 @@ def save_summary(request):
                 # test[evaluator_data.id] = facilitators_data.to_dict()
                 for facilitator_response_data in facilitator_response.values():
                     for key2,facilitator_response_data2 in facilitator_response_data.items():
-                                sss[key2] = key2 == q9
+                                sss[ctr] = key2 == q9
+                                ctr += 1
 
                         
                 
