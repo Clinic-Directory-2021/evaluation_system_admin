@@ -1291,15 +1291,16 @@ def save_summary(request):
                     # "q17":{"4":0,"3":0,"2":0,"1":0},
                     }
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
-                q10 = u'{}'.format(facilitators_data.to_dict()['q10'])
-                q11 = u'{}'.format(facilitators_data.to_dict()['q11'])
-                q12 = u'{}'.format(facilitators_data.to_dict()['q12'])
-                q13 = u'{}'.format(facilitators_data.to_dict()['q13'])
-                q14 = u'{}'.format(facilitators_data.to_dict()['q14'])
-                q15 = u'{}'.format(facilitators_data.to_dict()['q15'])
-                q16 = u'{}'.format(facilitators_data.to_dict()['q16'])
-                q17 = u'{}'.format(facilitators_data.to_dict()['q17'])
-                test[evaluator_data.id] = facilitators_data.to_dict()
+                the_id = facilitators_data.id
+                # q10 = u'{}'.format(facilitators_data.to_dict()['q10'])
+                # q11 = u'{}'.format(facilitators_data.to_dict()['q11'])
+                # q12 = u'{}'.format(facilitators_data.to_dict()['q12'])
+                # q13 = u'{}'.format(facilitators_data.to_dict()['q13'])
+                # q14 = u'{}'.format(facilitators_data.to_dict()['q14'])
+                # q15 = u'{}'.format(facilitators_data.to_dict()['q15'])
+                # q16 = u'{}'.format(facilitators_data.to_dict()['q16'])
+                # q17 = u'{}'.format(facilitators_data.to_dict()['q17'])
+                # test[evaluator_data.id] = facilitators_data.to_dict()
                 for key1,facilitator_response_data in facilitator_response.items():
                     if key1 == "q9":
                         for key2,facilitator_response_data2 in facilitator_response_data.items():
@@ -1556,7 +1557,8 @@ def save_summary(request):
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
         "facilitator_response":facilitator_response,
-        "test":q9
+        "test":q9,
+        "the_id":the_id
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
