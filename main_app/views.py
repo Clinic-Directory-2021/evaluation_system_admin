@@ -1556,7 +1556,7 @@ def save_summary(request):
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
         "facilitator_response":facilitator_response,
-        "test":test
+        "test":q9
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
