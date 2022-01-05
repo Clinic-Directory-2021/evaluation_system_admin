@@ -1315,7 +1315,7 @@ def save_summary(request):
                             facilitator_response_data2["3"] += 1 
                         elif q9 == "2":
                             facilitator_response_data2["2"] += 1 
-                         elif q9 == "1":
+                        elif q9 == "1":
                             facilitator_response_data2["1"] += 1 
                         
                 
