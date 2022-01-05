@@ -1313,13 +1313,13 @@ def save_summary(request):
                         elif q10 == "1":
                             facilitator_response_data2["1"] += 1 
                         #q11
-                        if q9 == "4":
+                        if q11 == "4":
                             facilitator_response_data2["4"] += 1 
-                        elif q9 == "3":
+                        elif q11 == "3":
                             facilitator_response_data2["3"] += 1 
-                        elif q9 == "2":
+                        elif q11 == "2":
                             facilitator_response_data2["2"] += 1 
-                        elif q9 == "1":
+                        elif q11 == "1":
                             facilitator_response_data2["1"] += 1 
                         #q12
                         if q12 == "4":
@@ -1374,15 +1374,6 @@ def save_summary(request):
                         elif q17 == "2":
                             facilitator_response_data2["2"] += 1 
                         elif q17 == "1":
-                            facilitator_response_data2["1"] += 1 
-                        #q18
-                        if q18 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q18 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q18 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q18 == "1":
                             facilitator_response_data2["1"] += 1 
                 
         total_of_participant += 1
