@@ -1308,15 +1308,16 @@ def save_summary(request):
                 for key1,facilitator_response_data in facilitator_response.items():
                     for key2,facilitator_response_data2 in facilitator_response_data.items():
                         #q9
-                        sss = key2
-                        if q9 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q9 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q9 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q9 == "1":
-                            facilitator_response_data2["1"] += 1 
+                        sss = q9
+                        if key2 == "q9":
+                            if q9 == "4":
+                                facilitator_response_data2["4"] += 1 
+                            elif q9 == "3":
+                                facilitator_response_data2["3"] += 1 
+                            elif q9 == "2":
+                                facilitator_response_data2["2"] += 1 
+                            elif q9 == "1":
+                                facilitator_response_data2["1"] += 1 
                         
                 
         total_of_participant += 1
