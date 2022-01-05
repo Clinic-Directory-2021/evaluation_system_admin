@@ -1279,7 +1279,7 @@ def save_summary(request):
     q9 = ""
     test = {}
     ctr = 0
-    sss = {}
+    sss = ""
     for data in evaluators_data:
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
@@ -1309,7 +1309,7 @@ def save_summary(request):
                 # test[evaluator_data.id] = facilitators_data.to_dict()
                 for facilitator_response_data in facilitator_response.values():
                     for key2,facilitator_response_data2 in facilitator_response_data.items():
-                                sss[ctr] = key2 == q9
+                                sss = key2 
                                 ctr += 1
 
                         
