@@ -1301,88 +1301,18 @@ def save_summary(request):
                 q17 = u'{}'.format(facilitators_data.to_dict()['q17'])
                 test[evaluator_data.id] = facilitators_data.to_dict()
                 for key1,facilitator_response_data in facilitator_response.items():
-                    for key2,facilitator_response_data2 in facilitator_response_data.items():
-                        #q9
-                        if q9 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q9 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q9 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q9 == "1":
-                            facilitator_response_data2["1"] += 1 
-                        #q10
-                        if q10 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q10 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q10 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q10 == "1":
-                            facilitator_response_data2["1"] += 1 
-                        #q11
-                        if q11 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q11 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q11 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q11 == "1":
-                            facilitator_response_data2["1"] += 1 
-                        #q12
-                        if q12 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q12 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q12 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q12 == "1":
-                            facilitator_response_data2["1"] += 1 
-                        #q13
-                        if q13 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q13 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q13 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q13 == "1":
-                            facilitator_response_data2["1"] += 1 
-                        #q14
-                        if q14 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q14 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q14 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q14 == "1":
-                            facilitator_response_data2["1"] += 1 
-                        #q15
-                        if q15 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q15 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q15 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q15 == "1":
-                            facilitator_response_data2["1"] += 1 
-                        #q16
-                        if q16 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q16 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q16 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q16 == "1":
-                            facilitator_response_data2["1"] += 1 
-                        #q17
-                        if q17 == "4":
-                            facilitator_response_data2["4"] += 1 
-                        elif q17 == "3":
-                            facilitator_response_data2["3"] += 1 
-                        elif q17 == "2":
-                            facilitator_response_data2["2"] += 1 
-                        elif q17 == "1":
-                            facilitator_response_data2["1"] += 1 
+                    if key1 == "q9":
+                        for key2,facilitator_response_data2 in facilitator_response_data.items():
+                            #q9
+                            if q9 == "4":
+                                facilitator_response_data2["4"] += 1 
+                            elif q9 == "3":
+                                facilitator_response_data2["3"] += 1 
+                            elif q9 == "2":
+                                facilitator_response_data2["2"] += 1 
+                            elif q9 == "1":
+                                facilitator_response_data2["1"] += 1 
+                        
                 
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
