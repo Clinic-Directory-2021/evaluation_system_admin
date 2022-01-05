@@ -1310,8 +1310,8 @@ def save_summary(request):
                 # test[evaluator_data.id] = facilitators_data.to_dict()
                 for facilitator_response_data in facilitator_response.values():
                     for key2,facilitator_response_data2 in facilitator_response_data.items():
-                            if key2 == "q9":
-                                facilitator_response_data2["4"] += 1 
+                            
+                                sss = facilitator_response_data2
 
                         
                 
