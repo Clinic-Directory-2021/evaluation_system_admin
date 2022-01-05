@@ -1292,6 +1292,7 @@ def save_summary(request):
                     }
                 q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
                 the_id = evaluator_data.id
+                test[facilitators_data.id] = q9
                 # q10 = u'{}'.format(facilitators_data.to_dict()['q10'])
                 # q11 = u'{}'.format(facilitators_data.to_dict()['q11'])
                 # q12 = u'{}'.format(facilitators_data.to_dict()['q12'])
@@ -1557,7 +1558,7 @@ def save_summary(request):
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
         "facilitator_response":facilitator_response,
-        "test":q9,
+        "test":test,
         "the_id":the_id
         }
     # Create a Django response object, and specify content_type as pdf
