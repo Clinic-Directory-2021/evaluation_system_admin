@@ -19,7 +19,7 @@ def get_facilitator_rate(response_dictionary,facilitator_id, data, key):
         "q16":{"4":0,"3":0,"2":0,"1":0},
         "q17":{"4":0,"3":0,"2":0,"1":0},
     }
-    response_dictionary[facilitator_id][key][data] = key
+    response_dictionary[facilitator_id]["q9"][data] = key
 
 
 
