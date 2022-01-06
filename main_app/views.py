@@ -1277,11 +1277,12 @@ def save_summary(request):
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     q9 = ""
-    test = ""
+    test = {}
     ctr = 0
     for data in evaluators_data:
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
+            test[evaluator_data.id] = evaluator_data.id 
             for facilitators_data in facilitators:
                 facilitator_response[facilitators_data.id] = {
                 "q9":{"4":0,"3":0,"2":0,"1":0},
