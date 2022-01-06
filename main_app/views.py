@@ -1496,7 +1496,7 @@ def save_summary(request):
         elif q27 == "4":
             q27_dict["4"] += 1
 
-    test = func.get_facilitator_mean(facilitator_response,total_of_participant)     
+    func.get_facilitator_mean(facilitator_response,total_of_participant)     
     q1_mean = func.get_mean(q1_dict, total_of_participant)
     q2_mean = func.get_mean(q2_dict, total_of_participant)
     q3_mean = func.get_mean(q3_dict, total_of_participant)
