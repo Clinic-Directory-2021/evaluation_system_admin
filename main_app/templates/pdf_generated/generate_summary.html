@@ -132,8 +132,8 @@
             {% endfor %}
             <tr>
                 <td colspan="5"></td>
-                {% for key_name, val in facilitator_mean %}
-                {% if key_name == key1%}
+                {% for key_name, val in facilitator_mean.items %}
+                {% if key_name == key1 %}
                 <td>{{val}}</td>
                 {% endif %}
                 {%  endfor %}
