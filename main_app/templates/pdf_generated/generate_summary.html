@@ -86,6 +86,10 @@
                 <td colspan="5"></td>
                 <td>{{mean_1}}</td>
             </tr>
+            <tr>
+                <td colspan="5"></td>
+                <td>Excellent</td>
+            </tr>
         </tbody>
     </table>
     <br>
@@ -118,6 +122,7 @@
     </table>
     <br>
     {% endfor %}
+
     <h2>PROGRAM MANAGEMENT AND OPERATIONS</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
@@ -151,6 +156,14 @@
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q20_mean}}</td>
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+                <td>{{mean_2}}</td>
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+                <td>Excellent</td>
             </tr>
         </tbody>
     </table>
@@ -189,6 +202,14 @@
                 {% endfor %}
                 <td>{{q23_mean}}</td>
             </tr>
+            <tr>
+                <td colspan="5"></td>
+                <td>{{mean_3}}</td>
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+                <td>Excellent</td>
+            </tr>
         </tbody>
     </table>
     <br>
@@ -225,13 +246,21 @@
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q26_mean}}</td>
-                <tr>
+            </tr>
+            <tr>
                     <td>Program content was appropriate to trainees roles and responsibility</td>
                     {% for key,values in q27.items %}
                     <td>{{values}}</td>
                     {% endfor %}
                     <td>{{q27_mean}}</td>
-                </tr>
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+                <td>{{mean_4}}</td>
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+                <td>Excellent</td>
             </tr>
         </tbody>
     </table>
