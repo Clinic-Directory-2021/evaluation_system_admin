@@ -1,5 +1,6 @@
 import math
 
+
 def get_mean(evaluate_dict, total_of_participant):
     output = 0.0
     ctr = 4
@@ -11,6 +12,7 @@ def get_mean(evaluate_dict, total_of_participant):
 
 def get_facilitator_rate(response_dictionary,facilitator_id, data, key):
     response_dictionary[facilitator_id][key][data] += 1/2
+    response_dictionary[facilitator_id][key]["mean"] = 1/2
 
 def get_facilitator_mean(response_dictionary,mean_dictionary,total_of_participants):
     for key1,value1 in response_dictionary.items():

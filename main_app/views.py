@@ -1285,7 +1285,7 @@ def save_summary(request):
             test[evaluator_data.id] = evaluator_data.id 
             for facilitators_data in facilitators:
                 facilitator_response[facilitators_data.id] = {
-                "q9":{"4":0,"3":0,"2":0,"1":0},
+                "q9":{"4":0,"3":0,"2":0,"1":0,"mean":0},
                 "q10":{"4":0,"3":0,"2":0,"1":0},
                 "q11":{"4":0,"3":0,"2":0,"1":0},
                 "q12":{"4":0,"3":0,"2":0,"1":0},
