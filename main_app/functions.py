@@ -9,7 +9,7 @@ def get_mean(evaluate_dict, total_of_participant):
 
 def get_facilitator_rate(response_dictionary,get_q9,facilitator_id, data, key):
     response_dictionary[facilitator_id] = {
-        "q9":{"4":1,"3":0,"2":0,"1":0},
+        "q9":{"4":key,"3":data,"2":0,"1":0},
     }
     for key1, value1 in response_dictionary.items():
         for key2 in value1.keys():
