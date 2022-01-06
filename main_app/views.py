@@ -1303,10 +1303,7 @@ def save_summary(request):
             for facilitators_data in facilitators:
                 temp_dict = facilitators_data.to_dict()
                 for key,data_dict in temp_dict.items():               
-                    func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)
-                
-                
-                        
+                    func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)               
                 
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
@@ -1489,7 +1486,8 @@ def save_summary(request):
             q27_dict["3"] += 1
         elif q27 == "4":
             q27_dict["4"] += 1
-            
+
+    func.get_mean(facilitator_response,facilitator_mean, total_of_participant)     
     q1_mean = func.get_mean(q1_dict, total_of_participant)
     q2_mean = func.get_mean(q2_dict, total_of_participant)
     q3_mean = func.get_mean(q3_dict, total_of_participant)
@@ -1550,7 +1548,7 @@ def save_summary(request):
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
         "facilitator_response":facilitator_response,
-        "test":test,
+        "test":facilitator_mean,
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
