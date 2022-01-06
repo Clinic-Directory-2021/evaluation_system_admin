@@ -18,7 +18,8 @@ def get_facilitator_rate(response_dictionary,facilitator_id, data, key):
 def get_facilitator_mean(response_dictionary,mean_dictionary,total_of_participants):
     output = ""
     for key1, data1 in response_dictionary.items():
-        output = key1
+        for key2, data2 in data1.items():
+            output = key1 + " " + key2
     return output
 
 
