@@ -1293,10 +1293,10 @@ def save_summary(request):
                 "q15":{"4":0,"3":0,"2":0,"1":0},
                 "q16":{"4":0,"3":0,"2":0,"1":0},
                 "q17":{"4":0,"3":0,"2":0,"1":0},
-            }
-                temp_dict = facilitators_data.to_dict()
-                for key,data_dict in temp_dict.items():               
-                    func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)
+                }
+            temp_dict = facilitators_data.to_dict()
+            for key,data_dict in temp_dict.items():               
+                func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)
                 
                 
                         
