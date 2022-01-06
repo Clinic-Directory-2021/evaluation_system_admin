@@ -1283,9 +1283,20 @@ def save_summary(request):
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
+                facilitator_response[facilitators_data.id] = {
+                "q9":{"4":0,"3":0,"2":0,"1":0},
+                "q10":{"4":0,"3":0,"2":0,"1":0},
+                "q11":{"4":0,"3":0,"2":0,"1":0},
+                "q12":{"4":0,"3":0,"2":0,"1":0},
+                "q13":{"4":0,"3":0,"2":0,"1":0},
+                "q14":{"4":0,"3":0,"2":0,"1":0},
+                "q15":{"4":0,"3":0,"2":0,"1":0},
+                "q16":{"4":0,"3":0,"2":0,"1":0},
+                "q17":{"4":0,"3":0,"2":0,"1":0},
+            }
                 temp_dict = facilitators_data.to_dict()
                 for key,data_dict in temp_dict.items():               
-                    func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)
+                    func.get_facilitator_rate(data_dict,key)
                 
                 
                         
