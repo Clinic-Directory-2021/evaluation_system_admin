@@ -1504,6 +1504,8 @@ def save_summary(request):
     q25_mean = func.get_mean(q25_dict, total_of_participant)
     q26_mean = func.get_mean(q26_dict, total_of_participant)
     q27_mean = func.get_mean(q27_dict, total_of_participant)
+
+    mean_1 =  statistics.mean([q1_mean,q2_mean,q3_mean,q4_mean,q5_mean,q6_mean,q7_mean,q8_mean])
             
     template_path = 'pdf_generated/generate_summary.html'
     context = {
@@ -1546,7 +1548,7 @@ def save_summary(request):
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
         "facilitator_response":facilitator_response,
-        "test":test,
+        "test":mean_1,
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
