@@ -1287,7 +1287,7 @@ def save_summary(request):
                 for key,data_dict in temp_dict.items():
                     test = key                
                 # q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
-                func.get_facilitator_rate(facilitator_response,q9,facilitators_data.id)
+                # func.get_facilitator_rate(facilitator_response,q9,facilitators_data.id)
                 
                 
                         
