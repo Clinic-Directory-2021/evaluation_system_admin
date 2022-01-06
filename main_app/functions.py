@@ -8,8 +8,7 @@ def get_mean(evaluate_dict, total_of_participant):
     return output / total_of_participant
 
 def get_facilitator_rate(response_dictionary,facilitator_id, data, key):
-    
-    response_dictionary[facilitator_id][key][data] += 1
+    response_dictionary[facilitator_id][key][data] += 1/2
 
 
 
