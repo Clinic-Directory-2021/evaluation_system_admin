@@ -1296,7 +1296,7 @@ def save_summary(request):
             }
                 temp_dict = facilitators_data.to_dict()
                 for key,data_dict in temp_dict.items():               
-                    func.get_facilitator_rate(data_dict,key)
+                    func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)
                 
                 
                         
