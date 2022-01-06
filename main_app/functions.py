@@ -9,17 +9,7 @@ def get_mean(evaluate_dict, total_of_participant):
 
 def get_facilitator_rate(response_dictionary,facilitator_id, data, key):
     
-    if key in response_dictionary[facilitator_id].keys():
-        if data in response_dictionary[facilitator_id][key].keys():
-            response_dictionary[facilitator_id][key][data] += 1
-        else:
-            response_dictionary[facilitator_id][key][data] = 1
-    else:
-        if data in response_dictionary[facilitator_id][key].keys():
-            response_dictionary[facilitator_id][key][data] += 1
-        else:
-            response_dictionary[facilitator_id][key][data] = 1
-
+    response_dictionary[facilitator_id][key][data] += 1
 
 
 
