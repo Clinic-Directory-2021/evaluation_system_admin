@@ -1277,41 +1277,19 @@ def save_summary(request):
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     q9 = ""
-    test = {}
+    test = ""
     ctr = 0
-    sss = {}
     for data in evaluators_data:
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
-                facilitator_response[facilitators_data.id] = {
-                    "q9":{"4":0,"3":0,"2":0,"1":0},
-                    # "q10":{"4":0,"3":0,"2":0,"1":0},
-                    # "q11":{"4":0,"3":0,"2":0,"1":0},
-                    # "q12":{"4":0,"3":0,"2":0,"1":0},
-                    # "q13":{"4":0,"3":0,"2":0,"1":0},
-                    # "q14":{"4":0,"3":0,"2":0,"1":0},
-                    # "q15":{"4":0,"3":0,"2":0,"1":0},
-                    # "q16":{"4":0,"3":0,"2":0,"1":0},
-                    # "q17":{"4":0,"3":0,"2":0,"1":0},
-                    }
-                q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
-                the_id = evaluator_data.id
+                temp_dict = facilitators_data.to_dict()
+                for key,data_dict in temp_dict.items():
+                    test = key                
+                # q9 = u'{}'.format(facilitators_data.to_dict()['q9'])
+                func.get_facilitator_rate(facilitator_response,q9,facilitators_data.id)
                 
-                # q10 = u'{}'.format(facilitators_data.to_dict()['q10'])
-                # q11 = u'{}'.format(facilitators_data.to_dict()['q11'])
-                # q12 = u'{}'.format(facilitators_data.to_dict()['q12'])
-                # q13 = u'{}'.format(facilitators_data.to_dict()['q13'])
-                # q14 = u'{}'.format(facilitators_data.to_dict()['q14'])
-                # q15 = u'{}'.format(facilitators_data.to_dict()['q15'])
-                # q16 = u'{}'.format(facilitators_data.to_dict()['q16'])
-                # q17 = u'{}'.format(facilitators_data.to_dict()['q17'])
-                # test[evaluator_data.id] = facilitators_data.to_dict()
-                for facilitator_response_data in facilitator_response.values():
-                    for key2,facilitator_response_data2 in facilitator_response_data.items():
-                        for key3, faclitator_response_data3 in facilitator_response_data2.items():
-                            sss[key3] = faclitator_response_data3
-
+                
                         
                 
         total_of_participant += 1
@@ -1556,8 +1534,7 @@ def save_summary(request):
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
         "facilitator_response":facilitator_response,
-        "test":sss,
-        "the_id":the_id
+        "test":test,
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
