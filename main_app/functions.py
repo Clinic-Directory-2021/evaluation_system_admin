@@ -1,3 +1,5 @@
+import math
+
 def get_mean(evaluate_dict, total_of_participant):
     output = 0.0
     ctr = 4
@@ -9,7 +11,7 @@ def get_mean(evaluate_dict, total_of_participant):
 
 def get_facilitator_rate(response_dictionary,facilitator_id, data, key):
     output = 1/2
-    response_dictionary[facilitator_id][key][data] += int(output)
+    response_dictionary[facilitator_id][key][data] += math.floor(output)
 
 
 
