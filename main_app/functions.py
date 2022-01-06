@@ -1,4 +1,5 @@
 import math
+import statistics
 
 from django.http import response
 
@@ -24,6 +25,18 @@ def get_facilitator_mean(response_dictionary,mean_dictionary,total_of_participan
                     response_dictionary[key1][key2][key3] = output / total_of_participants
                 else:
                     output += (data3 * int(key3))
+
+def facilitator_overall_mean(mean_dictionary,response_dictionary):
+    list = []
+    for key1, data1 in response_dictionary.items():
+            for key2, data2 in data1.items():
+                output = 0
+                for key3, data3 in data2.items():
+                    if key3 ==  "mean":
+                        list.append[response_dictionary[key1][key2][key3]]
+            mean_dictionary[key1] = statistics.mean(list)
+            list.clear()
+                        
 
 
 

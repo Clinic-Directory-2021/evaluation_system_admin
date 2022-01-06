@@ -1564,6 +1564,7 @@ def save_summary(request):
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
         "facilitator_response":facilitator_response,
+        "facilitator_mean":facilitator_mean,
         "test":mean_1,
         "mean_1":mean_1,
         "mean_2":mean_2,
