@@ -14,8 +14,7 @@ def get_facilitator_rate(response_dictionary,get_q9,facilitator_id, data, key):
     for key1, value1 in response_dictionary.items():
         for key2 in value1.keys():
             if key == key1:
-                if key2 == data:
-                    response_dictionary[facilitator_id][key1] += 1
+                    response_dictionary[facilitator_id][key1]["4"] += 1
 
 
 
