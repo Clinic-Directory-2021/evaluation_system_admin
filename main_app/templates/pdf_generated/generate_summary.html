@@ -130,6 +130,14 @@
                 {% endfor %}
             </tr>
             {% endfor %}
+            <tr>
+                <td colspan="5"></td>
+                {% for key_name, val in facilitator_mean %}
+                {% if key_name == key1%}
+                <td>{{val}}</td>
+                {% endif %}
+                {%  endfor %}
+            </tr>
         </tbody>
     </table>
     <br>
