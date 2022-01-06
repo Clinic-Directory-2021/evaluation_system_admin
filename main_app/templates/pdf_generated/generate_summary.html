@@ -112,7 +112,11 @@
         <tbody>
             {% for key2,value2 in value1.items %}
             <tr>
-                <td>Program objectives were clearly presented</td>
+                {% for index, val in facilitator_question.items %}
+                {% if index == key2%}
+                <td>{{val}}</td>
+                {% endif %}
+                {% endfor %}
                 {% for key3,value3 in value2.items %}
                 <td>{{value3}}</td>
                 {% endfor %}
