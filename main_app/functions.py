@@ -1,5 +1,7 @@
 import math
 
+from django.http import response
+
 
 def get_mean(evaluate_dict, total_of_participant):
     output = 0.0
@@ -12,13 +14,12 @@ def get_mean(evaluate_dict, total_of_participant):
 
 def get_facilitator_rate(response_dictionary,facilitator_id, data, key):
     response_dictionary[facilitator_id][key][data] += 1/2
-    response_dictionary[facilitator_id][key]["mean"] = 1/2
 
 def get_facilitator_mean(response_dictionary,mean_dictionary,total_of_participants):
-    for key1,value1 in response_dictionary.items():
-        mean_dictionary[key1] = value1
-        for key2,value2 in value1.items():
-            mean_dictionary[key1][key2] = value2
+    output = ""
+    for key1, data1 in response_dictionary:
+        output += " " + data1
+    return output
 
 
 

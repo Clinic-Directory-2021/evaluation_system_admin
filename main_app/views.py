@@ -1277,7 +1277,7 @@ def save_summary(request):
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
     q9 = ""
-    test = {}
+    test = ""
     ctr = 0
     for data in evaluators_data:
         for evaluator_data in evaluators_data:
@@ -1487,7 +1487,7 @@ def save_summary(request):
         elif q27 == "4":
             q27_dict["4"] += 1
 
-    func.get_facilitator_mean(facilitator_response,facilitator_mean,total_of_participant)     
+    test = func.get_facilitator_mean(facilitator_response,facilitator_mean,total_of_participant)     
     q1_mean = func.get_mean(q1_dict, total_of_participant)
     q2_mean = func.get_mean(q2_dict, total_of_participant)
     q3_mean = func.get_mean(q3_dict, total_of_participant)
@@ -1548,7 +1548,7 @@ def save_summary(request):
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
         "facilitator_response":facilitator_response,
-        "test":facilitator_mean,
+        "test":test,
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
