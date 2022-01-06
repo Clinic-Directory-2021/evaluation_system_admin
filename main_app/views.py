@@ -1269,15 +1269,15 @@ def save_summary(request):
 
     }
     facilitator_question = {
-        "q9":{"Exhibited full grasp of the topic"},
-        "q10":{"Was sensitive to the participants' mood"},
-        "q11":{"Asked stimulating questions"},
-        "q12":{"Processed questions and responses to deepen learning"},
-        "q13":{"Maintained positive learning environment"},
-        "q14":{"Expressed ideas clearly"},
-        "q15":{"Used appropriate training aids"},
-        "q16":{"Observed appropriate attire"},
-        "q17":{"Was able to firm up attainment of objectives of the session"},
+        "q9":"Exhibited full grasp of the topic",
+        "q10":"Was sensitive to the participants' mood",
+        "q11":"Asked stimulating questions",
+        "q12":"Processed questions and responses to deepen learning",
+        "q13":"Maintained positive learning environment",
+        "q14":"Expressed ideas clearly",
+        "q15":"Used appropriate training aids",
+        "q16":"Observed appropriate attire",
+        "q17":"Was able to firm up attainment of objectives of the session",
     }
     current_id = str(request.POST.get('seminar_id'))
     total_of_participant = 0
