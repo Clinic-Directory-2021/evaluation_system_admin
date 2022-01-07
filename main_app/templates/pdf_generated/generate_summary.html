@@ -136,7 +136,25 @@
                 {% if key_name == key1 %}
                 <td>{{val}}</td>
                 {% endif %}
-                {%  endfor %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+                {% for key_name, val in facilitator_mean.items %}
+                {% if key_name == key1 %}
+
+                {% if val == 4.0 and val >= 3.90 %}
+                <td>Excellent</td>
+                {% elif val <= 3.89 and val >= 3.50 %}
+                <td>Good</td>
+                {% elif val <= 3.49 and val >= 3.10 %}
+                <td>Not Bad</td>
+                {% elif val <= 3.09 %}
+                <td>Needs Improvement</td>
+                {% endif %}
+
+                {% endif %}
+                {% endfor %}
             </tr>
         </tbody>
     </table>
