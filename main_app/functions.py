@@ -33,7 +33,7 @@ def facilitator_overall_mean(mean_dictionary,response_dictionary):
                 for key3, data3 in data2.items():
                     if key3 ==  "mean":
                         my_list.append(data3)
-            mean_dictionary[key1] = statistics.mean(my_list)
+            mean_dictionary[key1] = round(statistics.mean(my_list),1)
             my_list.clear()
                         
 
