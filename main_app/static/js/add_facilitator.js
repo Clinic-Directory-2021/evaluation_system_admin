@@ -69,4 +69,10 @@ function clear_list(){
 function clear_changes(){
 window.location.reload()
 }
+
+function validate_facilitator(){
+  if(facilitator_list_holder == "")
+    $('#validation').val("no")
+  else
+   $('#validation').val("yes")
 // ctr.toString() + ".Facilitator name: <u>"+ facilitator_name + "</u>" +" Time to Speak: <u>" + start_time + "-" + end_time +"</u>" + "<br>"
