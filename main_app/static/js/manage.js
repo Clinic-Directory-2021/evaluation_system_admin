@@ -2,9 +2,6 @@ var current_id_var;
 function add_seminar(){
     window.location.href = '../add_seminar/';
 }
-function add_facilitator(){
-    window.location.href = '../add_facilitator/';
-}
 function add_evaluator(){
     window.location.href = '../add_evaluator/';
 }
