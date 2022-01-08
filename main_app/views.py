@@ -877,9 +877,8 @@ def export_evaluation(request):
     for doc in evaluator:
         rows = {
             str(0): counter + 1,
-            str(1): u'{}'.format(doc.to_dict()['seminarDatePosted']),
+            str(1): u'{}'.format(doc.to_dict()['date_psosted']),
             str(2): u'{}'.format(doc.to_dict()['evaluatorEmail']),
-            str(3): u'{}'.format(doc.to_dict()['seminarFacilitator']),
             str(4): u'{}'.format(doc.to_dict()['q4']),
             str(5): u'{}'.format(doc.to_dict()['q2']),
             str(6): u'{}'.format(doc.to_dict()['q3']),
@@ -907,10 +906,10 @@ def export_evaluation(request):
             str(28): u'{}'.format(doc.to_dict()['q25']),
             str(29): u'{}'.format(doc.to_dict()['q26']),
             str(30): u'{}'.format(doc.to_dict()['q27']),
-            str(31): u'{}'.format(doc.to_dict()['comment1']),
-            str(32): u'{}'.format(doc.to_dict()['comment2']),
-            str(33): u'{}'.format(doc.to_dict()['comment3']),
-            str(34): u'{}'.format(doc.to_dict()['comment4']),
+            str(31): u'{}'.format(doc.to_dict()['c1']),
+            str(32): u'{}'.format(doc.to_dict()['c2']),
+            str(33): u'{}'.format(doc.to_dict()['c3']),
+            str(34): u'{}'.format(doc.to_dict()['c4']),
         }
         row_num += 1
         for col_num in range(len(rows)):
