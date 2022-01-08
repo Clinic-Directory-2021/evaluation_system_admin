@@ -136,12 +136,10 @@ def forgot_password(request):
     return render(request, 'forgot_password.html')
 
 def add_seminar(request):
-    validation = request.POST.get('validation')
     facilitators = db.collection(u'facilitators').get()
-    if validation == "yes":
-        for facilitator_data in facilitators:
-            return render(request,'add_seminar.html',{"facilitators":[facilitator_data.to_dict()]})
-    return render(request, 'add_seminar.html'   )
+    for facilitator_data in facilitators:
+        return render(request,'add_seminar.html',{"facilitators":[facilitator_data.to_dict()]})
+    return render(request, 'add_seminar.html',{"validation":validation})
 
 
 def add_facilitator(request):
@@ -428,10 +426,12 @@ def post_add_seminar(request):
     seminar_title = request.POST.get('seminar_title')
     program_owner = request.POST.get('program_owner')
     facilitator_list = str(request.POST.get('facilitator_list'))
+    validation = request.POST.get('validation')
     date_created = datetime.now()
     seminar_id =  calendar.timegm(date_created.timetuple())
     facilitator_id = calendar.timegm(date_created.timetuple())
     try:
+        if validation == "yes":
                 
                 data = {
                         u'seminar_title': seminar_title,
@@ -476,6 +476,8 @@ def post_add_seminar(request):
                     seminar_id[ctr] = doc.id 
                     return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
                 return render(request,'manage_seminar.html')
+        else:
+            return render(request,'add_seminar.html',{"validation":validation})
     except Exception as e:
                 print('You error is: ' + str(e))
                 return render(request,'add_seminar.html')
