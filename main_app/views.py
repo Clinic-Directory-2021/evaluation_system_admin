@@ -895,7 +895,7 @@ def export_evaluation(request):
         }
         row_num += 1
         for col_num in range(len(rows)):
-            ws.write(row_num, col_num, rows.get(str(col_num)))
+            ws.write(row_num, col_num, rows.get(str(col_num+1)))
     wb.save(response)
     return response
 def view_seminar(request):
@@ -903,7 +903,7 @@ def view_seminar(request):
         current_id = request.GET.get('current_id')
         request.session['current_id'] =  current_id
         seminars = db.collection(u'seminar_report').document(current_id)
-        seminar = seminars.get()
+        seminar = seminars.get()    
 
         seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
         program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
