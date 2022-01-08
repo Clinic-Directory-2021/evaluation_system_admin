@@ -1,6 +1,6 @@
 var ctr = 1;
 var facilitator_list_holder = "";
-function add_facilitator(){
+function add_facilitators(){
     var facilitator_name = $('#facilitator_name').val();
     var topic = $('#topic').val();
     var start_time = time_converter($('#start_time').val());
@@ -75,4 +75,4 @@ function validate_facilitator(){
     $('#validation').val("no")
   else
    $('#validation').val("yes")
-// ctr.toString() + ".Facilitator name: <u>"+ facilitator_name + "</u>" +" Time to Speak: <u>" + start_time + "-" + end_time +"</u>" + "<br>"
+  }
