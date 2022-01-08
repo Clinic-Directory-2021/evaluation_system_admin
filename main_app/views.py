@@ -609,7 +609,7 @@ def post_edit_seminar(request):
         for doc in docs:
             ctr = ctr + 1
             seminar_id[ctr] = doc.id 
-        return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
+            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
     except:
           return render(request,'edit_seminar.html')
 
@@ -1086,7 +1086,15 @@ def post_edit_facilitator(request):
     except Exception as e:
         print(str(e))
         print(facilitator_id)
-        return render(request,'manage_seminar.html')
+        docs = db.collection(u'seminars').get()
+        seminar_id = {
+            
+        }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            seminar_id[ctr] = doc.id 
+            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs],"error":str(e)})
 
 
 def link_callback(uri, rel):

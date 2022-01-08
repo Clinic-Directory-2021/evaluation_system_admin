@@ -35,6 +35,7 @@
                         <tbody id="output">
                            
                                 {% csrf_token %}
+                                
                             {% for facilitator_data in facilitator%}
                             <tr>
                                 <td>{{forloop.counter}}</td>
