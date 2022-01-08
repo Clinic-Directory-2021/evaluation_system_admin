@@ -477,7 +477,7 @@ def post_add_seminar(request):
                     return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
                 return render(request,'manage_seminar.html')
         else:
-            return render(request,'add_seminar.html',{"validation":validation})
+            return render(request,'add_seminar.html',{"validation":"hello"})
     except Exception as e:
                 print('You error is: ' + str(e))
                 return render(request,'add_seminar.html')
