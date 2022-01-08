@@ -881,7 +881,7 @@ def export_evaluation(request):
             str(12): u'{}'.format(doc.to_dict()['q18']),
             str(13): u'{}'.format(doc.to_dict()['q19']),
             str(14): u'{}'.format(doc.to_dict()['q20']),
-            str(15): u'{}'.format(doc.to_dict()['q21+']),
+            str(15): u'{}'.format(doc.to_dict()['q21']),
             str(16): u'{}'.format(doc.to_dict()['q22']),
             str(17): u'{}'.format(doc.to_dict()['q23']),
             str(18): u'{}'.format(doc.to_dict()['q24']),
