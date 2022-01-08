@@ -895,7 +895,7 @@ def export_evaluation(request):
         }
         row_num += 1
         for col_num in range(len(rows)):
-            ws.write(row_num, col_num, rows.get(str(col_num+1)))
+            ws.write(row_num, col_num+1, rows.get(str(col_num+1)))
     wb.save(response)
     return response
 def view_seminar(request):
