@@ -136,10 +136,12 @@ def forgot_password(request):
     return render(request, 'forgot_password.html')
 
 def add_seminar(request):
+    validation = request.POST.get('validation')
     facilitators = db.collection(u'facilitators').get()
-    for facilitator_data in facilitators:
-        return render(request,'add_seminar.html',{"facilitators":[facilitator_data.to_dict()]})
-    return render(request, 'add_seminar.html')
+    if validation == "yes":
+        for facilitator_data in facilitators:
+            return render(request,'add_seminar.html',{"facilitators":[facilitator_data.to_dict()]})
+    return render(request, 'add_seminar.html'   )
 
 
 def add_facilitator(request):
