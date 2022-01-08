@@ -9,6 +9,16 @@
 });
 </script>
 {% endif %}
+{% if validations %}
+<script>
+  swal({
+  title: "Error.",
+  text: "Please Input Some Facilitators.",
+  icon: "error",
+  button: "Okay",
+});
+</script>
+{% endif %}
 {% block content %}
 <!--Content-->
 <div class="p-5">
