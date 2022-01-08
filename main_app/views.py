@@ -844,6 +844,7 @@ def export_evaluation(request):
                'Adult learning methodologies were used',
                'Program followed a logical order/structure',
                'Contribution of all trainees was encouraged',
+               'Training program was delivered as planned',
                'Training program was managed effectively',
                'Training program was well-structured',
                'Appropriate to trainees needs',
@@ -866,7 +867,7 @@ def export_evaluation(request):
     counter = 0
     for doc in evaluator:
         rows = {
-            str(0): counter + 1,
+             str(0): counter + 1,
             str(1): u'{}'.format(doc.to_dict()['date_posted']),
             str(2): u'{}'.format(doc.to_dict()['evaluatorEmail']),
             str(4): u'{}'.format(doc.to_dict()['q1']),
@@ -880,7 +881,7 @@ def export_evaluation(request):
             str(12): u'{}'.format(doc.to_dict()['q18']),
             str(13): u'{}'.format(doc.to_dict()['q19']),
             str(14): u'{}'.format(doc.to_dict()['q20']),
-            str(15): u'{}'.format(doc.to_dict()['q21']),
+            str(15): u'{}'.format(doc.to_dict()['q21+']),
             str(16): u'{}'.format(doc.to_dict()['q22']),
             str(17): u'{}'.format(doc.to_dict()['q23']),
             str(18): u'{}'.format(doc.to_dict()['q24']),
