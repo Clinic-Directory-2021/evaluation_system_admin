@@ -9,11 +9,11 @@
 });
 </script>
 {% endif %}
-{% if validation == "no" %}
+{% if validation %}
 <script>
   swal({
   title: "Error.",
-  text: "Please Input Some Facilitators.",
+  text: "Please Input Some Facilitators. {{validation}}",
   icon: "error",
   button: "Okay",
 });
