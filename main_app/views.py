@@ -139,7 +139,7 @@ def add_seminar(request):
     facilitators = db.collection(u'facilitators').get()
     for facilitator_data in facilitators:
         return render(request,'add_seminar.html',{"facilitators":[facilitator_data.to_dict()]})
-    return render(request, 'add_seminar.html',{"validation":validation})
+    return render(request, 'add_seminar.html')
 
 
 def add_facilitator(request):
