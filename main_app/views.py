@@ -1094,7 +1094,7 @@ def post_edit_facilitator(request):
         for doc in docs:
             ctr = ctr + 1
             seminar_id[ctr] = doc.id 
-            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs],"error":str(e)})
+            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs],"error":str(e),"e":current_id})
 
 
 def link_callback(uri, rel):
