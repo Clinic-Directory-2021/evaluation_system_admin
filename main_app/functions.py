@@ -36,6 +36,8 @@ def facilitator_overall_mean(mean_dictionary,response_dictionary):
             mean_dictionary[key1] = round(statistics.mean(my_list),1)
             my_list.clear()
                         
+def has_numbers(inputString):
+    return inputString.isaplha()
 
 
 

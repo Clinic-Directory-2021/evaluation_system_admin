@@ -520,7 +520,7 @@ def post_add_evaluator(request):
         position = request.POST.get('position')
         phone_number = request.POST.get('phone_number')
         email_split = email.split('@')
-        password = "123456"
+        password = "12345678"
         validation_text = ""
         if email_split[1] != "deped.gov.ph":
             validation_text = "Invalid email format.You should use deped.gov.ph i.e juan.delacruz@deped.gov.ph"
@@ -528,42 +528,45 @@ def post_add_evaluator(request):
         else:
             date_created = datetime.now()
             evaluator_id =  calendar.timegm(date_created.timetuple())
-           
-            try:
-                user=authe.create_user_with_email_and_password(email,password)
-                uid = user['localId']
-                data = {
-                u'evaluator_id':str(evaluator_id),
-                u'first_name': first_name ,
-                u'middle_name': middle_name,
-                u'last_name': last_name,
-                u'email':str(email),
-                u'gender': gender,
-                u'school_office': school,
-                u'phone_number': phone_number,
-                u'position':position,
-                u'date_created':date_created,
-                u'uid':uid
+            if func.has_numbers(first_name) or func.has_numbers(middle_name) or func.has_numbers(last_name):
+                validation_text = "Invalid name format.Numbers and character is not allowed to use"
+                return render(request,'add_evaluator.html',{"validation_text":validation_text})
+            else:
+                try:
+                    user=authe.create_user_with_email_and_password(email,password)
+                    uid = user['localId']
+                    data = {
+                    u'evaluator_id':str(evaluator_id),
+                    u'first_name': first_name ,
+                    u'middle_name': middle_name,
+                    u'last_name': last_name,
+                    u'email':str(email),
+                    u'gender': gender,
+                    u'school_office': school,
+                    u'phone_number': phone_number,
+                    u'position':position,
+                    u'date_created':date_created,
+                    u'uid':uid
+                    }
+                    db.collection(u'evaluators').document(str(evaluator_id)).set(data)
+                    db.collection(u'evaluator_report').document(str(evaluator_id)).set(data)
+                except Exception as e:
+                    print(str(e))
+                    print(email)
+                    return render(request,'add_evaluator.html',{'validation_text':"Email Exist"})
+                docs = db.collection(u'evaluators').get()
+                evaluator_id = {
+                    
                 }
-                db.collection(u'evaluators').document(str(evaluator_id)).set(data)
-                db.collection(u'evaluator_report').document(str(evaluator_id)).set(data)
-            except Exception as e:
-                print(str(e))
-                print(email)
-                return render(request,'add_evaluator.html',{'validation_text':"Email Exist"})
-            docs = db.collection(u'evaluators').get()
-            evaluator_id = {
-                
-            }
-            ctr = 0
-            for doc in docs:
-                ctr = ctr + 1
-                evaluator_id[ctr] = doc.id 
-                pass_data = {
-                "validation_text":"Successfully Add A Evaluator. His/Her Default password is 123456",
-                "evaluator_data":[doc.to_dict() for doc in docs],
-                "evaluator_id":id}
-                return render(request,'manage_evaluator.html',pass_data)
+                ctr = 0
+                for doc in docs:
+                    ctr = ctr + 1
+                    evaluator_id[ctr] = doc.id 
+                    pass_data = {
+                    "validation_text":"Successfully Add A Evaluator. His/Her Default password is 123456",
+                    "evaluator_data":[doc.to_dict() for doc in docs],
+                    "evaluator_id":id}
+                    return render(request,'manage_evaluator.html',pass_data)
 
 def post_edit_seminar(request):
     try:
