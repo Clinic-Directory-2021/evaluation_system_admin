@@ -1045,14 +1045,14 @@ def post_delete_facilitator(request):
     return render(request,'edit_seminar.html',pass_data)
  
 def post_edit_facilitator(request):
-        #Calling session variables
-        facilitator_id = request.GET.get('facilitator_id')
-        facilitator_name = request.GET.get('facilitator_name')
-        topic = request.GET.get('topic')
-        start_time = request.GET.get('start_time')
-        end_time = request.GET.get('end_time')
-        current_id = request.session['current_id']
-    # try:
+    #Calling session variables
+    facilitator_id = request.GET.get('facilitator_id')
+    facilitator_name = request.GET.get('facilitator_name')
+    topic = request.GET.get('topic')
+    start_time = request.GET.get('start_time')
+    end_time = request.GET.get('end_time')
+    current_id = request.session['current_id']
+    try:
         #Calling the parent collection named: seminar
         seminars = db.collection('seminars').document(current_id)
 
@@ -1083,18 +1083,18 @@ def post_edit_facilitator(request):
             "facilitator":[facilitator_data.to_dict() for facilitator_data in traverse_facilitator]
         }
         return render(request,'edit_seminar.html',pass_data)
-    # except Exception as e:
-    #     print(str(e))
-    #     print(facilitator_id)
-    #     docs = db.collection(u'seminars').get()
-    #     seminar_id = {
+    except Exception as e:
+        print(str(e))
+        print(facilitator_id)
+        docs = db.collection(u'seminars').get()
+        seminar_id = {
             
-    #     }
-    #     ctr = 0
-    #     for doc in docs:
-    #         ctr = ctr + 1
-    #         seminar_id[ctr] = doc.id 
-    #         return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs],"error":str(e),"e":current_id})
+        }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            seminar_id[ctr] = doc.id 
+            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs],"error":str(e),"e":facilitator_id})
 
 
 def link_callback(uri, rel):
