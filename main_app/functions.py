@@ -1,5 +1,6 @@
 import math
 import statistics
+import re
 
 from django.http import response
 
@@ -37,7 +38,10 @@ def facilitator_overall_mean(mean_dictionary,response_dictionary):
             my_list.clear()
                         
 def has_numbers(inputString):
-    return inputString.isaplha()
+    regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+    if(regex.search(inputString) == None):
+        return True
+    return False
 
 
 
