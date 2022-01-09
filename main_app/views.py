@@ -529,9 +529,6 @@ def post_add_evaluator(request):
             date_created = datetime.now()
             evaluator_id =  calendar.timegm(date_created.timetuple())
             if func.has_numbers(first_name) or func.has_numbers(middle_name) or func.has_numbers(last_name):
-                validation_text = "Invalid name format.Numbers and character is not allowed to use"
-                return render(request,'add_evaluator.html',{"validation_text":validation_text})
-            else:
                 try:
                     user=authe.create_user_with_email_and_password(email,password)
                     uid = user['localId']
@@ -567,6 +564,9 @@ def post_add_evaluator(request):
                     "evaluator_data":[doc.to_dict() for doc in docs],
                     "evaluator_id":id}
                     return render(request,'manage_evaluator.html',pass_data)
+            else:
+                validation_text = "Invalid name format.Numbers and character is not allowed to use"
+                return render(request,'add_evaluator.html',{"validation_text":validation_text})
 
 def post_edit_seminar(request):
     try:
