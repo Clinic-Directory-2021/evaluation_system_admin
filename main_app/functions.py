@@ -38,7 +38,7 @@ def facilitator_overall_mean(mean_dictionary,response_dictionary):
             my_list.clear()
                         
 def has_numbers(inputString):
-    regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+    regex = re.compile('[1234567890@_!#$%^&*()<>?/\|}{~:]')
     if(regex.search(inputString) == None):
         return True
     return False
