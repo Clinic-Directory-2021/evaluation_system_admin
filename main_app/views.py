@@ -1054,7 +1054,7 @@ def post_edit_facilitator(request):
     current_id = request.session['current_id']
     try:
         #Calling the parent collection named: seminar
-        seminars = db.collection(u'seminars').document(current_id)
+        seminars = db.collection('seminars').document(current_id)
 
         #Traversing the specific seminar details
         seminar = seminars.get()
@@ -1063,7 +1063,7 @@ def post_edit_facilitator(request):
         status = u'{}'.format(seminar.to_dict()['status'])
         
         
-        facilitators = seminars.collection(u'facilitators')
+        facilitators = seminars.collection('facilitators')
 
         #Update data in subcollection name: facilitator
         update_data = {
