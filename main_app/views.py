@@ -560,7 +560,7 @@ def post_add_evaluator(request):
                     ctr = ctr + 1
                     evaluator_id[ctr] = doc.id 
                     pass_data = {
-                    "validation_text":"Successfully Add A Evaluator. His/Her Default password is 123456",
+                    "validation_text":"Successfully Add A Evaluator. His/Her Default password is 12345678",
                     "evaluator_data":[doc.to_dict() for doc in docs],
                     "evaluator_id":id}
                     return render(request,'manage_evaluator.html',pass_data)
