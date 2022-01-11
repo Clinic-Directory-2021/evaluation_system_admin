@@ -170,7 +170,7 @@ def view_seminar_information(request):
         program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
 
         evaluation_data = evaluations.collection('evaluators').get()
-        evaluation_count = 1
+        evaluation_count = 0
         for doc in evaluation_data:
             evaluator_id = str(doc.id)
             print(evaluator_id)
