@@ -176,7 +176,7 @@ def view_seminar_information(request):
             print(evaluator_id)
             evaluation_count = 1
             if doc.exists:
-                evaluation_count = evaluation_count + 1
+                evaluation_count +=  1
             else:
                 print(u'No such document!')
         pass_data = {
