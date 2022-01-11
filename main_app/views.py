@@ -1292,8 +1292,6 @@ def save_summary(request):
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
                 facilitator_response[facilitators_data.id] = {
-                "exist":{"4":0,"3":0,"2":0,"1":0,"mean":0},
-                "facilitator_name":{"4":0,"3":0,"2":0,"1":0,"mean":0},
                 "q9":{"4":0,"3":0,"2":0,"1":0,"mean":0},
                 "q10":{"4":0,"3":0,"2":0,"1":0,"mean":0},
                 "q11":{"4":0,"3":0,"2":0,"1":0,"mean":0},
