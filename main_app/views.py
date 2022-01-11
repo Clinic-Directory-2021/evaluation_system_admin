@@ -169,9 +169,7 @@ def view_seminar_information(request):
         date = u'{}'.format(seminar.to_dict()['date'])
         program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
 
-
-        evaluation = evaluations.collection(u'evaluations').document(current_id)
-        evaluation_data = evaluation.collection('evaluators').get()
+        evaluation_data = evaluations.collection('evaluators').get()
         for doc in evaluation_data:
             evaluator_id = str(doc.id)
             print(evaluator_id)
