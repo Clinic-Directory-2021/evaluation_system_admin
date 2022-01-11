@@ -876,6 +876,7 @@ def export_evaluation(request):
              str(0): counter + 1,
             str(1): u'{}'.format(doc.to_dict()['date_posted']),
             str(2): u'{}'.format(doc.to_dict()['evaluatorEmail']),
+            str(3): u'{}'.format(doc.to_dict()['full_name']),
             str(4): u'{}'.format(doc.to_dict()['q1']),
             str(5): u'{}'.format(doc.to_dict()['q2']),
             str(6): u'{}'.format(doc.to_dict()['q3']),
