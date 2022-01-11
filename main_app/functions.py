@@ -24,6 +24,8 @@ def get_facilitator_mean(response_dictionary,total_of_participants):
             for key3, data3 in data2.items():
                 if key3 ==  "mean":
                     response_dictionary[key1][key2][key3] = output / total_of_participants
+                elif key3 == "exist" or key3 == "facilitator_emil":
+                    print() 
                 else:
                     output += (data3 * int(key3))
 
