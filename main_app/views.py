@@ -84,16 +84,14 @@ def manage_facilitator(request):
     return render(request,'manage_facilitator.html')
 
 def manage_evaluator(request):
-    docs = db.collection(u'evaluators').get()
-    evaluator_id = {
-        
-    }
-    ctr = 0
-    for doc in docs:
-        ctr = ctr + 1
-        evaluator_id[ctr] = doc.id 
-        return render(request,'manage_evaluator.html',{"evaluator_data":[doc.to_dict() for doc in docs],"evaluator_id":id})
-    return render(request, 'manage_evaluator.html')
+    try:
+        evaluators = db.collection(u'evaluators').get()
+        return render(request,'manage_evaluator.html',{"evaluator_data":[doc.to_dict() for doc in evaluators]})
+    except:
+        return render(request, 'manage_evaluator.html')
+
+    
+    
 
 def report(request):
     try:
