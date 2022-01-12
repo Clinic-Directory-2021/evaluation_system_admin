@@ -32,7 +32,7 @@
                 <th data-sortable="true">First Name</th>
                 <th data-sortable="true">Middle Name</th>
                 <th data-sortable="true">Last Name</th>
-                <!-- <th data-sortable="true">Tools</th> -->
+                <th data-sortable="true">Tools</th>
             </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@
                     <td>{{value.first_name}}</td>
                     <td>{{value.middle_name}}</td>
                     <td>{{value.last_name}}</td>
-                    <!-- <td>
+                    <td>
                         <button class="button success mr-3" onclick="edit_evaluator('{{evaluator_field.evaluator_id}}')"  data-role="hint"
                         data-hint-position="top"
                         data-hint-text="This will allow you to edit evaluator's info"
@@ -50,7 +50,7 @@
                         data-hint-text="This will allow you to delete evaluator's info"
                         data-cls-hint="bg-red fg-white drop-shadow"
                         onclick="Metro.dialog.open('#delete_dialog'), current_id('{{evaluator_field.evaluator_id}}')"><icon class="mif-bin icon mr-3"></icon>Delete</button>
-                    </td> -->
+                    </td>
                         
                 </tr>
                 {% endfor %}

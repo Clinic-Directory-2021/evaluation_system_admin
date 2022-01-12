@@ -1302,11 +1302,12 @@ def save_summary(request):
                 }
 
     for data in evaluators_data:
+        facilitators = {}
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
-            for facilitators_data in facilitators:
-                temp_dict = facilitators_data.to_dict()
-                for key,data_dict in temp_dict.items():               
+        for facilitators_data in facilitators:
+            temp_dict = facilitators_data.to_dict()
+            for key,data_dict in temp_dict.items():               
                     func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)               
                 
         total_of_participant += 1
