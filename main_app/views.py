@@ -1068,7 +1068,7 @@ def post_edit_facilitator(request):
 
         #Update data in subcollection name: facilitator
         update_data = {
-            "facilaitator_id":facilitator_id,
+            "facilitator_id":facilitator_id,
             "facilitator_name":facilitator_name,
             "topic":topic,
             "start_time":start_time,
