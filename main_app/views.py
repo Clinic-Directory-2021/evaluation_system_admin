@@ -1516,7 +1516,7 @@ def save_summary(request):
     mean_3 =  statistics.mean([q21_mean,q22_mean,q23_mean])
     mean_4 =  statistics.mean([q24_mean,q25_mean,q26_mean,q26_mean])
 
-    overall_mean = round(statistics.mean([mean_1,mean_2,mean_3,mean_4]))
+    overall_mean = round(statistics.mean([mean_1,mean_2,mean_3,mean_4]),1)
     func.facilitator_overall_mean(facilitator_mean,facilitator_response)
             
     template_path = 'pdf_generated/generate_summary.html'
