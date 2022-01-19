@@ -35,6 +35,5 @@ function get_facilitator_id(){
 }
 
 function save_changes(){
-    alert(get_facilitator_id())
     window.location.href = "/post_edit_facilitator?facilitator_id="+get_facilitator_id()+"&facilitator_name="+$('#edit_facilitator_name').val()+"&topic="+$('#edit_topic').val()+"&start_time="+$('#edit_start_time').val()+"&end_time="+$('#edit_end_time').val();
 }
