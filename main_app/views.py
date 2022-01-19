@@ -459,7 +459,7 @@ def post_add_seminar(request):
                         facilitator_time = to_list_2[2]
                         time = facilitator_time.split('-')
                     facilitator_data = {
-                        "facilitator_id":str(facilitator_id),
+                        "facilitator_id":facilitator_name,
                         "facilitator_name":facilitator_name,
                         "topic":facilitator_topic,
                         "start_time":time[0],
@@ -546,7 +546,8 @@ def post_add_evaluator(request):
                     u'phone_number': phone_number,
                     u'position':position,
                     u'date_created':date_created,
-                    u'uid':uid
+                    u'uid':uid,
+                    u'password':password
                     }
                     db.collection(u'evaluators').document(str(evaluator_id)).set(data)
                     db.collection(u'evaluator_report').document(str(evaluator_id)).set(data)
@@ -599,12 +600,13 @@ def post_edit_seminar(request):
                 facilitator_time = to_list_2[2]
                 time = facilitator_time.split('-')
                 facilitator_data = {
+                "facilitator_id":facilitator_name,
                 "facilitator_name":facilitator_name,
                 "topic":topic,
                 "start_time":time[0],
                 "end_time":time[1]
                 }
-                update_seminar.collection('facilitators').document().set(facilitator_data)
+                update_seminar.collection('facilitators').document(facilitator_name).set(facilitator_data)
                 update_seminar_report.collection('facilitators').document().set(facilitator_data)
 
         docs = db.collection(u'seminars').get()
