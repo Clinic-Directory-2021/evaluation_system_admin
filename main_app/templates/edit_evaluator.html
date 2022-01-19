@@ -18,6 +18,9 @@
 </div>
 <form action="/post_edit_evaluator/" method="POST">
     {% csrf_token %}
+        <input type="hidden" id="date_created" name="date_created" value="{{date_created}}">
+        <input type="hidden" id="evaluator_id" name="evaluator_id" value="{{evaluator_id}}">
+        <input type="hidden" id="uid" name="uid" value="{{uid}}">
 <div class="content">
     <table class="table">
         <thead>
@@ -62,20 +65,21 @@
                 <input type="text" data-role="input" class="" placeholder="Enter Last Name" name="last_name" value="{{last_name}}">
             </td>
             <td>
-                <p><b>Address</b></p>
+                <p><b>School/Office</b></p>
                 <input type="text" data-role="input" class="" placeholder="Enter School" name="school" value="{{school}}">
             </td>
         </tr>
         <tr>
             <td>
                 <p><b>Phone Number</b></p>
-                <input type="number" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number" value="{{phone_number}}">
+                <input type="text" data-role="input" class="" placeholder="Enter Phone Number" name="phone_number" value="{{phone_number}}">
             </td>
             <td>
-                <p><b>Birth Date</b></p>
-                <input type="text" data-role="input" class="" placeholder="Enter Position" name="birth_date" value="{{position}}">
+                <p><b>Position</b></p>
+                <input type="text" data-role="input" class="" placeholder="Enter Position" name="position" value="{{position}}">
             </td>
         </tr>
+        
         <tr>
             <td>
                 <button class="button success" type="submit" name="create">Save Changes</button>

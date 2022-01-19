@@ -239,6 +239,8 @@ def edit_evaluator(request):
             school = u'{}'.format(doc.to_dict()['school_office'])
             phone_number = u'{}'.format(doc.to_dict()['phone_number'])
             position = u'{}'.format(doc.to_dict()['position'])
+            uid = u'{}'.format(doc.to_dict()['uid'])
+            date_created = u'{}'.format(doc.to_dict()['date_created'])
             pass_data = {
                 "first_name":first_name,
                 "middle_name":middle_name,
@@ -247,7 +249,12 @@ def edit_evaluator(request):
                 "gender":gender,
                 "school":school,
                 "phone_number":phone_number,
-                "position":position}
+                "position":position,
+                "uid":uid,
+                "evaluator_id":current_id,
+                "date_created":date_created
+                }
+            print(phone_number)
             return render(request,'edit_evaluator.html',pass_data)
         else:
             print('ssss')
@@ -429,7 +436,6 @@ def post_add_seminar(request):
     facilitator_id = calendar.timegm(date_created.timetuple())
     try:
         if validation == "yes":
-                
                 data = {
                         u'seminar_title': seminar_title,
                         u'program_owner':program_owner,
@@ -459,8 +465,8 @@ def post_add_seminar(request):
                         "start_time":time[0],
                         "end_time":time[1]
                     }
-                    seminar.collection('facilitators').document(str(facilitator_id)).set(facilitator_data)
-                    seminar_report.collection('facilitators').document(str(facilitator_id)).set(facilitator_data)
+                    seminar.collection('facilitators').document(facilitator_name).set(facilitator_data)
+                    seminar_report.collection('facilitators').document(facilitator_name).set(facilitator_data)
                 
                 #to traverse manage seminar
                 docs = db.collection(u'seminars').get()
@@ -647,29 +653,38 @@ def post_edit_evaluator(request):
     phone_number = request.POST.get('phone_number')
     school = request.POST.get('school')
     position = request.POST.get('position')
-    update_evaluator = db.collection(u'evaluators').document(current_id)
-    updated_data = {
-        u'first_name': first_name,
-        u'middle_name':middle_name,
-        u'last_name':last_name,
-        u'email': str(email),
-        u'gender':gender,
-        u'phone_number':phone_number,
-        u'school': school,
-        u'position':position,
-        }
-    update_evaluator.update(updated_data)
+    uid = request.POST.get('uid')
+    evaluator_id = request.POST.get('evaluator_id')
+    date_created = request.POST.get('date_created')
+    try:
+        update_evaluator = db.collection(u'evaluators').document(current_id)
+        updated_data = {
+            u'first_name': first_name,
+            u'middle_name':middle_name,
+            u'last_name':last_name,
+            u'email': str(email),
+            u'gender':gender,
+            u'phone_number':phone_number,
+            u'school_office': school,
+            u'position':position,
+            u"uid":uid,
+            u"evaluator_id":evaluator_id,
+            u"date_created":date_created
+            }
+        update_evaluator.update(updated_data)
 
-    docs = db.collection(u'evaluators').get()
-    evaluator_id = {
-        
-    }
-    ctr = 0
-    for doc in docs:
-        ctr = ctr + 1
-        evaluator_id[ctr] = doc.id 
-        return render(request,'manage_evaluator.html',{"evaluator_data":[doc.to_dict() for doc in docs],"evaluator_id":id})
-    return render(request,'manage_evaluator.html')
+        docs = db.collection(u'evaluators').get()
+        # evaluator_id = {
+            
+        # }
+        ctr = 0
+        for doc in docs:
+            ctr = ctr + 1
+            # evaluator_id[ctr] = doc.id 
+            return render(request,'manage_evaluator.html',{"evaluator_data":[doc.to_dict() for doc in docs],"validation_text":"Successfully Edit " + first_name + " " + middle_name + " " + last_name + " Info."})
+    except Exception as e:
+        print(str(e))
+        return render(request,'manage_evaluator.html')
 
 def post_start_seminar(request):
     current_id = request.POST.get('seminar_id')
@@ -690,7 +705,7 @@ def post_start_seminar(request):
     u'date': date_created,
     u'seminar_date_id': seminar_date_id,
     u'seminar_id': current_id,
-    u'seminar_name':seminar_name
+    u'seminar_title':seminar_name
     }
     print(seminar_date_id)
     evaluations_collection = db.collection(u'evaluations').document(current_id)
