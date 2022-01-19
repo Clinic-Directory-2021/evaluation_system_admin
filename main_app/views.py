@@ -169,6 +169,7 @@ def view_seminar_information(request):
 
         evaluation_data = evaluations.collection('evaluators').get()
         evaluation_count = 0
+        evaluator_id = ""
         for doc in evaluation_data:
             evaluator_id = str(doc.id)
             print(evaluator_id)
@@ -696,6 +697,7 @@ def post_start_seminar(request):
     docs = db.collection(u'seminars').get()
     seminar_docs =  seminar_document.get()
     seminar_name = u'{}'.format(seminar_docs.to_dict()['seminar_title'])
+    program_owner = u'{}'.format(seminar_docs.to_dict()['program_owner'])
     date_created = datetime.now()
     seminar_date_id = calendar.timegm(date_created.timetuple())
     seminar_id = {
@@ -707,7 +709,8 @@ def post_start_seminar(request):
     u'date': date_created,
     u'seminar_date_id': seminar_date_id,
     u'seminar_id': current_id,
-    u'seminar_title':seminar_name
+    u'seminar_title':seminar_name,
+    u'program_owner':program_owner
     }
     print(seminar_date_id)
     evaluations_collection = db.collection(u'evaluations').document(current_id)
