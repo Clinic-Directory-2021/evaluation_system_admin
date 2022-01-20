@@ -7,12 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{seminar_title}} Report</h1>
-    <h2>{{date}}</h2>
+    <h1 align="center">Seminar Evaluation Report</h1>
+    <h1><label for="">Seminar/Webinar: </label>{{seminar_title}}</h1>
+    <h2><label for="">Program Owner: </label>{{program_owner}}</h2>
+    <h2><label for="">Seminar/Webinar Date: </label>{{date_posted}}</h2>
+    <h2><label for="">Total of Participants: </label>{{total_of_participants}}</h2>
+    <h2><label for="">Total Responses: </label>{{total_of_participants}}</h2>
     <!-- <h2>Total No. Of Participants {{facilitator_dict}}</h2>
     <h2>Total No. of Evaluators {{facilitator_response}} {{q9}}</h2>
     <h2>Percentage of Evaluation {{facilitator_mean}} </h2> -->
-    
+    In <b>{{date_posted}}</b>, herewith attached the following comprehensie report on the seminar assessment and evaluation of <b>{{seminar_title}}</b> in collaboration with the program owner <b>{{program_owner}}</b>, which includes the mean report for each question criterion and facilitator rating:
     <h2>EVALUATION OF SESSIONS AND FACILITATOR</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
@@ -100,6 +104,16 @@
             </tr>
         </tbody>
     </table>
+    {% if mean_1 == 4.0 and mean_1 >= 3.90 %}
+    <p>To recap briefly, Session/Content Delivery for <b>{{seminar_title}}</b> achieved a mean score of <b>{{mean_1}}</b>, indicatiing that the seminar/webinar was <b>Excellent</b></p>
+    {% elif mean_1 <= 3.89 and mean_1 >= 3.50 %}
+    <p>To recap briefly, Session/Content Delivery for <b>{{seminar_title}}</b> achieved a mean score of <b>{{mean_1}}</b>, indicatiing that the seminar/webinar was <b>Good</b></p>
+    {% elif mean_1 <= 3.49 and mean_1 >= 3.10 %}
+    <p>To recap briefly, Session/Content Delivery for <b>{{seminar_title}}</b> achieved a mean score of <b>{{mean_1}}</b>, indicatiing that the seminar/webinar was <b>Fair</b></p>
+    {% elif mean_1 <= 3.09 %}
+    <p>To recap briefly, Session/Content Delivery for <b>{{seminar_title}}</b> achieved a mean score of <b>{{mean_1}}</b>, indicatiing that the seminar/webinar was <b>Needs Improvement</b></p>
+    {% endif %}
+    
     <br>
     <!-- #facilitators -->
     <h2>FACILITATORS</h2>
@@ -205,6 +219,15 @@
             </tr>
         </tbody>
     </table>
+    {% if mean_2 == 4.0 and mean_2 >= 3.90 %}
+    <p>In terms if the Program Management and Operation of the seminar/webinar <b>{{seminar_title}}</b> it received a mean score of <b>{{mean_1}}</b>, denoting the evaluators assessed it as <b>Excellent</b></p>
+    {% elif mean_2 <= 3.89 and mean_2 >= 3.50 %}
+    <p>In terms if the Program Management and Operation of the seminar/webinar <b>{{seminar_title}}</b> it received a mean score of <b>{{mean_1}}</b>, denoting the evaluators assessed it as <b>Good</b></p>
+    {% elif mean_2 <= 3.49 and mean_2 >= 3.10 %}
+    <p>In terms if the Program Management and Operation of the seminar/webinar <b>{{seminar_title}}</b> it received a mean score of <b>{{mean_1}}</b>, denoting the evaluators assessed it as <b>Fair</b></p>
+    {% elif mean_2 <= 3.09 %}
+    <p>In terms if the Program Management and Operation of the seminar/webinar <b>{{seminar_title}}</b> it received a mean score of <b>{{mean_1}}</b>, denoting the evaluators assessed it as <b>Needs Improvement</b></p>
+    {% endif %}
     <br>
     <h2>PROVISIONS OF SUPPORT MATERIALS</h2>
     <table style="border: 1px solid black; text-align: center;">
@@ -250,6 +273,15 @@
             </tr>
         </tbody>
     </table>
+    {% if mean_3 == 4.0 and mean_3 >= 3.90 %}
+    <p>The Provision of Support Materials is assessed by the evaluators as <b>Excellent</b> receiving a mean score of <b>{{mean_1}}</b>
+    {% elif mean_3 <= 3.89 and mean_3 >= 3.50 %}
+    <p>The Provision of Support Materials is assessed by the evaluators as <b>Good</b> receiving a mean score of <b>{{mean_1}}</b>>
+    {% elif mean_3 <= 3.49 and mean_3 >= 3.10 %}
+    <p>The Provision of Support Materials is assessed by the evaluators as <b>Fair</b> receiving a mean score of <b>{{mean_1}}</b>
+    {% elif mean_3 <= 3.09 %}
+    <p>The Provision of Support Materials is assessed by the evaluators as <b>Needs Improvement</b> receiving a mean score of <b>{{mean_1}}</b>
+    {% endif %}
     <br>
     <h2>PROGRAM MANAGEMENT TEAM</h2>
     <table style="border: 1px solid black; text-align: center;">
@@ -302,8 +334,28 @@
             </tr>
         </tbody>
     </table>
+    {% if mean_4 == 4.0 and mean_4 >= 3.90 %}
+    <p>In summary, Program management team of <b>{{seminar_title}}</b> achieved a mean score of <b>{{mean_1}}</b>, indicating that they performed <b>Excellent</b></p> as assessed by the evaluators of the seminar/webinar.</p>
+    {% elif mean_4 <= 3.89 and mean_4 >= 3.50 %}
+    <p>In summary, Program management team of <b>{{seminar_title}}</b> achieved a mean score of <b>{{mean_1}}</b>, indicating that they performed <b>Good</b></p> as assessed by the evaluators of the seminar/webinar.</p>
+    {% elif mean_4 <= 3.49 and mean_4 >= 3.10 %}
+    <p>In summary, Program management team of <b>{{seminar_title}}</b> achieved a mean score of <b>{{mean_1}}</b>, indicating that they performed <b>Fair</b></p> as assessed by the evaluators of the seminar/webinar.</p>
+    {% elif mean_4 <= 3.09 %}
+    <p>In summary, Program management team of <b>{{seminar_title}}</b> achieved a mean score of <b>{{mean_1}}</b>, indicating that they performed <b>Needs Improvement</b></p> as assessed by the evaluators of the seminar/webinar.</p>
+    {% endif %}
     <br>
     <h2 align="right">OVERALL MEAN</h2>
     <h1 align="right">{{overall_mean}}</h1>
+    {% if overall_mean == 4.0 and overall_mean >= 3.90 %}
+    <p>The seminar/webinar <b>{{seminar_title</b> was concluded to be <b>Excellent</b> based on the overall mean score evaluated.</p>
+    {% elif overall_mean <= 3.89 and overall_mean >= 3.50 %}
+    <p>The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>Good</b> based on the overall mean score evaluated.</p>
+    {% elif overall_mean <= 3.49 and overall_mean >= 3.10 %}
+    <p>The seminar/webinar <b>seminar_title</b> was concluded to be <b>Fair</b> based on the overall mean score evaluated.</p>
+    {% elif overall_mean <= 3.09 %}
+    <p>The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>Fair</b> based on the overall mean score evaluated.</p>
+    {% endif %}
+    <br>
+    <p>depedevaluationsystem.herokuapp.com</p>
 </body>
 </html>

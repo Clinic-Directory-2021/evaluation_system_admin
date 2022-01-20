@@ -166,7 +166,7 @@ def view_seminar_information(request):
         seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
         date = u'{}'.format(seminar.to_dict()['date'])
         program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
-
+        print(u'{}'.format(seminar.to_dict()['date']))
         evaluation_data = evaluations.collection('evaluators').get()
         evaluation_count = 0
         evaluator_id = ""
@@ -710,7 +710,8 @@ def post_start_seminar(request):
     u'seminar_date_id': seminar_date_id,
     u'seminar_id': current_id,
     u'seminar_title':seminar_name,
-    u'program_owner':program_owner
+    u'program_owner':program_owner,
+    u'status':"open"
     }
     print(seminar_date_id)
     evaluations_collection = db.collection(u'evaluations').document(current_id)
@@ -731,6 +732,7 @@ def post_view_seminar_actions(request):
             evaluator_id = request.POST.get('evaluator_id')
             seminar_title = request.POST.get('seminar_title')
             date_created = request.POST.get('date')
+            print(request.POST.get('date'))
             evaluation_report_field = {
                 'date': date_created,
                 "program_owner": program_owner,
@@ -780,29 +782,15 @@ def post_view_seminar_actions(request):
 def delete_seminar(request):
     try:
         current_id = request.GET.get('current_id')
-        db.collection(u'seminars').document(current_id).delete()
+        # db.collection(u'seminars').document(current_id).delete()
+        seminar_document = db.collection(u'seminars').document(str(current_id))
+        seminar_document.update({u'status': "close"})
         docs = db.collection(u'seminars').get()
-        seminar_id = {
-            
-        }
-        ctr = 0
-        for doc in docs:
-            ctr = ctr + 1
-            seminar_id[ctr] = doc.id 
-            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
-        return render(request,'manage_seminar.html')
+        return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
     except Exception as e:
         print(str(e))
         docs = db.collection(u'seminars').get()
-        seminar_id = {
-            
-        }
-        ctr = 0
-        for doc in docs:
-            ctr = ctr + 1
-            seminar_id[ctr] = doc.id 
-            return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
-        return render(request,'manage_seminar.html')
+        return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
 
 def delete_facilitator(request):
     current_id = request.GET.get('current_id')
@@ -824,6 +812,15 @@ def delete_evaluator(request):
         evaluator_document = db.collection(u'evaluators').document(current_id)
         data = evaluator_document.get()
         uid_token =  u'{}'.format(data.to_dict()['uid'])
+        already_evaluated = evaluator_document.collection('already_evaluated').get()
+        history = evaluator_document.collection('history').get()
+        for evaluated_doc in already_evaluated:
+            evaluator_document.collection('already_evaluated').document(evaluated_doc.id).delete()
+        for history_doc in already_evaluated:
+            facilitator_doc = evaluator_document.collection('history').document(history_doc.id).collection('facilitators').get()
+            for doc in facilitator_doc:
+                evaluator_document.collection('history').document(history_doc.id).collection('facilitators').document(doc.id).delete()
+                evaluator_document.collection('history').document(history_doc.id).delete()
         evaluator_document.delete()
         auth.delete_user(uid_token)
         docs = db.collection(u'evaluators').get()
@@ -1299,6 +1296,7 @@ def save_summary(request):
     evaluation_report = db.collection(u'evaluation_report').document(current_id)
     evaluation_data = evaluation_report.get()
     seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
+    program_owner = u'{}'.format(evaluation_data.to_dict()['program_owner'])
     date = u'{}'.format(evaluation_data.to_dict()['date'])
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
@@ -1321,14 +1319,14 @@ def save_summary(request):
                 "q17":{"4":0,"3":0,"2":0,"1":0,"mean":0},
                 }
 
-    # for data in evaluators_data:
+    
     for evaluator_data in evaluators_data:
         facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
         for facilitators_data in facilitators:
             temp_dict = facilitators_data.to_dict()
             for key,data_dict in temp_dict.items():               
                         func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)               
-                
+    for data in evaluators_data:   
         total_of_participant += 1
         q1 = u'{}'.format(data.to_dict()['q1'])
         q2 = u'{}'.format(data.to_dict()['q2'])
@@ -1538,11 +1536,12 @@ def save_summary(request):
 
     overall_mean = round(statistics.mean([mean_1,mean_2,mean_3,mean_4]),1)
     func.facilitator_overall_mean(facilitator_mean,facilitator_response)
-            
+    print(q1_dict)
     template_path = 'pdf_generated/generate_summary.html'
     context = {
         'seminar_title':seminar_title,
         'date_posted':date,
+        'program_owner':program_owner,
         'q1':q1_dict,
         'q2':q2_dict,
         'q3':q3_dict,
@@ -1579,13 +1578,14 @@ def save_summary(request):
         "q25_mean":q25_mean,
         "q26_mean":q26_mean,
         "q27_mean":q27_mean,
+        "total_of_participants":total_of_participant,
         "facilitator_response":facilitator_response,
         "facilitator_mean":facilitator_mean,
         "test":mean_1,
-        "mean_1":mean_1,
-        "mean_2":mean_2,
-        "mean_3":mean_3,
-        "mean_4":mean_4,
+        "mean_1":round(mean_1,1),
+        "mean_2":round(mean_2,1),
+        "mean_3":round(mean_3,1),
+        "mean_4":round(mean_4,1),
         "facilitator_question":facilitator_question,
         "overall_mean":overall_mean
         }
