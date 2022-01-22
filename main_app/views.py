@@ -1587,7 +1587,8 @@ def save_summary(request):
         "mean_3":round(mean_3,1),
         "mean_4":round(mean_4,1),
         "facilitator_question":facilitator_question,
-        "overall_mean":overall_mean
+        "overall_mean":overall_mean,
+        "comments":[comment_data.to_dict() for comment_data in evaluators_data]
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
