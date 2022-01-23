@@ -18,6 +18,7 @@
     table thead,tbody tr td {
         padding: 10px;
         height: 80px;
+        width: 300px;
     }
 </style>
 <body>
@@ -400,10 +401,31 @@
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{data.evaluatorEmail}}</td>
+
+                {% if data.c1 == '' %}
+                <td>No Comment</td>
+                {% else %}
                 <td>{{data.c1}}</td>
+                {% endif %}
+
+                {% if data.c2 == '' %}
+                <td>No Comment</td>
+                {% else %}
                 <td>{{data.c2}}</td>
+                {% endif %}
+                
+                {% if data.c3 == '' %}
+                <td>No Comment</td>
+                {% else %}
                 <td>{{data.c3}}</td>
+                {% endif %}
+
+                {% if data.c4 == '' %}
+                <td>No Comment</td>
+                {% else %}
                 <td>{{data.c4}}</td>
+                {% endif %}
+
             </tr>
             {% endfor %}
         </tbody>
