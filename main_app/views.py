@@ -783,8 +783,16 @@ def delete_seminar(request):
     try:
         current_id = request.GET.get('current_id')
         # db.collection(u'seminars').document(current_id).delete()
-        seminar_document = db.collection(u'seminars').document(str(current_id))
-        seminar_document.update({u'status': "close"})
+        seminar = db.collection(u'seminars')
+        seminar_doc = seminar.get()
+        for doc in seminar_doc:
+            facilitator = seminar.document(doc.id).collection('facilitators').get()
+            print('doc1:'+doc.id)
+            for doc2 in facilitator:
+                seminar.document(doc.id).collection('facilitators').document(doc2.id).delete()
+                print(doc2.id)
+        seminar.document(str(current_id)).delete()
+        # seminar_document.update({u'status': "close"})
         docs = db.collection(u'seminars').get()
         return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
     except Exception as e:
