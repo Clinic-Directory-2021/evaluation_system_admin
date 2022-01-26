@@ -1,0 +1,12 @@
+evaluator side:
+-date posted -> date created
+-seminars available -> seminar title
+-excellent , fair ,bad, needs improvement -> excellent very good good fair
+-facilitator -> evaluation status(remove the facilitator above the button)
+-Evaluation -> Seminar Details
+-change the logo(i will send it)
+-website name: City Schools Division of Malolos Online Evaluation System
+-Font-Family : Bookman
+
+-admin side:
+-website name:  City Schools Division of Malolos Online Evaluation System Admin
