@@ -15,24 +15,47 @@
         background-color: #4B778D;
         color: whitesmoke;
     }
-    table thead,tbody tr td {
+    table thead {
         padding: 10px;
         height: 80px;
+    }
+    table tbody tr td{
+        font-size: 14px;
+        height: 100px;
+    }
+    .legends tbody tr td{
+        width: 100%;
+        border: 1px solid black; 
+        text-align: center; 
+        font-size: 14px; 
+        height: 30px;
     }
 </style>
 <body>
     <h1 align="center">SEMINAR EVALUATION REPORT</h1>
     <hr>
-    <h1><label for="">Seminar/Webinar: </label>{{seminar_title}}</h1>
-    <h2><label for="">Program Owner: </label>{{program_owner}}</h2>
-    <h2><label for="">Seminar/Webinar Date: </label>{{date_posted}}</h2>
-    <h2><label for="">Total of Participants: </label>{{total_of_participants}}</h2>
-    <h2><label for="">Total Responses: </label>{{total_of_participants}}</h2>
+    <p style="font-size: 14px;"><b><label for="">Title of Seminar: </label></b> {{seminar_title}}</p>
+    <p style="font-size: 14px;"><b><label for="">Program Owner: </label></b>{{program_owner}}</p>
+    <p style="font-size: 14px;"><b><label for="">Seminar/Webinar Date: </label></b>{{date_posted}}</p>
+    <p style="font-size: 14px;"><b><label for="">Total number of Participants: </label></b>{{total_of_participants}}</p>
+    <p style="font-size: 14px;"><b><label for="">Total Responses: </label></b>{{total_of_participants}}</p>
     <hr>
     <!-- <h2>Total No. Of Participants {{facilitator_dict}}</h2>
     <h2>Total No. of Evaluators {{facilitator_response}} {{q9}}</h2>
     <h2>Percentage of Evaluation {{facilitator_mean}} </h2> -->
     <!-- <p style="text-indent: 1em;">In <b>{{date_posted}}</b>, herewith attached the following comprehensive report on the seminar assessment and evaluation of <b>{{seminar_title}}</b> in collaboration with the program owner <b>{{program_owner}}</b>, which includes the mean report for each question criterion and facilitator rating:</p> -->
+    <p style="text-indent: 1em;">Please complete the following evaluation for the educational seminar you attended. Your feedback will help us evaluate the effectiveness of this program and allow us to make improvements in the future. Thank you.</p>
+    <table class="legends">
+        <tbody>
+            <tr>
+                <td>4 = Strongly Agree</td>
+                <td>3 = Agree</td>
+                <td>2 = Disagree</td>
+                <td>1 = Strongly Disagree</td>
+            </tr>
+        </tbody>
+    </table>
+    
     <h2>EVALUATION OF SESSIONS AND FACILITATOR</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
@@ -42,80 +65,80 @@
                 <th>2</th>
                 <th>3</th>
                 <th>4</th>
-                <th>mean</th>
+                <th>Mean</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><h1>Program objectives were clearly presented</h1></td>
-                {% for key,values in q1.items %}
+                <td><h6>Program objectives were clearly presented</h6></td>
+                {% for key,values in q1.items reversed %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q1_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Program objectives were attained</h1></td>
-                {% for key,values in q2.items %}
+                <td><h6>Program objectives were attained</h6></td>
+                {% for key,values in q2.items reversed %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q2_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Program content was appropriate to trainees roles and responsibility</h1></td>
-                {% for key,values in q3.items %}
+                <td><h6>Program content was appropriate to trainees roles and responsibility</h6></td>
+                {% for key,values in q3.items reversed %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q3_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Content delivered was based on authoritative and reliable sources</h1></td>
-                {% for key,values in q4.items %}
+                <td><h6>Content delivered was based on authoritative and reliable sources</h6></td>
+                {% for key,values in q4.items reversed %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q4_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Sessions activities were effective in generating learning</h1></td>
-                {% for key,values in q5.items %}
+                <td><h6>Sessions activities were effective in generating learning</h6></td>
+                {% for key,values in q5.items reversed %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q5_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Adult learning methodologies were used</h1></td>
-                {% for key,values in q6.items %}
+                <td><h6>Adult learning methodologies were used</h6></td>
+                {% for key,values in q6.items  reversed %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q6_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Program followed a logical order/structure</h1></td>
-                {% for key,values in q7.items %}
+                <td><h6>Program followed a logical order/structure</h6></td>
+                {% for key,values in q7.items reversed %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q7_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Contribution of all trainees was encouraged</h1></td>
-                {% for key,values in q8.items %}
+                <td><h6>Contribution of all trainees was encouraged</h6></td>
+                {% for key,values in q8.items reversed %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q8_mean}}</td>
             </tr>
             <tr>
-                <td colspan="5"></td>
-                <td>{{mean_1}}</td>
+                <td colspan="3">Numerical Rating</td>
+                <td colspan="3">{{mean_1}}</td>
             </tr>
             <tr>
-                <td colspan="5"></td>
+                <td colspan="3">Descriptive Rating</td>
                 {% if mean_1 == 4.0 and mean_1 >= 3.51 %}
-                <td style="background-color: green;">Excellent</td>
+                <td colspan="3" style="background-color: green;">Excellent</td>
                 {% elif mean_1 <= 3.50 and mean_1 >= 2.51 %}
-                <td style="background-color: #8AFF8A;">Very Good</td>
+                <td colspan="3" style="background-color: #8AFF8A;">Very Good</td>
                 {% elif mean_1 <= 2.50 and mean_1 >= 1.51 %}
-                <td style="background-color: orange;">Good</td>
+                <td colspan="3" style="background-color: orange;">Good</td>
                 {% elif mean_1 <= 1.50 %}
-                <td style="background-color: red;">Fair</td>
+                <td colspan="3" style="background-color: red;">Fair</td>
                 {% endif %}
             </tr>
         </tbody>
@@ -135,7 +158,8 @@
     <h2>FACILITATORS</h2>
     {% for key1,value1 in facilitator_response.items %}
     
-    <h1>{{key1}}</h1>
+    <h1>Name: {{key1}}</h1>
+    <h2>Topic: </h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
@@ -144,43 +168,45 @@
                 <th>2</th>
                 <th>3</th>
                 <th>4</th>
-                <th>mean</th>
+                <th>Mean</th>
             </tr>
         </thead>
         <tbody>
-            {% for key2,value2 in value1.items %}
+            {% for key2,value2 in value1.items  %}
             <tr>
                 {% for index, val in facilitator_question.items %}
                 {% if index == key2 %}
-                <td><h1>{{val}}</h1></td>
+                <td><h6>{{val}}</h6></td>
                 {% endif %}
                 {% endfor %}
                 {% for key3,value3 in value2.items %}
+                <!-- {%  if value3 != mean%} -->
                 <td>{{value3}}</td>
+                <!-- {% endif %} -->
                 {% endfor %}
             </tr>
             {% endfor %}
             <tr>
-                <td colspan="5"></td>
+                <td colspan="3">Numerical Rating</td>
                 {% for key_name, val in facilitator_mean.items %}
                 {% if key_name == key1 %}
-                <td>{{val}}</td>
+                <td colspan="3">{{val}}</td>
                 {% endif %}
                 {% endfor %}
             </tr>
             <tr>
-                <td colspan="5"></td>
+                <td colspan="3">Descriptive Rating</td>
                 {% for key_name, val in facilitator_mean.items %}
                 {% if key_name == key1 %}
 
                 {% if val == 4.0 and val >= 3.51 %}
-                <td style="background-color: green;">Excellent</td>
+                <td colspan="3" style="background-color: green;">Excellent</td>
                 {% elif val <= 3.50 and val >= 2.51 %}
-                <td style="background-color: #8AFF8A;">Very Good</td>
+                <td colspan="3" style="background-color: #8AFF8A;">Very Good</td>
                 {% elif val <= 2.50 and val >= 1.51 %}
-                <td style="background-color: orange;">Good</td>
+                <td colspan="3" style="background-color: orange;">Good</td>
                 {% elif val <= 1.50 %}
-                <td style="background-color: red;">Fair</td>
+                <td colspan="3" style="background-color: red;">Fair</td>
                 {% endif %}
 
                 {% endif %}
@@ -195,50 +221,50 @@
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
-                <th>PROGRAM MANAGEMENT/th>
+                <th>PROGRAM MANAGEMENT</th>
                 <th>1</th>
                 <th>2</th>
                 <th>3</th>
                 <th>4</th>
-                <th>mean</th>
+                <th>Mean</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><h1>Program objectives were clearly presented</h1></td>
+                <td><h6>Program objectives were clearly presented</h6></td>
                 {% for key,values in q18.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q18_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Program objectives were attained</h1></td>
+                <td><h6>Program objectives were attained</h6></td>
                 {% for key,values in q19.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q19_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Program content was appropriate to trainees roles and responsibility</h1></td>
+                <td><h6>Program content was appropriate to trainees roles and responsibility</h6></td>
                 {% for key,values in q20.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q20_mean}}</td>
             </tr>
             <tr>
-                <td colspan="5"></td>
-                <td>{{mean_2}}</td>
+                <td colspan="3">Numerical Rating</td>
+                <td colspan="3">{{mean_2}}</td>
             </tr>
             <tr>
-                <td colspan="5"></td>
+                <td colspan="3">Descriptive Rating</td>
                 {% if mean_2 == 4.0 and mean_2 >= 3.51 %}
-                <td style="background-color: green;">Excellent</td>
+                <td colspan="3" style="background-color: green;">Excellent</td>
                 {% elif mean_2 <= 3.50 and mean_2 >= 2.51 %}
-                <td style="background-color: #8AFF8A;">Very Good</td>
+                <td colspan="3" style="background-color: #8AFF8A;">Very Good</td>
                 {% elif mean_2 <= 2.50 and mean_2 >= 1.51 %}
-                <td style="background-color: orange;">Good</td>
+                <td colspan="3" style="background-color: orange;">Good</td>
                 {% elif mean_2 <= 1.50 %}
-                <td style="background-color: red;">Fair</td>
+                <td colspan="3" style="background-color: red;">Fair</td>
                 {% endif %}
             </tr>
         </tbody>
@@ -262,45 +288,45 @@
                 <th>2</th>
                 <th>3</th>
                 <th>4</th>
-                <th>mean</th>
+                <th>Mean</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><h1>Program objectives were clearly presented</h1></td>
+                <td><h6>Program objectives were clearly presented</h6></td>
                 {% for key,values in q21.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q21_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Program objectives were attained</h1></td>
+                <td><h6>Program objectives were attained</h6></td>
                 {% for key,values in q22.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q22_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Program content was appropriate to trainees roles and responsibility</h1></td>
+                <td><h6>Program content was appropriate to trainees roles and responsibility</h6></td>
                 {% for key,values in q23.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q23_mean}}</td>
             </tr>
             <tr>
-                <td colspan="5"></td>
-                <td>{{mean_3}}</td>
+                <td colspan="3">Numerical Rating</td>
+                <td colspan="3">{{mean_3}}</td>
             </tr>
             <tr>
-                <td colspan="5"></td>
+                <td colspan="3">Descriptive Rating</td>
                 {% if mean_3 == 4.0 and mean_3 >= 3.51 %}
-                <td style="background-color: green;">Excellent</td>
+                <td colspan="3" style="background-color: green;">Excellent</td>
                 {% elif mean_3 <= 3.50 and mean_3 >= 2.51 %}
-                <td style="background-color: #8AFF8A;">Very Good</td>
+                <td colspan="3" style="background-color: #8AFF8A;">Very Good</td>
                 {% elif mean_3 <= 2.50 and mean_3 >= 1.51 %}
-                <td style="background-color: orange;">Good</td>
+                <td colspan="3" style="background-color: orange;">Good</td>
                 {% elif mean_3 <= 1.50 %}
-                <td style="background-color: red;">Fair</td>
+                <td colspan="3" style="background-color: red;">Fair</td>
                 {% endif %}
             </tr>
         </tbody>
@@ -324,52 +350,52 @@
                 <th>2</th>
                 <th>3</th>
                 <th>4</th>
-                <th>mean</th>
+                <th>Mean</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><h1>Program objectives were clearly presented</h1></td>
+                <td><h6>Program objectives were clearly presented</h6></td>
                 {% for key,values in q24.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q24_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Program objectives were attained</h1></td>
+                <td><h6>Program objectives were attained</h6></td>
                 {% for key,values in q25.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q25_mean}}</td>
             </tr>
             <tr>
-                <td><h1>Program content was appropriate to trainees roles and responsibility</h1></td>
+                <td><h6>Program content was appropriate to trainees roles and responsibility</h6></td>
                 {% for key,values in q26.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q26_mean}}</td>
             </tr>
             <tr>
-                    <td><h1>Program content was appropriate to trainees roles and responsibility</h1></td>
+                    <td><h6>Program content was appropriate to trainees roles and responsibility</h6></td>
                     {% for key,values in q27.items %}
                     <td>{{values}}</td>
                     {% endfor %}
                     <td>{{q27_mean}}</td>
             </tr>
             <tr>
-                <td colspan="5"></td>
-                <td>{{mean_4}}</td>
+                <td colspan="3">Numerical Rating</td>
+                <td colspan="3">{{mean_4}}</td>
             </tr>
-            <t  r>
-                <td colspan="5"></td>
+            <tr>
+                <td colspan="3">Descriptive Rating</td>
                 {% if mean_4 == 4.0 and mean_4 >= 3.51 %}
-                <td style="background-color: green;">Excellent</td>
+                <td colspan="3" style="background-color: green;">Excellent</td>
                 {% elif mean_4 <= 3.50 and mean_4 >= 2.51 %}
-                <td style="background-color: #d472bc;">Very Good</td>
+                <td colspan="3" style="background-color: #d472bc;">Very Good</td>
                 {% elif mean_4 <= 2.50 and mean_4 >= 1.51 %}
-                <td style="background-color: orange;">Good</td>
+                <td colspan="3" style="background-color: orange;">Good</td>
                 {% elif mean_4 <= 1.50 %}
-                <td style="background-color: red;">Fair</td>
+                <td colspan="3" style="background-color: red;">Fair</td>
                 {% endif %}
             </tr>
         </tbody>
@@ -506,7 +532,7 @@
     
     
     </table>
-    <!-- {% if overall_mean == 4.0 and overall_mean >= 3.51 %}
+    {% if overall_mean == 4.0 and overall_mean >= 3.51 %}
     <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>EXCELLENT</b> based on the overall mean score evaluated.</p>
     {% elif overall_mean <= 3.50 and overall_mean >= 2.51 %}
     <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>VERY GOOD</b> based on the overall mean score evaluated.</p>
@@ -514,8 +540,7 @@
     <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>GOOD</b> based on the overall mean score evaluated.</p>
     {% elif overall_mean <= 1.50 %}
     <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>Fair</b> based on the overall mean score evaluated.</p>
-    {% endif %} -->
-    <br>
+    {% endif %}
     <hr>
     <p>depedevaluationsystem.herokuapp.com</p>
 </body>
