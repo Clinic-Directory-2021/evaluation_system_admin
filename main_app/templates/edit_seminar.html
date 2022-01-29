@@ -27,6 +27,7 @@
                         <thead class="bg-light">
                             <th>#</th>
                             <th>Facilitator Full Name</th>
+                            <th>Position</th>
                             <th>Topic</th>
                             <th>Start of Speak</th>
                             <th>End of Speak</th>
@@ -40,6 +41,7 @@
                             <tr>
                                 <td>{{forloop.counter}}</td>
                                 <td>{{facilitator_data.facilitator_name}}</td>
+                                <td>{{facilitator_data.position}}</td>
                                 <td>{{facilitator_data.topic}}</td>
                                 <td>{{facilitator_data.start_time}}</td>
                                 <td>{{facilitator_data.end_time}}</td>
@@ -48,7 +50,7 @@
                                     data-role="hint"
                                     data-hint-position="top"
                                     data-hint-text="Edit Facilitator Data"
-                                    data-cls-hint="bg-green fg-white drop-shadow" name="edit_button" onclick="Metro.dialog.open('#edit_dialog'), set_facilitator_data('{{facilitator_data.facilitator_name}}','{{facilitator_data.topic}}','{{facilitator_data.start_time}}','{{facilitator_data.end_time}}','{{facilitator_data.facilitator_id}}')">Edit</button>
+                                    data-cls-hint="bg-green fg-white drop-shadow" name="edit_button" onclick="Metro.dialog.open('#edit_dialog'), set_facilitator_data('{{facilitator_data.facilitator_name}}','{{facilitator_data.position}}','{{facilitator_data.topic}}','{{facilitator_data.start_time}}','{{facilitator_data.end_time}}','{{facilitator_data.facilitator_id}}')">Edit</button>
                                     <button class="button alert"
                                     data-role="hint"
                                     data-hint-position="top"
@@ -116,6 +118,8 @@
     <div class="dialog-content">
         <p><b>Facilitator name</b></p>
         <input type="text" data-role="input" id="facilitator_name" placeholder="Enter Facilitator Name" name="facilitator_name" required>
+        <p><b>Position</b></p>
+        <input type="text" data-role="input" id="position" placeholder="Enter Facilitator Name" name="position" required>
         <p><b>Topic</b></p>
         <input type="text" data-role="input" id="topic" placeholder="Enter Facilitator's Topic" name="topic" required>
         <p><b>Facilitator Speak TIme</b></p>
@@ -148,6 +152,8 @@
     <div class="dialog-content">
         <p><b>Facilitator name</b></p>
         <input type="text" data-role="input" id="edit_facilitator_name" placeholder="Enter Facilitator Name" name="facilitator_name" required>
+        <p><b>Position</b></p>
+        <input type="text" data-role="input" id="edit_position" placeholder="Enter Facilitator Name" name="position" required>
         <p><b>Topic</b></p>
         <input type="text" data-role="input" id="edit_topic" placeholder="Enter Facilitator's Topic" name="topic" required>
         <p><b>Facilitator Speak TIme</b></p>

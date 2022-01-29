@@ -456,11 +456,13 @@ def post_add_seminar(request):
                     else:
                         to_list_2 = data.split('=')
                         facilitator_name = to_list_2[0]
-                        facilitator_topic = to_list_2[1]
-                        facilitator_time = to_list_2[2]
+                        position = to_list_2[1]
+                        facilitator_topic = to_list_2[2]
+                        facilitator_time = to_list_2[3]
                         time = facilitator_time.split('-')
                     facilitator_data = {
                         "facilitator_id":facilitator_name,
+                        "position":position,
                         "facilitator_name":facilitator_name,
                         "topic":facilitator_topic,
                         "start_time":time[0],
@@ -574,7 +576,7 @@ def post_add_evaluator(request):
                 return render(request,'add_evaluator.html',{"validation_text":validation_text})
 
 def post_edit_seminar(request):
-    try:
+    # try:
         facilitator_list = str(request.POST.get('facilitator_list'))
         current_id = request.session['current_id']
         seminar_title = request.POST.get('seminar_title')
@@ -597,12 +599,14 @@ def post_edit_seminar(request):
             else:
                 to_list_2 = data.split('=')
                 facilitator_name = to_list_2[0]
-                topic = to_list_2[1]
-                facilitator_time = to_list_2[2]
+                position = to_list_2[1]
+                topic = to_list_2[2]
+                facilitator_time = to_list_2[3]
                 time = facilitator_time.split('-')
                 facilitator_data = {
                 "facilitator_id":facilitator_name,
                 "facilitator_name":facilitator_name,
+                "position":position,
                 "topic":topic,
                 "start_time":time[0],
                 "end_time":time[1]
@@ -619,8 +623,8 @@ def post_edit_seminar(request):
             ctr = ctr + 1
             seminar_id[ctr] = doc.id 
             return render(request,'manage_seminar.html',{"seminar_data":[doc.to_dict() for doc in docs]})
-    except:
-          return render(request,'edit_seminar.html')
+    # except:
+    #       return render(request,'edit_seminar.html')
 
 # def post_edit_facilitator(request):
 #     current_id = request.session['current_id']
@@ -760,9 +764,9 @@ def post_view_seminar_actions(request):
     #Deleting seminar after closing
             # db.collection(u'seminars').document(seminar_id).collection('facilitators').delete()
             # db.collection(u'seminars').document(seminar_id).delete()
-            # update_seminar = db.collection(u'seminars').document(seminar_id)
-            # update_seminar.update({u'ongoing': "false"})
-            # update_seminar.update({u'status': u'close'})
+            update_seminar = db.collection(u'seminars').document(seminar_id)
+            update_seminar.update({u'ongoing': "false"})
+            update_seminar.update({u'status': u'close'})
 
     #Calling again the seminars in dashboard
             open_seminar = db.collection(u'seminars').get()
@@ -1074,6 +1078,7 @@ def post_edit_facilitator(request):
     #Calling session variables
     facilitator_id = request.GET.get('facilitator_id')
     facilitator_name = request.GET.get('facilitator_name')
+    position = request.GET.get('position')
     topic = request.GET.get('topic')
     start_time = request.GET.get('start_time')
     end_time = request.GET.get('end_time')
@@ -1095,6 +1100,7 @@ def post_edit_facilitator(request):
         update_data = {
             "facilitator_id":facilitator_id,
             "facilitator_name":facilitator_name,
+            "position":position,
             "topic":topic,
             "start_time":start_time,
             "end_time":end_time   
@@ -1270,6 +1276,9 @@ def save_summary(request):
     facilitator_mean ={
 
     }
+    facilitator_topic = {
+
+    }
     facilitator_question = {
         "q9":"Exhibited full grasp of the topic",
         "q10":"Was sensitive to the participants' mood",
@@ -1294,8 +1303,8 @@ def save_summary(request):
         for evaluator_data in evaluators_data:
             facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
             for facilitators_data in facilitators:
+                facilitator_topic[facilitators_data.id] = facilitators_data.to_dict()['topic']
                 facilitator_response[facilitators_data.id] = {
-                "topic":"",
                 "q9":{"1":0,"2":0,"3":0,"4":0,"mean":0},
                 "q10":{"1":0,"2":0,"3":0,"4":0,"mean":0},
                 "q11":{"1":0,"2":0,"3":0,"4":0,"mean":0},
@@ -1305,7 +1314,6 @@ def save_summary(request):
                 "q15":{"1":0,"2":0,"3":0,"4":0,"mean":0},
                 "q16":{"1":0,"2":0,"3":0,"4":0,"mean":0},
                 "q17":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                "q18":{"1":0,"2":0,"3":0,"4":0,"mean":0},
                 }
 
     
@@ -1570,6 +1578,7 @@ def save_summary(request):
         "total_of_participants":total_of_participant,
         "facilitator_response":facilitator_response,
         "facilitator_mean":facilitator_mean,
+        "facilitator_topic":facilitator_topic,
         "test":mean_1,
         "mean_1":round(mean_1,1),
         "mean_2":round(mean_2,1),

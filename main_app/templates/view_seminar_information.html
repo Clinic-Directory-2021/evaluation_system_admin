@@ -185,12 +185,12 @@
         
     <div class="dialog-title">Stop the seminar</div>
     <div class="dialog-content">
-        By Stopping the seminar, It will stop the evaluator to push their evaluation and it will place this data to report. And it will back to zero again. Are you sure you want to stop the seminar?
+       Close the seminar?
     </div>
         
     <div class="dialog-actions">
         <div style="display: flex;">
-        <button type="submit" class="button alert js-dialog-close mr-3" name="no">No, Im not sure.</button>
+        <button type="submit" class="button alert js-dialog-close mr-3" name="no">No</button>
         <form method="POST" action="post_view_seminar_actions/">
             {% csrf_token %}
         <input type="hidden" id="evaluation_count" value="{{evaluation_count}}">

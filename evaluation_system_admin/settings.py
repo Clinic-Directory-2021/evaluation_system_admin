@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-pec)tg)fz@grj(7gnxlsddrx5q$600roymwh(lpq$*^(71l6g7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','evaluationsystem-deped.herokuapp.com']
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,13 @@ STATIC_ROOT = 'E:\web_application\capstone_project\evaluation_system_admin\main_
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CELERY_BROKER_URL = 'postgres://xzjuifiwlnybsc:bf7bbcd95bef3fc9dcbfd8194efd90b27379c78008438933b682678e9963a07b@ec2-44-199-85-33.compute-1.amazonaws.com:5432/d28f0n3rrscrak'
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERy_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_TASK_TRACK_STARTED = True
 
 # Activate Django-Heroku.
 # django_heroku.settings(locals())

@@ -71,56 +71,56 @@
         <tbody>
             <tr>
                 <td><h6>Program objectives were clearly presented</h6></td>
-                {% for key,values in q1.items reversed %}
+                {% for key,values in q1.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q1_mean}}</td>
             </tr>
             <tr>
                 <td><h6>Program objectives were attained</h6></td>
-                {% for key,values in q2.items reversed %}
+                {% for key,values in q2.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q2_mean}}</td>
             </tr>
             <tr>
                 <td><h6>Program content was appropriate to trainees roles and responsibility</h6></td>
-                {% for key,values in q3.items reversed %}
+                {% for key,values in q3.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q3_mean}}</td>
             </tr>
             <tr>
                 <td><h6>Content delivered was based on authoritative and reliable sources</h6></td>
-                {% for key,values in q4.items reversed %}
+                {% for key,values in q4.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q4_mean}}</td>
             </tr>
             <tr>
                 <td><h6>Sessions activities were effective in generating learning</h6></td>
-                {% for key,values in q5.items reversed %}
+                {% for key,values in q5.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q5_mean}}</td>
             </tr>
             <tr>
                 <td><h6>Adult learning methodologies were used</h6></td>
-                {% for key,values in q6.items  reversed %}
+                {% for key,values in q6.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q6_mean}}</td>
             </tr>
             <tr>
                 <td><h6>Program followed a logical order/structure</h6></td>
-                {% for key,values in q7.items reversed %}
+                {% for key,values in q7.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q7_mean}}</td>
             </tr>
             <tr>
                 <td><h6>Contribution of all trainees was encouraged</h6></td>
-                {% for key,values in q8.items reversed %}
+                {% for key,values in q8.items %}
                 <td>{{values}}</td>
                 {% endfor %}
                 <td>{{q8_mean}}</td>
@@ -159,7 +159,11 @@
     {% for key1,value1 in facilitator_response.items %}
     
     <h1>Name: {{key1}}</h1>
-    <h2>Topic: </h2>
+    {%  for index,topic in facilitator_topic.items %}
+    {% if index == key1 %}
+    <h2>Topic: {{topic}}</h2>
+    {% endif %}
+    {% endfor %}
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
@@ -180,9 +184,9 @@
                 {% endif %}
                 {% endfor %}
                 {% for key3,value3 in value2.items %}
-                <!-- {%  if value3 != mean%} -->
-                <td>{{value3}}</td>
-                <!-- {% endif %} -->
+                {%  if key3 != 'topic' %}
+                <td>{{key3}}</td>
+                {% endif %}
                 {% endfor %}
             </tr>
             {% endfor %}
@@ -522,11 +526,21 @@
     </table>
     
     <p>Legends:</p>
-    <div style="display: flex;"><ss style="font-size: 14px;">4.0 - 3.51</ss> <ss style="color:green; font-size: 14px;"> : Excellent</ss></div><br>
+    <table class="legends">
+        <tbody>
+            <tr>
+                <td><ss style="font-size: 14px;">4.0 - 3.51 = </ss> <ss style="color:green; font-size: 14px;">Excellent</ss></td>
+                <td><ss style="font-size: 14px;">3.50 - 2.51 = </ss> <ss style="color:#d472bc; font-size: 14px;">Very Good</ss></td>
+                <td><ss style="font-size: 14px;">2.50 - 1.51 = </ss> <ss style="color:orange; font-size: 14px;">Good</ss></td>
+                <td><ss style="font-size: 14px;">1.50 - 1.0 = </ss> <ss style="color:red; font-size: 14px;">Fair</ss></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <div style="display: flex;"><ss style="font-size: 14px;">4.0 - 3.51</ss> <ss style="color:green; font-size: 14px;"> : Excellent</ss></div><br>
         <div style="display: flex;"><ss style="font-size: 14px;">3.50 - 2.51</ss> <ss style="color:#d472bc; font-size: 14px;"> : Very Good</ss></div><br>
             <div style="display: flex;"><ss style="font-size: 14px;">2.50 - 1.51</ss> <ss style="color:orange; font-size: 14px;"> : Good</ss></div><br>
                 <div style="display: flex;"><ss style="font-size: 14px;">1.50 - 1.0</ss> <ss style="color:red; font-size: 14px;"> : Fair</ss></div>
-    
+     -->
     
     
     
