@@ -1,4 +1,3 @@
-from logging import ERROR, error
 import statistics
 from django.http.response import HttpResponse
 import firebase_admin
@@ -9,8 +8,6 @@ from firebase_admin import auth
 import pyrebase
 from datetime import datetime
 import calendar
-import time
-from django.http import JsonResponse, request
 import xlwt
 import os
 from django.conf import settings
@@ -18,7 +15,6 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
-from io import BytesIO
 from main_app import functions as func
 
 config={
