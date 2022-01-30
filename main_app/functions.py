@@ -8,8 +8,8 @@ from django.http import response
 def get_mean(evaluate_dict, total_of_participant):
     output = 0.0
     ctr = 1
-    for value in evaluate_dict.values():
-        if value != 5:
+    for key,value in evaluate_dict.items():
+        if key != 5:
             output += value * ctr
         ctr = ctr + 1
     return output / total_of_participant
@@ -45,6 +45,16 @@ def has_numbers(inputString):
     if(regex.search(inputString) == None):
         return True
     return False
+
+def question_dict(question,question_dict):
+    if question ==  "1":
+        question_dict["1"] += 1
+    elif question == "2":
+        question_dict["2"] += 1
+    elif question == "3":
+        question_dict["3"] += 1
+    elif question == "4":
+        question_dict["4"] += 1
 
 
 

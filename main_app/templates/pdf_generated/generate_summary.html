@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +33,7 @@
     }
 </style>
 <body>
+    <img src="{% static 'images/deped_logo.png' %}" alt="">
     <h1 align="center">SEMINAR EVALUATION REPORT</h1>
     <hr>
     <p style="font-size: 14px;"><b><label for="">Title of Seminar: </label></b> {{seminar_title}}</p>
@@ -60,7 +62,7 @@
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
-                <th>SESSION/DELIVER CONTENT</th>
+                <th>SESSION/DELIVERY CONTENT</th>
                 <th>1</th>
                 <th>2</th>
                 <th>3</th>
@@ -158,10 +160,10 @@
     <h2>FACILITATORS</h2>
     {% for key1,value1 in facilitator_response.items %}
     
-    <h1>Name: {{key1}}</h1>
+    <p style="font-size: 14px;"><b>Name:</b> {{key1}}</p>
     {%  for index,topic in facilitator_topic.items %}
     {% if index == key1 %}
-    <h2>Topic: {{topic}}</h2>
+    <p style="font-size: 14px;"><b>Topic:</b> {{topic}}</p>
     {% endif %}
     {% endfor %}
     <table style="border: 1px solid black; text-align: center;">
@@ -185,7 +187,7 @@
                 {% endfor %}
                 {% for key3,value3 in value2.items %}
                 {%  if key3 != 'topic' %}
-                <td>{{key3}}</td>
+                <td>{{value3}}</td>
                 {% endif %}
                 {% endfor %}
             </tr>
@@ -555,6 +557,19 @@
     {% elif overall_mean <= 1.50 %}
     <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>Fair</b> based on the overall mean score evaluated.</p>
     {% endif %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <ss style="font-size: 14px;">Received:</ss>
+    <br>
+    <br>
+    <br>
+    <ss style="font-size: 14px;"><b>{{program_owner}}</b></ss>
+    <br>
+    <ss style="font-size: 14px;">{{program_owner_position}}</ss>
+    <br>
+    <ss style="font-size: 14px;">{{date_posted}}</ss>
     <hr>
     <p>depedevaluationsystem.herokuapp.com</p>
 </body>

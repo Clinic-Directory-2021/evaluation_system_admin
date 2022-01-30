@@ -16,7 +16,7 @@
                 <th data-sortable="true" data-format='int'>Seminar #</th>
                 <th data-sortable="true">Seminar Title</th>
                 <th data-sortable="true">Program Owner</th>
-                <th data-sortable="true">Tools</th>
+                <th data-sortable="true">Date Created</th>
             </tr>
             </thead>
             <tbody>
@@ -26,7 +26,8 @@
                     <td>{{seminar_field.seminar_title}}</td>
                     <!-- <td><color class="fg-red">{{seminar_field.status}}</color></td> -->
                     <td>{{seminar_field.program_owner}}</td>
-                    <td><button class="button primary mif-eye icon" onclick="to_view_seminar('{{seminar_field.seminar_id}}')"> View Full Details</button></td>
+                    <td>{{seminar_field.date_created}}</td>
+                    <!-- <td><button class="button primary mif-eye icon" onclick="to_view_seminar('{{seminar_field.seminar_id}}')"> View Full Details</button></td> -->
                 </tr>
                 {% endfor %}
 

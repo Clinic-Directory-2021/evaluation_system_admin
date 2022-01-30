@@ -201,6 +201,7 @@ def edit_seminar(request):
 
     seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
     program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
+    program_owner_position = u'{}'.format(seminar.to_dict()['program_owner_position'])
     status = u'{}'.format(seminar.to_dict()['status'])
     
     
@@ -210,6 +211,7 @@ def edit_seminar(request):
     pass_data = {
         "seminar_title":seminar_title,
         "program_owner":program_owner,
+        "program_owner_position":program_owner_position,
         "status":status,
         "facilitator":[facilitator_data.to_dict() for facilitator_data in facilitators],
     }
@@ -430,6 +432,7 @@ def forgot_password_func(request):
 def post_add_seminar(request):
     seminar_title = request.POST.get('seminar_title')
     program_owner = request.POST.get('program_owner')
+    program_owner_position = request.POST.get('program_owner_position')
     facilitator_list = str(request.POST.get('facilitator_list'))
     validation = request.POST.get('validation')
     date_created = datetime.now()
@@ -440,6 +443,7 @@ def post_add_seminar(request):
                 data = {
                         u'seminar_title': seminar_title,
                         u'program_owner':program_owner,
+                        u'program_owner_position':program_owner_position,
                         u'date_created': date_created,
                         u'status':"close",
                         u'seminar_id':str(seminar_id),
@@ -581,12 +585,14 @@ def post_edit_seminar(request):
         current_id = request.session['current_id']
         seminar_title = request.POST.get('seminar_title')
         program_owner = request.POST.get('program_owner')
+        program_owner_position = request.POST.get('program_owner_position')
         status = request.POST.get('status')
         update_seminar = db.collection(u'seminars').document(current_id)
         update_seminar_report = db.collection(u'seminar_report').document(current_id)
         updated_data = {
             u'seminar_title': seminar_title,
             u'program_owner': program_owner,
+            u'program_owner_position': program_owner_position,
             u'status':status
             }
         update_seminar.update(updated_data)
@@ -1296,6 +1302,7 @@ def save_summary(request):
     evaluation_data = evaluation_report.get()
     seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
     program_owner = u'{}'.format(evaluation_data.to_dict()['program_owner'])
+    program_owner_position = u'{}'.format(evaluation_data.to_dict()['program_owner_position'])
     date = u'{}'.format(evaluation_data.to_dict()['date'])
     evaluators = evaluation_report.collection('evaluators')
     evaluators_data = evaluators.get()
@@ -1343,169 +1350,26 @@ def save_summary(request):
         q25 = u'{}'.format(data.to_dict()['q25'])
         q26 = u'{}'.format(data.to_dict()['q26'])
         q27 = u'{}'.format(data.to_dict()['q27'])
-        #q1
-        if q1 ==  "1":
-            q1_dict["1"] += 1
-        elif q1 == "2":
-            q1_dict["2"] += 1
-        elif q1 == "3":
-            q1_dict["3"] += 1
-        elif q1 == "4":
-            q1_dict["4"] += 1
-        #q2
-        if q2 ==  "1":
-            q2_dict["1"] += 1
-        elif q2 == "2":
-            q2_dict["2"] += 1
-        elif q2 == "3":
-            q2_dict["3"] += 1
-        elif q2 == "4":
-            q2_dict["4"] += 1
-        #q3
-        if q3 ==  "1":
-            q3_dict["1"] += 1
-        elif q3 == "2":
-            q3_dict["2"] += 1
-        elif q3 == "3":
-            q3_dict["3"] += 1
-        elif q3 == "4":
-            q3_dict["4"] += 1
-        #q4
-        if q4 ==  "1":
-            q4_dict["1"] += 1
-        elif q4 == "2":
-            q4_dict["2"] += 1
-        elif q4 == "3":
-            q4_dict["3"] += 1
-        elif q4 == "4":
-            q4_dict["4"] += 1
-        #q5
-        if q5 ==  "1":
-            q5_dict["1"] += 1
-        elif q5 == "2":
-            q5_dict["2"] += 1
-        elif q5 == "3":
-            q5_dict["3"] += 1
-        elif q5 == "4":
-            q5_dict["4"] += 1
-        #q6
-        if q6 ==  "1":
-            q6_dict["1"] += 1
-        elif q6 == "2":
-            q6_dict["2"] += 1
-        elif q6 == "3":
-            q6_dict["3"] += 1
-        elif q6 == "4":
-            q6_dict["4"] += 1
-        #q7
-        if q7 ==  "1":
-            q7_dict["1"] += 1
-        elif q7 == "2":
-            q7_dict["2"] += 1
-        elif q7 == "3":
-            q7_dict["3"] += 1
-        elif q7 == "4":
-            q7_dict["4"] += 1
-        #q8
-        if q8 ==  "1":
-            q8_dict["1"] += 1
-        elif q8 == "2":
-            q8_dict["2"] += 1
-        elif q8 == "3":
-            q8_dict["3"] += 1
-        elif q8 == "4":
-            q8_dict["4"] += 1
-        #q18
-        if q18 ==  "1":
-            q18_dict["1"] += 1
-        elif q18 == "2":
-            q18_dict["2"] += 1
-        elif q18 == "3":
-            q18_dict["3"] += 1
-        elif q18 == "4":
-            q18_dict["4"] += 1
-        #q19
-        if q19 ==  "1":
-            q19_dict["1"] += 1
-        elif q19 == "2":
-            q19_dict["2"] += 1
-        elif q19 == "3":
-            q19_dict["3"] += 1
-        elif q19 == "4":
-            q19_dict["4"] += 1
-        #q20
-        if q20 ==  "1":
-            q20_dict["1"] += 1
-        elif q20 == "2":
-            q20_dict["2"] += 1
-        elif q20 == "3":
-            q20_dict["3"] += 1
-        elif q20 == "4":
-            q20_dict["4"] += 1
-        #q21
-        if q21 ==  "1":
-            q21_dict["1"] += 1
-        elif q21 == "2":
-            q21_dict["2"] += 1
-        elif q21 == "3":
-            q21_dict["3"] += 1
-        elif q21 == "4":
-            q21_dict["4"] += 1
-        #q22
-        if q22 ==  "1":
-            q22_dict["1"] += 1
-        elif q22 == "2":
-            q22_dict["2"] += 1
-        elif q22 == "3":
-            q22_dict["3"] += 1
-        elif q22 == "4":
-            q22_dict["4"] += 1
-        #q23
-        if q23 ==  "1":
-            q23_dict["1"] += 1
-        elif q23 == "2":
-            q23_dict["2"] += 1
-        elif q23 == "3":
-            q23_dict["3"] += 1
-        elif q23 == "4":
-            q23_dict["4"] += 1
-        #q24
-        if q24 ==  "1":
-            q24_dict["1"] += 1
-        elif q24 == "2":
-            q24_dict["2"] += 1
-        elif q24 == "3":
-            q24_dict["3"] += 1
-        elif q24 == "4":
-            q24_dict["4"] += 1
-        #q25
-        if q25 ==  "1":
-            q25_dict["1"] += 1
-        elif q25 == "2":
-            q25_dict["2"] += 1
-        elif q25 == "3":
-            q25_dict["3"] += 1
-        elif q25 == "4":
-            q25_dict["4"] += 1
-        #q26
-        if q26 ==  "1":
-            q26_dict["1"] += 1
-        elif q26 == "2":
-            q26_dict["2"] += 1
-        elif q26 == "3":
-            q26_dict["3"] += 1
-        elif q26 == "4":
-            q26_dict["4"] += 1
-        #q27
-        if q27 ==  "1":
-            q27_dict["1"] += 1
-        elif q27 == "2":
-            q27_dict["2"] += 1
-        elif q27 == "3":
-            q27_dict["3"] += 1
-        elif q27 == "4":
-            q27_dict["4"] += 1
-
+        
+        func.question_dict(q1,q1_dict)
+        func.question_dict(q2,q2_dict)
+        func.question_dict(q3,q3_dict)
+        func.question_dict(q4,q4_dict)
+        func.question_dict(q5,q5_dict)
+        func.question_dict(q6,q6_dict)
+        func.question_dict(q7,q7_dict)
+        func.question_dict(q8,q8_dict)
+        func.question_dict(q18,q18_dict)
+        func.question_dict(q19,q19_dict)
+        func.question_dict(q20,q20_dict)
+        func.question_dict(q21,q21_dict)
+        func.question_dict(q22,q22_dict)
+        func.question_dict(q23,q23_dict)
+        func.question_dict(q24,q24_dict)
+        func.question_dict(q25,q25_dict)
+        func.question_dict(q26,q26_dict)
+        func.question_dict(q27,q27_dict)
+       
     func.get_facilitator_mean(facilitator_response,total_of_participant)     
     q1_mean = func.get_mean(q1_dict, total_of_participant)
     q2_mean = func.get_mean(q2_dict, total_of_participant)
@@ -1531,6 +1395,7 @@ def save_summary(request):
     mean_3 =  statistics.mean([q21_mean,q22_mean,q23_mean])
     mean_4 =  statistics.mean([q24_mean,q25_mean,q26_mean,q26_mean])
 
+    print(mean_1)
     overall_mean = round(statistics.mean([mean_1,mean_2,mean_3,mean_4]),1)
     func.facilitator_overall_mean(facilitator_mean,facilitator_response)
     print(q1_dict)
@@ -1539,6 +1404,7 @@ def save_summary(request):
         'seminar_title':seminar_title,
         'date_posted':date,
         'program_owner':program_owner,
+        'program_owner_position':program_owner_position,
         'q1':q1_dict,
         'q2':q2_dict,
         'q3':q3_dict,
