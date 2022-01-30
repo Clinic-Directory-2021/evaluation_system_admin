@@ -2,7 +2,7 @@ import statistics
 from django.http.response import HttpResponse
 import firebase_admin
 from django.shortcuts import render,redirect
-from firebase_admin import credentials
+from firebase_admin import credentialsdw2
 from firebase_admin import firestore
 from firebase_admin import auth
 import pyrebase
