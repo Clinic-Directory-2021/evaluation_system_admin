@@ -129,12 +129,6 @@ STATIC_ROOT = 'E:\web_application\capstone_project\evaluation_system_admin\main_
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CELERY_BROKER_URL = 'postgres://xzjuifiwlnybsc:bf7bbcd95bef3fc9dcbfd8194efd90b27379c78008438933b682678e9963a07b@ec2-44-199-85-33.compute-1.amazonaws.com:5432/d28f0n3rrscrak'
-
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERy_RESULT_BACKEND = CELERY_BROKER_URL
-CELERY_TASK_TRACK_STARTED = True
 
 # Activate Django-Heroku.
 # django_heroku.settings(locals())
