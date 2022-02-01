@@ -162,6 +162,7 @@ def view_seminar_information(request):
         seminar_id = u'{}'.format(seminar.to_dict()['seminar_id'])
         date = u'{}'.format(seminar.to_dict()['date'])
         program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
+        program_owner_position = u'{}'.format(seminar.to_dict()['program_owner_position'])
         print(u'{}'.format(seminar.to_dict()['date']))
         evaluation_data = evaluations.collection('evaluators').get()
         evaluation_count = 0
@@ -181,7 +182,8 @@ def view_seminar_information(request):
             "evaluator_id":str(evaluator_id),
             "evaluator_count":str(evaluator_count),
             "date":str(date),
-            "program_owner":str(program_owner)}
+            "program_owner":str(program_owner),
+            "program_owner_position":str(program_owner_position)}
             
         return render(request, 'view_seminar_information.html',pass_data)
         
@@ -734,6 +736,7 @@ def post_view_seminar_actions(request):
     #POST VALUES      
     try:
             program_owner = request.POST.get('program_owner')
+            program_owner = request.POST.get('program_owner_position')
             seminar_id = request.POST.get('seminar_id')
             evaluator_id = request.POST.get('evaluator_id')
             seminar_title = request.POST.get('seminar_title')
@@ -742,6 +745,7 @@ def post_view_seminar_actions(request):
             evaluation_report_field = {
                 'date': date_created,
                 "program_owner": program_owner,
+                "program_owner_position": program_owner_position,
                 "seminar_id":seminar_id,
                 "seminar_title":seminar_title
             }
