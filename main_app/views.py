@@ -736,7 +736,7 @@ def post_view_seminar_actions(request):
     #POST VALUES      
     try:
             program_owner = request.POST.get('program_owner')
-            program_owner = request.POST.get('program_owner_position')
+            program_owner_position = request.POST.get('program_owner_position')
             seminar_id = request.POST.get('seminar_id')
             evaluator_id = request.POST.get('evaluator_id')
             seminar_title = request.POST.get('seminar_title')
