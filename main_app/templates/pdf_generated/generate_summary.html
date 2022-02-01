@@ -205,7 +205,7 @@
                 {% for key_name, val in facilitator_mean.items %}
                 {% if key_name == key1 %}
 
-                {% if val == 4.0 and val >= 3.51 %}
+                {% if val >= 3.51 %}
                 <td colspan="3" style="background-color: green;">Excellent</td>
                 {% elif val <= 3.50 and val >= 2.51 %}
                 <td colspan="3" style="background-color: #d472bc;">Very Good</td>
@@ -263,7 +263,7 @@
             </tr>
             <tr>
                 <td colspan="3">Descriptive Rating</td>
-                {% if mean_2 == 4.0 and mean_2 >= 3.51 %}
+                {% if mean_2 >= 3.51 %}
                 <td colspan="3" style="background-color: green;">Excellent</td>
                 {% elif mean_2 <= 3.50 and mean_2 >= 2.51 %}
                 <td colspan="3" style="background-color: #d472bc;">Very Good</td>
@@ -325,7 +325,7 @@
             </tr>
             <tr>
                 <td colspan="3">Descriptive Rating</td>
-                {% if mean_3 == 4.0 and mean_3 >= 3.51 %}
+                {% if mean_3 >= 3.51 %}
                 <td colspan="3" style="background-color: green;">Excellent</td>
                 {% elif mean_3 <= 3.50 and mean_3 >= 2.51 %}
                 <td colspan="3" style="background-color: #d472bc;">Very Good</td>
@@ -394,7 +394,7 @@
             </tr>
             <tr>
                 <td colspan="3">Descriptive Rating</td>
-                {% if mean_4 == 4.0 and mean_4 >= 3.51 %}
+                {% if mean_4 >= 3.51 %}
                 <td colspan="3" style="background-color: green;">Excellent</td>
                 {% elif mean_4 <= 3.50 and mean_4 >= 2.51 %}
                 <td colspan="3" style="background-color: #d472bc;">Very Good</td>
@@ -513,7 +513,7 @@
                     <h2 align="Center">OVERALL MEAN</h2>
                 </td>
                 <td>
-                    {% if overall_mean == 4.0 and overall_mean >= 3.51 %}
+                    {% if overall_mean >= 3.51 %}
                     <h1 style="background-color: green;" align="Center">{{overall_mean}}</h1>
                     {% elif overall_mean <= 3.50 and overall_mean >= 2.51 %}
                     <h1 style="background-color: #2E2EFF;" align="Center">{{overall_mean}}</h1>
@@ -548,7 +548,7 @@
     
     
     </table>
-    {% if overall_mean == 4.0 and overall_mean >= 3.51 %}
+    {% if overall_mean >= 3.51 %}
     <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>EXCELLENT</b> based on the overall mean score evaluated.</p>
     {% elif overall_mean <= 3.50 and overall_mean >= 2.51 %}
     <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>VERY GOOD</b> based on the overall mean score evaluated.</p>
