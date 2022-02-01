@@ -705,6 +705,7 @@ def post_start_seminar(request):
     docs = db.collection(u'seminars').get()
     seminar_docs =  seminar_document.get()
     seminar_name = u'{}'.format(seminar_docs.to_dict()['seminar_title'])
+    program_owner_position = u'{}'.format(seminar_docs.to_dict()['program_owner_position'])
     program_owner = u'{}'.format(seminar_docs.to_dict()['program_owner'])
     date_created = datetime.now()
     seminar_date_id = calendar.timegm(date_created.timetuple())
@@ -719,13 +720,12 @@ def post_start_seminar(request):
     u'seminar_id': current_id,
     u'seminar_title':seminar_name,
     u'program_owner':program_owner,
+    u'program_owner_position':program_owner_position,
     u'status':"open"
     }
     print(seminar_date_id)
     evaluations_collection = db.collection(u'evaluations').document(current_id)
-    evaluation_report =  db.collection(u'evaluation_report').document(current_id)
     evaluations_collection.set(data)
-    evaluation_report.set(data)
     for doc in docs:
         ctr = ctr + 1
         seminar_id[ctr] = doc.id 
