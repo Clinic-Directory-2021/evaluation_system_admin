@@ -1119,7 +1119,7 @@ def post_edit_facilitator(request):
         pass_data = {
             "seminar_title":seminar_title,
             "program_owner":program_owner,
-            "program_owner_position",program_owner_position
+            "program_owner_position",program_owner_position,
             "status":status,
             "facilitator":[facilitator_data.to_dict() for facilitator_data in traverse_facilitator]
         }
