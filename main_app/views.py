@@ -795,12 +795,11 @@ def delete_seminar(request):
         # db.collection(u'seminars').document(current_id).delete()
         seminar = db.collection(u'seminars')
         seminar_doc = seminar.get()
-        for doc in seminar_doc:
-            facilitator = seminar.document(doc.id).collection('facilitators').get()
-            print('doc1:'+doc.id)
-            for doc2 in facilitator:
-                seminar.document(doc.id).collection('facilitators').document(doc2.id).delete()
-                print(doc2.id)
+
+        facilitator = seminar.document(current_id).collection('facilitators').get()
+        for doc2 in facilitator:
+            seminar.document(current_id).collection('facilitators').document(doc2.id).delete()
+
         seminar.document(str(current_id)).delete()
         # seminar_document.update({u'status': "close"})
         docs = db.collection(u'seminars').get()
