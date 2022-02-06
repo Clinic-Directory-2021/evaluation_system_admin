@@ -11,11 +11,13 @@ import calendar
 import xlwt
 import os
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from main_app import functions as func
+
+import json
 
 config={
     "apiKey": "AIzaSyCRm30U4IA0BFi85g_5qfjF8QB4hF_iuqU",
@@ -48,9 +50,41 @@ def register(request):
     return render(request, 'register.html')
 
 def dashboard(request):
+        evaluation_report = db.collection(u'evaluation_report').get()
+        seminar_report = db.collection(u'seminar_report').get()
+        evaluator_report = db.collection(u'evaluator_report').get()
+        # facilitator_report = db.collection(u'facilitator_report').get()
+        evaluation_counter = 0
+        seminar_counter = 0
+        evaluator_counter = 0
+        facilitator_counter = 0
+        for doc in evaluation_report:
+            evaluation_counter = evaluation_counter + 1
+        for doc in seminar_report:
+            seminar_counter = seminar_counter + 1
+        for doc in evaluator_report:
+            evaluator_counter = evaluator_counter + 1
+        # for doc in facilitator_report:
+        #     facilitator_counter = facilitator_counter + 1
+        
+        open_seminar = db.collection(u'seminars').get()
+        pass_data = {
+            "evaluation_counter":evaluation_counter,
+            "seminar_counter":seminar_counter,
+            "evaluator_counter":evaluator_counter,
+            "seminar_data":[seminar.to_dict() for seminar in open_seminar]
+            # "facilitator_counter":facilitator_counter
+        }
+        
+        return render(request,'dashboard.html', pass_data)
+
+def dashboard_post(request):
+      # request should be ajax and method should be POST.
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     open_seminar = db.collection(u'seminars').get()
-    return render(request,'dashboard.html', {"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
-    
+    if is_ajax and request.method == "POST":
+        return JsonResponse({"instance": [seminar.to_dict() for seminar in open_seminar]}, status=200)
+    return JsonResponse({'status': 'Invalid request'}, status=400)
 
 def manage_seminar(request):
     try:
@@ -199,7 +233,10 @@ def edit_seminar(request):
 
     seminar_title = u'{}'.format(seminar.to_dict()['seminar_title'])
     program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
+    seminar_start= u'{}'.format(seminar.to_dict()['seminar_start'])
+    seminar_end = u'{}'.format(seminar.to_dict()['seminar_end'])
     program_owner_position = u'{}'.format(seminar.to_dict()['program_owner_position'])
+    seminar_description = u'{}'.format(seminar.to_dict()['seminar_description'])
     status = u'{}'.format(seminar.to_dict()['status'])
     
     
@@ -210,6 +247,9 @@ def edit_seminar(request):
         "seminar_title":seminar_title,
         "program_owner":program_owner,
         "program_owner_position":program_owner_position,
+        "seminar_start":seminar_start,
+        "seminar_end":seminar_end,
+        "seminar_description":seminar_description,
         "status":status,
         "facilitator":[facilitator_data.to_dict() for facilitator_data in facilitators],
     }
@@ -429,8 +469,11 @@ def forgot_password_func(request):
 
 def post_add_seminar(request):
     seminar_title = request.POST.get('seminar_title')
+    seminar_start = request.POST.get('seminar_start')
+    seminar_end = request.POST.get('seminar_end')
     program_owner = request.POST.get('program_owner')
     program_owner_position = request.POST.get('program_owner_position')
+    seminar_description = request.POST.get('seminar_description')
     facilitator_list = str(request.POST.get('facilitator_list'))
     validation = request.POST.get('validation')
     date_created = datetime.now()
@@ -440,9 +483,12 @@ def post_add_seminar(request):
         if validation == "yes":
                 data = {
                         u'seminar_title': seminar_title,
-                        u'program_owner':program_owner,
+                        u'seminar_start': str(seminar_start),
+                        u'seminar_end': str(seminar_end),
+                        u'program_owner': program_owner,
                         u'program_owner_position':program_owner_position,
-                        u'date_created': date_created,
+                        u'seminar_description': seminar_description,
+                        u'date_created': str(date_created.strftime('%Y-%m-%d')),
                         u'status':"close",
                         u'seminar_id':str(seminar_id),
                         u'ongoing':"false"
@@ -582,15 +628,21 @@ def post_edit_seminar(request):
         facilitator_list = str(request.POST.get('facilitator_list'))
         current_id = request.session['current_id']
         seminar_title = request.POST.get('seminar_title')
+        seminar_start = request.POST.get('seminar_start')
+        seminar_end = request.POST.get('seminar_end')
         program_owner = request.POST.get('program_owner')
         program_owner_position = request.POST.get('program_owner_position')
+        seminar_description = request.POST.get('seminar_description')
         status = request.POST.get('status')
         update_seminar = db.collection(u'seminars').document(current_id)
         update_seminar_report = db.collection(u'seminar_report').document(current_id)
         updated_data = {
             u'seminar_title': seminar_title,
+            u'seminar_start': seminar_start,
+            u'seminar_end': seminar_end,
             u'program_owner': program_owner,
             u'program_owner_position': program_owner_position,
+            u'seminar_description': seminar_description,
             u'status':status
             }
         update_seminar.update(updated_data)
@@ -1469,3 +1521,21 @@ def save_summary(request):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+def view_seminar_information_ajax(request):
+    current_id = request.POST.get('current_id')
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+    if is_ajax and request.method == "POST":
+        doc_ref = db.collection(u'evaluations').document(current_id).collection('evaluators')
+        docs = doc_ref.get()
+        evaluated = 0
+        not_evaluated = 0
+        for doc in docs:
+            if doc.to_dict()['status'] == "evaluated":
+                evaluated = evaluated + 1
+            else:
+                not_evaluated =  not_evaluated + 1
+        print(evaluated)
+        return JsonResponse({"evaluated": evaluated,"not_evaluated":not_evaluated}, status=200)
+    return JsonResponse({'status': 'Invalid request'}, status=400)
+    

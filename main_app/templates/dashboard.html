@@ -1,16 +1,82 @@
 {% extends 'home_header.html' %}
 {% block content %}
 <div class="p-5">
-<h1 class="welcome">Hello, Admin!</h1>
 <h3 class="p-5">Dashboard</h3>
-<br>
-<br>
 <div class="window-content p-2">
 <p class="mif-question icon"></p> The Dashboard page will show you the current active Seminar.
 </div>
+<br>
+<div class="p-5" style="width: 80%;">
+  <div class="grid">
+      <div class="row">
+
+      <div class="cell">
+          <div class="more-info-box bg-grayBlue fg-white">
+              <div class="content">
+                  <h2 class="text-bold mb-0">{{evaluator_counter}}</h2>
+                  <div>Users/Evaluator's List</div>
+              </div>
+              <div class="icon">
+                  <span class="mif-user-plus"></span>
+              </div>
+              <a href="{% url 'total_evaluators' %}" class="more"> More info <span class="mif-arrow-right"></span></a>
+          </div>
+      </div>
+
+      <div class="cell">
+          <div class="more-info-box bg-emerald fg-white">
+              <div class="content">
+                  <h2 class="text-bold mb-0">{{evaluation_counter}}</h2>
+                  <div>List of Trainings Evaluated</div>
+              </div>
+              <div class="icon">
+                  <span class="mif-list"></span>
+              </div>
+              <a href="{% url 'total_evaluations' %}" class="more"> More info <span class="mif-arrow-right"></span></a>
+          </div>
+      </div>
+
+      <div class="cell">
+          <div class="more-info-box bg-orange fg-white">
+              <div class="content">
+                  <h2 class="text-bold mb-0">{{seminar_counter}}</h2>
+                  <div>List of Seminars</div>
+              </div>
+              <div class="icon">
+                  <span class="mif-dashboard"></span>
+              </div>
+              <a href="{% url 'total_seminars' %}" class="more"> More info <span class="mif-arrow-right"></span></a>
+          </div>
+      </div>
+
+      <!-- <div class="cell">
+          <div class="more-info-box bg-red fg-white">
+              <div class="content">
+                  <h2 class="text-bold mb-0">{{facilitator_counter}}</h2>
+                  <div>Total Facilitators</div>
+              </div>
+              <div class="icon">
+                  <span class="mif-profile"></span>
+              </div>
+              <a href="{% url 'total_facilitators' %}" class="more"> More info <span class="mif-arrow-right"></span></a>
+          </div>
+      </div> -->
+      </div>
+  </div>
+</div>
+<br>
 <div style="display: flex; width: 100%;">
-    <div style="width:100%; padding: 5px;">
-        <table class="table striped" data-role="table" data-rows-steps="5, 10" data-rows="5" data-horizontal-scroll="true">
+    <div style="width:50%; padding: 5px;">
+        <div class="ui container w-100">
+            <div class="ui grid">
+              <div class="ui sixteen column">
+                <div id="calendar"></div>
+              </div>
+            </div>
+          </div>
+    </div>
+    <div style="width:50%; padding: 5px;">
+     <table class="table striped" data-role="table" data-rows-steps="5, 10" data-rows="5" data-horizontal-scroll="true" >
             <thead>
                 <tr>
                     <th data-sortable="true" data-sort-dir="asc">Seminar ID</th>
@@ -44,5 +110,73 @@
              </tbody>
         </table>
     </div>
+    </div>
 </div>
+
+<script>
+  function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+    var date = new Date();
+    year = date.getFullYear();
+    month = date.getMonth()+1;
+    dt = date.getDate();
+    date_today = year+'-' + month + '-'+dt
+    seminar_list = []
+    $(document).ready(function() {
+      $.ajax({
+            type: 'POST',
+            url: "{% url 'dashboard_post' %}",
+            data: JSON.stringify({"instance": $(this).val(),}),
+            headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": getCookie("csrftoken"),  // don't forget to include the 'getCookie' function
+                },
+			// handle a successful response
+            success: function (response) {
+              Object.entries(response).forEach(([key, value]) => {
+                Object.entries(value).forEach(([key2,value2]) =>{
+                  seminar_list.push({
+                    title: value2['seminar_title'],
+                    start: value2['seminar_start'],
+                    end: value2['seminar_end'],
+                  })
+                });
+                
+                $('#calendar').fullCalendar({
+                  header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                  },
+                  defaultDate: date_today,
+                  navLinks: true, // can click day/week names to navigate views
+                  editable: true,
+                  eventLimit: true, // allow "more" link when too many events
+                  events:seminar_list
+                });
+              });
+            },
+            error: function (response) {
+                // alert non successful response
+                alert(response["status"]);
+            }
+        });
+		
+		
+	});
+</script>
+
 {% endblock %}

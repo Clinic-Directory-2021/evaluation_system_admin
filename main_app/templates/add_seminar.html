@@ -63,9 +63,9 @@
     <form action="/post_add_seminar/" method="POST">
     <table class="table">
         <thead>
-        <tr>
+        <!-- <tr>
             <th colspan="2" style="text-align: center;">Seminar Form</th>
-        </tr>
+        </tr> -->
         </thead>
         <tbody>
         
@@ -79,6 +79,18 @@
                 </tr>
                 <tr>
                     <td>
+                        <p><b>Start of Seminar(Date)</b></p>
+                        <input data-role="datepicker" name="seminar_start" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><b>End of Seminar(Date)</b></p>
+                        <input data-role="datepicker" name="seminar_end" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <p><b>Program owner</b></p>
                         <input type="text" data-role="input" placeholder="Enter owner name" name="program_owner" required>
                     </td>
@@ -87,6 +99,12 @@
                     <td>
                         <p><b>Program owner position</b></p>
                         <input type="text" data-role="input" placeholder="Enter owner name position" name="program_owner_position" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><b>Description</b></p>
+                        <textarea data-role="textarea" data-prepend="<span class='mif-leanpub'></span>" placeholder="Enter some description about this seminar" name="seminar_description" required></textarea>
                     </td>
                 </tr>
                 <tr>

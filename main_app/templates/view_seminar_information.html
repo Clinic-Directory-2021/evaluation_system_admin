@@ -1,7 +1,6 @@
 {% extends 'home_header.html' %}
 {% block content %}
 <!--Content-->
-
 <div class="content p-5">
     <div style="display: flex;">
     <button class="button primary mr-3" onclick="back_to_dashboard()"><icon class="mif-arrow-left icon mr-3"></icon>Back to Dashboard</button>
@@ -16,31 +15,15 @@
             <p align='center'>{{seminar_id}}</p>
             <p align='center'>{{program_owner}}</p>
             <hr>
-            <br>
-            <!-- <div class="social-box">
-                <div class="header bg-cyan fg-white">
-                    <div class="title"><center>Evaluation Responses</center></div>
-                </div>
-                <ul class="skills">
-                    <li>
-                        <div class="text-bold">{{evaluator_count}}</div>
-                        <div>Total Evaluator</div>
-                    </li>
-                    <li>
-                        <div class="text-bold">{{evaluation_count}}</div>
-                        <div>Total Responses</div>
-                    </li>
-                </ul>
-            </div> -->
-            <!-- <br>
-            <div id="top_x_div" style="width: 100%; height: 500px;"></div>
-            <br> -->
-            <h6>Already Evaluated</h6>
+    <div style="display: flex;">
+    <div style="width: 50%; ">
+            <h6 style="background-color: white;">Already Evaluated</h6>
+            <b>Total Evaluators/Respondents: </b> <ss id="total_evaluator"></ss>
     <table class="table table-border striped"
        data-role="table"
        data-rows-steps="-1, 5, 10"
        data-rows="5"
-       data-horizontal-scroll="true">
+       data-horizontal-scroll="true" style="background-color: white;">
        <thead>
         <tr>
             <th>#</th>
@@ -48,33 +31,6 @@
             <th>Email</th>
             <th>Name</th>
             <th>Status</th>
-            <!-- <th>Program objectives were clearly presented</th>
-            <th>Program objectives were attained</th>
-            <th>Program content was appropriate to trainees roles and responsibility</th>
-            <th>Content delivered was based on authoritative and reliable sources</th>
-            <th>Sessions activities were effective in generating learning</th>
-            <th>Adult learning methodologies were used</th>
-            <th>Program followed a logical order/structure</th>
-            <th>Contribution of all trainees was encouraged</th>
-            <th>Exhibited full grasp of the topic</th>
-            <th>Was sensitive to the participants' mood</th>
-            <th>Asked stimulating questions</th>
-            <th>Processed questions and responses to deepen learning</th>
-            <th>Maintained positive learning environment</th>
-            <th>Expressed ideas clearly</th>
-            <th>Used appropriate training aids</th>
-            <th>Observed appropriate attire</th>
-            <th>Was able to firm up attainment of objectives of the session</th>
-            <th>Training program was delivered as planned</th>
-            <th>Training program was managed effectively</th>
-            <th>Training program was well-structured</th>
-            <th>Appropriate to trainees' needs</th>
-            <th>Adequate</th>
-            <th>Given on time</th>
-            <th>Members were present when needed</th>
-            <th>Members were courteous</th>
-            <th>Members were efficient</th>
-            <th>Members were responsive to the needs of the trainees</th> -->
         </tr>
         </thead>
         <tbody>
@@ -84,99 +40,23 @@
             <td>{{data.date_posted}}</td>
             <td>{{data.evaluatorEmail}}</td>
             <td>{{data.full_name}}</td>
-            <td><text class="fg-green">Evaluated</text></td>
-            <!-- <td>{{data.q1}}</td>
-            <td>{{data.q2}}</td>
-            <td>{{data.q3}}</td>
-            <td>{{data.q4}}</td>
-            <td>{{data.q5}}</td>
-            <td>{{data.q6}}</td>
-            <td>{{data.q7}}</td>
-            <td>{{data.q8}}</td>
-            <td>{{data.q9}}</td>
-            <td>{{data.q10}}</td>
-            <td>{{data.q11}}</td>
-            <td>{{data.q12}}</td>
-            <td>{{data.q13}}</td>
-            <td>{{data.q14}}</td>
-            <td>{{data.q15}}</td>
-            <td>{{data.q16}}</td>
-            <td>{{data.q17}}</td>
-            <td>{{data.q18}}</td>
-            <td>{{data.q19}}</td>
-            <td>{{data.q20}}</td>
-            <td>{{data.q21}}</td>
-            <td>{{data.q22}}</td>
-            <td>{{data.q23}}</td>
-            <td>{{data.q24}}</td>
-            <td>{{data.q25}}</td>
-            <td>{{data.q26}}</td>
-            <td>{{data.q27}}</td> -->
-            
+            {% if data.status == "evaluated" %}
+            <td><text class="fg-green">{{data.status}}</text></td>
+            {% else %}
+            <td><text class="fg-red">{{data.status}}</text></td>
+            {% endif %}
         </tr>
         {% endfor %}
         </tbody>
 </table>
-<!-- <hr>
-<br>
-<h6>Comments</h6> -->
-<!-- <table class="table table-border striped"
-       data-role="table"
-       data-rows-steps="-1, 5, 10"
-       data-rows="5"
-       data-horizontal-scroll="true">
-       <thead>
-        <tr>
-            <th>#</th>
-            <th>Email</th>
-            <th>Name</th>
-            <th>What is your most significant learning for the day?</th>
-            <th>What will you do differently as a School Head/Teacher/Personnel given your learning?</th>
-            <th>How can the session be improved, if at all?</th>
-            <th>Comments/Suggestions for the improvement of program management/operations.</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for data in evaluation_data %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{data.evaluatorEmail}}</td>
-            <td>{{data.full_name}}</td>
-            <td>{{data.comment1}}</td>
-            <td>{{data.comment2}}</td>
-            <td>{{data.comment3}}</td>
-            <td>{{data.comment4}}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-</table> -->
-<!-- <hr>
-<br>
-<h6>Facilitator Rate</h6> -->
-<!-- <table class="table table-border striped"
-       data-role="table"
-       data-rows-steps="-1, 5, 10"
-       data-rows="5"
-       data-horizontal-scroll="true">
-       <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Current Seminar Rating</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for data in evaluation_data %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{data.evaluatorEmail}}</td>
-            <td>{{data.full_name}}</td>
-            <td>{{data.r1}}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-</table> -->
+</div>
+<div style="width: 50%;">
+    <div id="chartDiv" style="max-width: 100%; height: 500px; margin: 0px auto;"></div>
+    <div id="zero_evaluator" style="width: 100%; height: 500px; background-color: white; padding: 10px; margin-left: 10px;">
+        <h1 align="center">No Registered Evaluator</h1>
+    </div>
+</div>
+</div>
 <hr>
 <br>
 
@@ -208,4 +88,68 @@
     </div>
 </div>
 
+<script type="text/javascript">
+  function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+  $(document).ready(function() {
+    $.ajax({
+            type: 'POST',
+            url: "{% url 'view_seminar_information_ajax' %}",
+            data: {
+              current_id: $('#seminar_id').val()
+            },
+            headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": getCookie("csrftoken"),  // don't forget to include the 'getCookie' function
+                },
+			// handle a successful response
+            success: function (response) {
+              $('#zero_evaluator').hide()
+              $('#total_evaluator').html(response['evaluated'] + response['not_evaluated'])
+              var chart = JSC.chart('chartDiv', {
+                debug: false,
+                legend: {
+                  position: 'inside left bottom',
+                  template: '%value {%percentOfTotal:n1}% %icon %name'
+                },
+                title_position: 'center',
+                defaultSeries_type: 'pieDonut',
+                defaultPoint_label_text: '<b>%name</b>',
+                title_label_text: 'Response Graph',
+                yAxis: { label_text: 'Number', formatString: 'n' },
+                series: [
+                  {
+                    name: 'Evaluators',
+                    points: [
+                      { name: 'Evaluated', y: response['evaluated'] },
+                      { name: 'Not Evaluated', y: response['not_evaluated'] },
+                    ]
+                  }
+                ]
+              });
+              $('#chartDiv').show()
+            },
+            error: function (response) {
+                // alert non successful response
+                $('#chartDiv').hide()
+                $('#zero_evaluator').show()
+            }
+        });
+  });
+    
+  </script>
 {% endblock %}

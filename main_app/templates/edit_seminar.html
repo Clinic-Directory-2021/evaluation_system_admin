@@ -72,15 +72,24 @@
         <input type="hidden" id="facilitator_list" name="facilitator_list">
     <table class="table">
         <thead>
-        <tr>
-            <th colspan="2" style="text-align: center;">Edit Seminar Form</th>
-        </tr>
         </thead>
         <tbody>
         <tr>
             <td>
                 <p><b>Seminar Title</b></p>
                 <input type="text" data-role="input" class="" placeholder="Enter seminar name" name="seminar_title" value="{{seminar_title}}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Start of Seminar(Date)</b></p>
+                <input data-role="datepicker" name="seminar_start" required data-value="{{seminar_start}}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>End of Seminar(Date)</b></p>
+                <input data-role="datepicker" name="seminar_end" required data-value="{{seminar_end}}">
             </td>
         </tr>
         <tr>
@@ -93,6 +102,12 @@
             <td>
                 <p><b>Program Owner Position</b></p>
                 <input type="text" data-role="input" class="" placeholder="Enter program owner position" name="program_owner_position" value="{{program_owner_position}}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><b>Description</b></p>
+                <textarea data-role="textarea" data-prepend="<span class='mif-leanpub'></span>" placeholder="Enter some description about this seminar" name="seminar_description" required>{{seminar_description}}</textarea>
             </td>
         </tr>
         <!-- <tr>
