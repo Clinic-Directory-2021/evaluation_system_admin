@@ -118,8 +118,14 @@
                 },
 			// handle a successful response
             success: function (response) {
-              $('#zero_evaluator').hide()
               $('#total_evaluator').html(response['evaluated'] + response['not_evaluated'])
+              var total = response['evaluated'] + response['not_evaluated']
+              if (total == 0){
+                $('#chartDiv').hide()
+                $('#zero_evaluator').show()
+              }
+              else{
+              $('#zero_evaluator').hide()
               var chart = JSC.chart('chartDiv', {
                 debug: false,
                 legend: {
@@ -142,6 +148,7 @@
                 ]
               });
               $('#chartDiv').show()
+            }
             },
             error: function (response) {
                 // alert non successful response
