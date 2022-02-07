@@ -429,8 +429,32 @@ def postsignIn(request):
     else:
         if email == 'DepedMalolos':
             if password == 'DepedMalolos':
+                evaluation_report = db.collection(u'evaluation_report').get()
+                seminar_report = db.collection(u'seminar_report').get()
+                evaluator_report = db.collection(u'evaluator_report').get()
+                # facilitator_report = db.collection(u'facilitator_report').get()
+                evaluation_counter = 0
+                seminar_counter = 0
+                evaluator_counter = 0
+                facilitator_counter = 0
+                for doc in evaluation_report:
+                    evaluation_counter = evaluation_counter + 1
+                for doc in seminar_report:
+                    seminar_counter = seminar_counter + 1
+                for doc in evaluator_report:
+                    evaluator_counter = evaluator_counter + 1
+                # for doc in facilitator_report:
+                #     facilitator_counter = facilitator_counter + 1
+                
                 open_seminar = db.collection(u'seminars').get()
-                return render(request,'dashboard.html', {"seminar_data":[seminar.to_dict() for seminar in open_seminar]})
+                pass_data = {
+                    "evaluation_counter":evaluation_counter,
+                    "seminar_counter":seminar_counter,
+                    "evaluator_counter":evaluator_counter,
+                    "seminar_data":[seminar.to_dict() for seminar in open_seminar]
+                    # "facilitator_counter":facilitator_counter
+                }
+                return render(request,'dashboard.html', pass_data)
         else:        
             return render(request, "login.html")
 
