@@ -13,23 +13,23 @@
     }
     table th{
         font-size: 12px;
+        padding: 5px;
         background-color: #4B778D;
         color: whitesmoke;
     }
     table thead {
-        padding: 10px;
-        height: 80px;
+        padding: 20px;
     }
     table tbody tr td{
         font-size: 14px;
-        height: 100px;
+        padding: 5px;
     }
     .legends tbody tr td{
         width: 100%;
         border: 1px solid black; 
         text-align: center; 
-        font-size: 14px; 
-        height: 30px;
+        font-size: 16px; 
+        height: 40px;
     }
 </style>
 <body>
@@ -62,7 +62,7 @@
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
-                <th>SESSION/DELIVERY CONTENT</th>
+                <th style="width: 500px;">SESSION/DELIVERY CONTENT</th>
                 <th>1</th>
                 <th>2</th>
                 <th>3</th>
@@ -156,20 +156,30 @@
     {% endif %} -->
     
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <!-- #facilitators -->
-    <h2>FACILITATORS</h2>
     {% for key1,value1 in facilitator_response.items %}
-    
-    <p style="font-size: 14px;"><b>Name:</b> {{key1}}</p>
+    <h2>FACILITATOR</h2>
+    <ss style="font-size: 14px;"><b>Name:</b> {{key1}}</ss><br>
     {%  for index,topic in facilitator_topic.items %}
     {% if index == key1 %}
-    <p style="font-size: 14px;"><b>Topic:</b> {{topic}}</p>
+    <ss style="font-size: 14px;"><b>Topic:</b> {{topic}}</ss>
     {% endif %}
     {% endfor %}
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
-                <th>FACILITATOR</th>
+                <th style="width: 500px;">FACILITATOR</th>
                 <th>1</th>
                 <th>2</th>
                 <th>3</th>
@@ -221,13 +231,42 @@
         </tbody>
     </table>
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     {% endfor %}
 
     <h2>PROGRAM MANAGEMENT AND OPERATIONS</h2>
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
-                <th>PROGRAM MANAGEMENT</th>
+                <th style="width: 500px;">PROGRAM MANAGEMENT</th>
                 <th>1</th>
                 <th>2</th>
                 <th>3</th>
@@ -289,7 +328,7 @@
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
-                <th>PROVISION OF SUPPORT MATERIALS</th>
+                <th style="width: 500px;">PROVISION OF SUPPORT MATERIALS</th>
                 <th>1</th>
                 <th>2</th>
                 <th>3</th>
@@ -351,7 +390,7 @@
     <table style="border: 1px solid black; text-align: center;">
         <thead>
             <tr>
-                <th>PROGRAM MANAGEMENT TEAM</th>
+                <th style="width: 500px;">PROGRAM MANAGEMENT TEAM</th>
                 <th>1</th>
                 <th>2</th>
                 <th>3</th>
@@ -416,95 +455,47 @@
     <p style="text-indent: 1em;">In summary, Program management team of <b>{{seminar_title}}</b> achieved a mean score of <b>{{mean_4}}</b>, indicating that they performed <b>Fair</b> as assessed by the evaluators of the seminar/webinar.</p>
     {% endif %}
     <br> -->
-
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     <h2>COMMENTS/SUGGESTIONS</h2>
-    <table style="border: 1px solid black; text-align: center; width: 100%;">
-        <thead>
-            <tr>
-                <th>What is your most significant learning for the day?</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in comments %}
-            <tr>
-                <!-- <td>{{forloop.counter}}</td>
-                <td>{{data.evaluatorEmail}}</td> -->
-
-                {% if data.c1 == '' %}
-                <td>No Comment</td>
-                {% else %}
-                <td>{{data.c1}}</td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <br>
-    <table style="border: 1px solid black; text-align: center; width: 100%;">
-        <thead>
-            <tr>
-                <th>What will you do differently as a School Head/Teacher/Personnel given your learning?</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in comments %}
-            <tr>
-                <!-- <td>{{forloop.counter}}</td>
-                <td>{{data.evaluatorEmail}}</td> -->
-
-                {% if data.c2 == '' %}
-                <td>No Comment</td>
-                {% else %}
-                <td>{{data.c2}}</td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <br>
-    <table style="border: 1px solid black; text-align: center; width: 100%;">
-        <thead>
-            <tr>
-                <th>How can the session be improved, if at all?</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in comments %}
-            <tr>
-                <!-- <td>{{forloop.counter}}</td>
-                <td>{{data.evaluatorEmail}}</td> -->
-
-                {% if data.c3 == '' %}
-                <td>No Comment</td>
-                {% else %}
-                <td>{{data.c3}}</td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <br>
-    <table style="border: 1px solid black; text-align: center; width: 100%;">
-        <thead>
-            <tr>
-                <th>Comments/Suggestions for the improvement of program management/operations.</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in comments %}
-            <tr>
-                <!-- <td>{{forloop.counter}}</td>
-                <td>{{data.evaluatorEmail}}</td> -->
-
-                {% if data.c4 == '' %}
-                <td>No Comment</td>
-                {% else %}
-                <td>{{data.c4}}</td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <ss style="font-size: 16px;">
+    <h3>What is your most significant learning for the day?</h3>
+    {% for data in comments %}
+        {% if data.c1 == '' %}
+        {{forloop.counter}}. No Comment<br>
+        {% else %}
+        {{forloop.counter}}. {{data.c1}}<br>
+        {% endif %}
+    {% endfor %}
+    <h3>What will you do differently as a School Head/Teacher/Personnel given your learning?</h3>
+    {% for data in comments %}
+        {% if data.c2 == '' %}
+        {{forloop.counter}}. No Comment<br>
+        {% else %}
+        {{forloop.counter}}. {{data.c2}}<br>
+        {% endif %}
+    {% endfor %}
+    <h3>How can the session be improved, if at all?</h3>
+    {% for data in comments %}
+        {% if data.c3 == '' %}
+        {{forloop.counter}}. No Comment<br>
+        {% else %}
+        {{forloop.counter}}. {{data.c3}}<br>
+        {% endif %}
+    {% endfor %}
+    <h3>Comments/Suggestions for the improvement of program management/operations.</h3>
+    {% for data in comments %}
+        {% if data.c4 == '' %}
+        {{forloop.counter}}. No Comment<br>
+        {% else %}
+        {{forloop.counter}}. {{data.c4}}<br>
+        {% endif %}
+    {% endfor %}
+    </ss>
     <br>
     <table style="width: 100px; border: 1px solid black;" align="right">
         <tbody>
@@ -568,6 +559,8 @@
     <ss style="font-size: 14px;"><b>{{program_owner}}</b></ss>
     <br>
     <ss style="font-size: 14px;">{{program_owner_position}}</ss>
+    <br>
+    <ss style="font-size: 14px;">Program Owner</ss>
     <br>
     <ss style="font-size: 14px;">{{date_posted}}</ss>
     <hr>
