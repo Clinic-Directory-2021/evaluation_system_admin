@@ -1483,7 +1483,7 @@ def save_summary(request):
         'date_posted':date,
         'program_owner':program_owner,
         'program_owner_position':program_owner_position,
-        'participatant_rate':(int(:total_of_participant) / int(expected_participant)) * 100,
+        'participatant_rate':(int(total_of_participant) / int(expected_participant)) * 100,
         'q1':q1_dict,
         'q2':q2_dict,
         'q3':q3_dict,
