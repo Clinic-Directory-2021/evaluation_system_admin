@@ -41,6 +41,7 @@
     <p style="font-size: 14px;"><b><label for="">Seminar/Webinar Date: </label></b>{{date_posted}}</p>
     <p style="font-size: 14px;"><b><label for="">Total number of Participants: </label></b>{{total_of_participants}}</p>
     <p style="font-size: 14px;"><b><label for="">Total Responses: </label></b>{{total_of_participants}}</p>
+    <p style="font-size: 14px;"><b><label for="">Particiaption Rate: </label></b>{{participation_rate}}</p>
     <hr>
     <!-- <h2>Total No. Of Participants {{facilitator_dict}}</h2>
     <h2>Total No. of Evaluators {{facilitator_response}} {{q9}}</h2>
@@ -461,7 +462,111 @@
         <br>
         <br>
         <br>
-    <h2>COMMENTS/SUGGESTIONS</h2>
+        <table style="width: 100px; border: 1px solid black;" align="right">
+            <tbody>
+                <tr>
+                    <td>
+                        <h2 align="Center">OVERALL MEAN</h2>
+                    </td>
+                    <td>
+                        {% if overall_mean >= 3.51 %}
+                        <h1 style="background-color: green;" align="Center">{{overall_mean}}</h1>
+                        {% elif overall_mean <= 3.50 and overall_mean >= 2.51 %}
+                        <h1 style="background-color: #2E2EFF;" align="Center">{{overall_mean}}</h1>
+                        {% elif overall_mean <= 2.50 and overall_mean >= 1.51 %}
+                        <h1 style="background-color: orange;" align="Center">{{overall_mean}}</h1>
+                        {% elif overall_mean <= 1.50 %}
+                        <h1 style="background-color: red;" align="Center">{{overall_mean}}</h1>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {% if overall_mean >= 3.51 %}
+        <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>EXCELLENT</b> based on the overall mean score evaluated.</p>
+        {% elif overall_mean <= 3.50 and overall_mean >= 2.51 %}
+        <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>VERY GOOD</b> based on the overall mean score evaluated.</p>
+        {% elif overall_mean <= 2.50 and overall_mean >= 1.51 %}
+        <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>GOOD</b> based on the overall mean score evaluated.</p>
+        {% elif overall_mean <= 1.50 %}
+        <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>Fair</b> based on the overall mean score evaluated.</p>
+        {% endif %}
+        <p>Legends:</p>
+        <table class="legends">
+            <tbody>
+                <tr>
+                    <td><ss style="font-size: 14px;">4.0 - 3.51 = </ss> <ss style="color:green; font-size: 14px;">Excellent</ss></td>
+                    <td><ss style="font-size: 14px;">3.50 - 2.51 = </ss> <ss style="color:#2E2EFF; font-size: 14px;">Very Good</ss></td>
+                    <td><ss style="font-size: 14px;">2.50 - 1.51 = </ss> <ss style="color:orange; font-size: 14px;">Good</ss></td>
+                    <td><ss style="font-size: 14px;">1.50 - 1.0 = </ss> <ss style="color:red; font-size: 14px;">Fair</ss></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    <h1 style="font-size: 16px;">COMMENTS/SUGGESTIONS</h1>
     <ss style="font-size: 16px;">
     <h3>What is your most significant learning for the day?</h3>
     {% for data in comments %}
@@ -497,38 +602,6 @@
     {% endfor %}
     </ss>
     <br>
-    <table style="width: 100px; border: 1px solid black;" align="right">
-        <tbody>
-            <tr>
-                <td>
-                    <h2 align="Center">OVERALL MEAN</h2>
-                </td>
-                <td>
-                    {% if overall_mean >= 3.51 %}
-                    <h1 style="background-color: green;" align="Center">{{overall_mean}}</h1>
-                    {% elif overall_mean <= 3.50 and overall_mean >= 2.51 %}
-                    <h1 style="background-color: #2E2EFF;" align="Center">{{overall_mean}}</h1>
-                    {% elif overall_mean <= 2.50 and overall_mean >= 1.51 %}
-                    <h1 style="background-color: orange;" align="Center">{{overall_mean}}</h1>
-                    {% elif overall_mean <= 1.50 %}
-                    <h1 style="background-color: red;" align="Center">{{overall_mean}}</h1>
-                    {% endif %}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <p>Legends:</p>
-    <table class="legends">
-        <tbody>
-            <tr>
-                <td><ss style="font-size: 14px;">4.0 - 3.51 = </ss> <ss style="color:green; font-size: 14px;">Excellent</ss></td>
-                <td><ss style="font-size: 14px;">3.50 - 2.51 = </ss> <ss style="color:#2E2EFF; font-size: 14px;">Very Good</ss></td>
-                <td><ss style="font-size: 14px;">2.50 - 1.51 = </ss> <ss style="color:orange; font-size: 14px;">Good</ss></td>
-                <td><ss style="font-size: 14px;">1.50 - 1.0 = </ss> <ss style="color:red; font-size: 14px;">Fair</ss></td>
-            </tr>
-        </tbody>
-    </table>
     <!-- <div style="display: flex;"><ss style="font-size: 14px;">4.0 - 3.51</ss> <ss style="color:green; font-size: 14px;"> : Excellent</ss></div><br>
         <div style="display: flex;"><ss style="font-size: 14px;">3.50 - 2.51</ss> <ss style="color:#d472bc; font-size: 14px;"> : Very Good</ss></div><br>
             <div style="display: flex;"><ss style="font-size: 14px;">2.50 - 1.51</ss> <ss style="color:orange; font-size: 14px;"> : Good</ss></div><br>
@@ -539,15 +612,6 @@
     
     
     </table>
-    {% if overall_mean >= 3.51 %}
-    <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>EXCELLENT</b> based on the overall mean score evaluated.</p>
-    {% elif overall_mean <= 3.50 and overall_mean >= 2.51 %}
-    <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>VERY GOOD</b> based on the overall mean score evaluated.</p>
-    {% elif overall_mean <= 2.50 and overall_mean >= 1.51 %}
-    <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>GOOD</b> based on the overall mean score evaluated.</p>
-    {% elif overall_mean <= 1.50 %}
-    <p style="text-indent: 1em;">The seminar/webinar <b>{{seminar_title}}</b> was concluded to be <b>Fair</b> based on the overall mean score evaluated.</p>
-    {% endif %}
     <br>
     <br>
     <br>
