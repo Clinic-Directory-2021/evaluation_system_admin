@@ -1,17 +1,23 @@
 {% extends 'home_header.html' %}
 {% block content %}
 <!--Content-->
-
 <div class="content p-5">
     <div style="display: flex;">
     <button class="button primary mr-3" onclick="back_to_report()"><icon class="mif-arrow-left icon mr-3"></icon>Evaluation Report</button>
     <a class="button success mr-3" href="{% url 'export_evaluation' %}"><icon class="mif-file-excel icon mr-3"></icon>Export to Excel</a>
-    <form method="POST" action="pdf/">
+    <!-- <form method="POST" action="pdf/"> -->
         {% csrf_token %}
         <input type="hidden" id="seminar_id" value="{{seminar_id}}" name="seminar_id">
-    <button class="button alert mr-3" type="submit"><icon class="mif-file-pdf icon mr-3"></icon>Download Report</button>
-    </form>
+    <button class="button alert mr-3" type="submit" onclick="download_pdf('{{seminar_id}}')"><icon class="mif-file-pdf icon mr-3"></icon>Download Report</button>
+    <!-- </form> -->
     </div>
+    <br>
+
+    <div data-role="progress" data-type="line" class="progress" style="display: none; margin-bottom: 5px;"></div>
+    <div data-role="progress" data-type="line" data-small="true" class="progress" style="display: none;"></div>
+    <p style="font-size: 16px; text-align: center;  display: none;" id="text"> Please Wait to fetch all data. This might take long...</p>
+
+    <br>
     <h3 class="p-5">Seminar Information</h3>
     
     <h1 align='center'>{{seminar_title}}</h1>
@@ -131,5 +137,141 @@
     </div>
     </div>
 </div>
+ <script>
+     function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
 
+     function download_pdf(current_id){
+        $('.progress').show()
+        $('#text').show()
+        flag = false
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'get_summary_data' %}",
+            data: {"seminar_id":current_id},
+            dataType: "json",
+            headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": getCookie("csrftoken"),  // don't forget to include the 'getCookie' function
+                },
+            success: function (response) {
+                // console.log()
+                // JSON.stringify({"1":"galvez"}
+                $.ajax({
+                url : "{% url 'get_summary_data2' %}", // the endpoint
+                type : 'POST', // http method
+                data : { 
+                    'seminar_title':response["seminar_title"],
+                    'date_posted':response["date_posted"],
+                    'program_owner':response["program_owner"],
+                    'program_owner_position':response["program_owner_position"],
+                    'q1':JSON.stringify(response["q1"]),
+                    'q2':JSON.stringify(response["q2"]),
+                    'q3':JSON.stringify(response["q3"]),
+                    'q4':JSON.stringify(response["q4"]),
+                    'q5':JSON.stringify(response["q5"]),
+                    'q6':JSON.stringify(response["q6"]),
+                    'q7':JSON.stringify(response["q7"]),
+                    'q8':JSON.stringify(response["q8"]),
+                    'q18':JSON.stringify(response["q18"]),
+                    'q19':JSON.stringify(response["q19"]),
+                    'q20':JSON.stringify(response["q20"]),
+                    'q21':JSON.stringify(response["q21"]),
+                    'q22':JSON.stringify(response["q22"]),
+                    'q23':JSON.stringify(response["q23"]),
+                    'q24':JSON.stringify(response["q24"]),
+                    'q25':JSON.stringify(response["q25"]),
+                    'q26':JSON.stringify(response["q26"]),
+                    'q27':JSON.stringify(response["q27"]),
+                    "q1_mean":response["q1_mean"],
+                    "q2_mean":response["q2_mean"],
+                    "q3_mean":response["q3_mean"],
+                    "q4_mean":response["q4_mean"],
+                    "q5_mean":response["q5_mean"],
+                    "q6_mean":response["q6_mean"],
+                    "q7_mean":response["q7_mean"],
+                    "q8_mean":response["q8_mean"],
+                    "q18_mean":response["q18_mean"],
+                    "q19_mean":response["q19_mean"],
+                    "q20_mean":response["q20_mean"],
+                    "q21_mean":response["q21_mean"],
+                    "q22_mean":response["q22_mean"],
+                    "q23_mean":response["q23_mean"],
+                    "q24_mean":response["q24_mean"],
+                    "q25_mean":response["q25_mean"],
+                    "q26_mean":response["q26_mean"],
+                    "q27_mean":response["q27_mean"],
+                    "total_of_participants":response['total_of_participants'],
+                    "facilitator_response":JSON.stringify(response['facilitator_response']),
+                    "facilitator_mean":response['facilitator_mean'],
+                    "facilitator_topic":response['facilitator_topic'],
+                    "mean_1":response['mean_1'],
+                    "mean_2":response['mean_2'],
+                    "mean_3":response['mean_3'],
+                    "mean_4":response['mean_4'],
+                    "facilitator_question":JSON.stringify(response['facilitator_question']),
+                    "overall_mean":response['overall_mean'],
+                    "comments":JSON.stringify(response['comments']), 
+                    csrfmiddlewaretoken :  '{{ csrf_token }}'
+                },
+                dataType: "json",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": getCookie("csrftoken"),  // don't forget to include the 'getCookie' function
+                },
+                // handle a successful response
+                success : function(data) {
+                    $('.progress').hide()
+                    $('#text').hide()
+                    console.log(data['validation'])
+                    flag = true
+                    
+                },
+                error: function (data) {
+                // alert the error if any error occured
+                $('.progress').hide()
+                $('#text').hide()
+                console.log(data['status'])
+                console.log("error 1")
+            }
+            })
+            },
+            error: function (response) {
+                $('.progress').hide()
+                    $('#text').hide()
+                // alert the error if any error occured
+                console.log(response)
+                console.log("error 2")
+            }
+        })
+        var timerId = setInterval(function(){
+
+            if(flag){
+                
+                console.log('hello')
+                clearInterval(timerId);
+                window.location.href = "{% url 'get_summary_data3' %}"
+             }
+            else{
+                console.log('world')
+            }
+
+        },1000);
+        
+        
+}
+ </script>
 {% endblock %}

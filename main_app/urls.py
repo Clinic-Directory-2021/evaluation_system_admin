@@ -48,4 +48,7 @@ path('post_delete_facilitator/', views.post_delete_facilitator),
 path('post_edit_facilitator/', views.post_edit_facilitator),
 path('report_view_evaluation_info/pdf/', views.save_summary),
 path('view_seminar_information_ajax/', views.view_seminar_information_ajax, name='view_seminar_information_ajax'),
+path('get_summary_data/', views.get_summary_data, name="get_summary_data"),
+path('get_summary_data2/', views.get_summary_data2, name="get_summary_data2"),
+path('get_summary_data3/', views.get_summary_data3, name="get_summary_data3"),
 ]

@@ -11,7 +11,7 @@ import calendar
 import xlwt
 import os
 from django.conf import settings
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
@@ -1243,7 +1243,435 @@ def link_callback(uri, rel):
                             'media URI must start with %s or %s' % (sUrl, mUrl)
                     )
             return path
+def get_summary_data(request):
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+    if is_ajax:
+        if request.method == 'POST':
+            q1_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q2_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q3_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q4_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q5_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q6_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q7_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q8_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q18_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q19_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q20_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q21_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q22_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q23_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q24_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q25_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q26_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            q27_dict = {
+                "1":0,
+                "2":0,
+                "3":0,
+                "4":0,
+            }
+            facilitator_response ={
 
+            }
+            facilitator_mean ={
+
+            }
+            facilitator_topic = {
+
+            }
+            facilitator_question = {
+                "q9":"Exhibited full grasp of the topic",
+                "q10":"Was sensitive to the participants' mood",
+                "q11":"Asked stimulating questions",
+                "q12":"Processed questions and responses to deepen learning",
+                "q13":"Maintained positive learning environment",
+                "q14":"Expressed ideas clearly",
+                "q15":"Used appropriate training aids",
+                "q16":"Observed appropriate attire",
+                "q17":"Was able to firm up attainment of objectives of the session",
+            }
+            current_id = str(request.POST.get('seminar_id'))
+            total_of_participant = 0
+            evaluation_report = db.collection(u'evaluation_report').document(current_id)
+            evaluation_data = evaluation_report.get()
+            seminar_title = u'{}'.format(evaluation_data.to_dict()['seminar_title'])
+            program_owner = u'{}'.format(evaluation_data.to_dict()['program_owner'])
+            program_owner_position = u'{}'.format(evaluation_data.to_dict()['program_owner_position'])
+            # expected_participant = u'{}'.format(evaluation_data.to_dict()['expected_participant'])
+            date = u'{}'.format(evaluation_data.to_dict()['date'])
+            evaluators = evaluation_report.collection('evaluators')
+            evaluators_data = evaluators.where(u'status', u'==', "evaluated").get()
+            for data in evaluators_data:
+                for evaluator_data in evaluators_data:
+                    facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
+                    for facilitators_data in facilitators:
+                        facilitator_topic[facilitators_data.id] = facilitators_data.to_dict()['topic']
+                        facilitator_response[facilitators_data.id] = {
+                        "q9":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                        "q10":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                        "q11":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                        "q12":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                        "q13":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                        "q14":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                        "q15":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                        "q16":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                        "q17":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                        }
+
+            
+            for evaluator_data in evaluators_data:
+                facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
+                for facilitators_data in facilitators:
+                    temp_dict = facilitators_data.to_dict()
+                    for key,data_dict in temp_dict.items():               
+                                func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)               
+            for data in evaluators_data:   
+                total_of_participant += 1
+                q1 = u'{}'.format(data.to_dict()['q1'])
+                q2 = u'{}'.format(data.to_dict()['q2'])
+                q3 = u'{}'.format(data.to_dict()['q3'])
+                q4 = u'{}'.format(data.to_dict()['q4'])
+                q5 = u'{}'.format(data.to_dict()['q5'])
+                q6 = u'{}'.format(data.to_dict()['q6'])
+                q7 = u'{}'.format(data.to_dict()['q7'])
+                q8 = u'{}'.format(data.to_dict()['q8'])
+                q18 = u'{}'.format(data.to_dict()['q18'])
+                q19 = u'{}'.format(data.to_dict()['q19'])
+                q20 = u'{}'.format(data.to_dict()['q20'])
+                q21 = u'{}'.format(data.to_dict()['q21'])
+                q22 = u'{}'.format(data.to_dict()['q22'])
+                q23 = u'{}'.format(data.to_dict()['q23'])
+                q24 = u'{}'.format(data.to_dict()['q24'])
+                q25 = u'{}'.format(data.to_dict()['q25'])
+                q26 = u'{}'.format(data.to_dict()['q26'])
+                q27 = u'{}'.format(data.to_dict()['q27'])
+                
+                func.question_dict(q1,q1_dict)
+                func.question_dict(q2,q2_dict)
+                func.question_dict(q3,q3_dict)
+                func.question_dict(q4,q4_dict)
+                func.question_dict(q5,q5_dict)
+                func.question_dict(q6,q6_dict)
+                func.question_dict(q7,q7_dict)
+                func.question_dict(q8,q8_dict)
+                func.question_dict(q18,q18_dict)
+                func.question_dict(q19,q19_dict)
+                func.question_dict(q20,q20_dict)
+                func.question_dict(q21,q21_dict)
+                func.question_dict(q22,q22_dict)
+                func.question_dict(q23,q23_dict)
+                func.question_dict(q24,q24_dict)
+                func.question_dict(q25,q25_dict)
+                func.question_dict(q26,q26_dict)
+                func.question_dict(q27,q27_dict)
+            
+            func.get_facilitator_mean(facilitator_response,total_of_participant)     
+            q1_mean = func.get_mean(q1_dict, total_of_participant)
+            q2_mean = func.get_mean(q2_dict, total_of_participant)
+            q3_mean = func.get_mean(q3_dict, total_of_participant)
+            q4_mean = func.get_mean(q4_dict, total_of_participant)
+            q5_mean = func.get_mean(q5_dict, total_of_participant)
+            q6_mean = func.get_mean(q6_dict, total_of_participant)
+            q7_mean = func.get_mean(q7_dict, total_of_participant)
+            q8_mean = func.get_mean(q8_dict, total_of_participant)
+            q18_mean = func.get_mean(q18_dict, total_of_participant)
+            q19_mean = func.get_mean(q19_dict, total_of_participant)
+            q20_mean = func.get_mean(q20_dict, total_of_participant)
+            q21_mean = func.get_mean(q21_dict, total_of_participant)
+            q22_mean = func.get_mean(q22_dict, total_of_participant)
+            q23_mean = func.get_mean(q23_dict, total_of_participant)
+            q24_mean = func.get_mean(q24_dict, total_of_participant)
+            q25_mean = func.get_mean(q25_dict, total_of_participant)
+            q26_mean = func.get_mean(q26_dict, total_of_participant)
+            q27_mean = func.get_mean(q27_dict, total_of_participant)
+
+            mean_1 =  statistics.mean([q1_mean,q2_mean,q3_mean,q4_mean,q5_mean,q6_mean,q7_mean,q8_mean])
+            mean_2 =  statistics.mean([q18_mean,q19_mean,q20_mean])
+            mean_3 =  statistics.mean([q21_mean,q22_mean,q23_mean])
+            mean_4 =  statistics.mean([q24_mean,q25_mean,q26_mean,q26_mean])
+
+            print(mean_1)
+            overall_mean = round(statistics.mean([mean_1,mean_2,mean_3,mean_4]),1)
+            func.facilitator_overall_mean(facilitator_mean,facilitator_response)
+            print(q1_dict)
+            template_path = 'pdf_generated/generate_summary.html'
+            context = {
+                'seminar_title':seminar_title,
+                'date_posted':date,
+                'program_owner':program_owner,
+                'program_owner_position':program_owner_position,
+                # 'participatant_rate':(int(total_of_participant) / int(expected_participant)) * 100,
+                'q1':q1_dict,
+                'q2':q2_dict,
+                'q3':q3_dict,
+                'q4':q4_dict,
+                'q5':q5_dict,
+                'q6':q6_dict,
+                'q7':q7_dict,
+                'q8':q8_dict,
+                'q18':q18_dict,
+                'q19':q19_dict,
+                'q20':q20_dict,
+                'q21':q21_dict,
+                'q22':q22_dict,
+                'q23':q23_dict,
+                'q24':q24_dict,
+                'q25':q25_dict,
+                'q26':q26_dict,
+                'q27':q27_dict,
+                "q1_mean":q1_mean,
+                "q2_mean":q2_mean,
+                "q3_mean":q3_mean,
+                "q4_mean":q4_mean,
+                "q5_mean":q5_mean,
+                "q6_mean":q6_mean,
+                "q7_mean":q7_mean,
+                "q8_mean":q8_mean,
+                "q18_mean":q18_mean,
+                "q19_mean":q19_mean,
+                "q20_mean":q20_mean,
+                "q21_mean":q21_mean,
+                "q22_mean":q22_mean,
+                "q23_mean":q23_mean,
+                "q24_mean":q24_mean,
+                "q25_mean":q25_mean,
+                "q26_mean":q26_mean,
+                "q27_mean":q27_mean,
+                "total_of_participants":total_of_participant,
+                "facilitator_response":facilitator_response,
+                "facilitator_mean":facilitator_mean,
+                "facilitator_topic":facilitator_topic,
+                "test":mean_1,
+                "mean_1":round(mean_1,1),
+                "mean_2":round(mean_2,1),
+                "mean_3":round(mean_3,1),
+                "mean_4":round(mean_4,1),
+                "facilitator_question":facilitator_question,
+                "overall_mean":overall_mean,
+                "comments":[comment_data.to_dict() for comment_data in evaluators_data]
+                }
+            return JsonResponse(context)
+        return JsonResponse({'status': 'Invalid request'}, status=400)
+    else:
+        return HttpResponseBadRequest('Invalid request')
+
+def get_summary_data3(request):
+            template_path = 'pdf_generated/generate_summary.html'
+            context = {
+            'seminar_title':request.session['seminar_title'],
+            'date_posted':request.session['date_posted'],
+            'program_owner':request.session['program_owner'],
+            'program_owner_position':request.session['program_owner_position'],
+            'q1':request.session['q1'],
+            'q2':request.session['q2'],
+            'q3':request.session['q3'],
+            'q4':request.session['q4'],
+            'q5':request.session['q5'],
+            'q6':request.session['q6'],
+            'q7':request.session['q7'],
+            'q8':request.session['q8'],
+            'q18':request.session['q18'],
+            'q19':request.session['q19'],
+            'q20':request.session['q20'],
+            'q21':request.session['q21'],
+            'q22':request.session['q22'],
+            'q23':request.session['q23'],
+            'q24':request.session['q24'],
+            'q25':request.session['q25'],
+            'q26':request.session['q26'],
+            'q27':request.session['q27'],
+            "q1_mean":request.session['q1_mean'],
+            "q2_mean":request.session['q2_mean'],
+            "q3_mean":request.session['q3_mean'],
+            "q4_mean":request.session['q4_mean'],
+            "q5_mean":request.session['q5_mean'],
+            "q6_mean":request.session['q6_mean'],
+            "q7_mean":request.session['q7_mean'],
+            "q8_mean":request.session['q8_mean'],
+            "q18_mean":request.session['q18_mean'],
+            "q19_mean":request.session['q19_mean'],
+            "q20_mean":request.session['q20_mean'],
+            "q21_mean":request.session['q21_mean'],
+            "q22_mean":request.session['q22_mean'],
+            "q23_mean":request.session['q23_mean'],
+            "q24_mean":request.session['q24_mean'],
+            "q25_mean":request.session['q25_mean'],
+            "q26_mean":request.session['q26_mean'],
+            "q27_mean":request.session['q27_mean'],
+            "total_of_participants":request.session['total_of_participant'],
+            "facilitator_response":request.session['facilitator_response'],
+            "facilitator_mean":request.session['facilitator_mean'],
+            "facilitator_topic":request.session['facilitator_topic'],
+            "mean_1":request.session['mean_1'],
+            "mean_2":request.session['mean_2'],
+            "mean_3":request.session['mean_3'],
+            "mean_4":request.session['mean_4'],
+            "facilitator_question":request.session['facilitator_question'],
+            "overall_mean":request.session['overall_mean'],
+            "comments":request.session['comments']
+            }
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="'+str(request.session['date_posted'])+'report.pdf"'
+            # find the template and render it.
+            template = get_template(template_path)
+            html = template.render(context)
+
+            # create a pdf
+            pisa_status = pisa.CreatePDF(
+            html, dest=response, link_callback=link_callback)
+            print("may error dito")
+            print(html)
+            # if error then show some funy view
+            if pisa_status.err:
+                print("may error")
+                return HttpResponse('We had some errors <pre>' + html + '</pre>')
+            return response    
+
+def get_summary_data2(request):
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+    if is_ajax:
+        if request.method == 'POST':
+            request.session['seminar_title'] = request.POST.get('seminar_title')
+            request.session['date_posted'] = request.POST.get('date_posted')
+            request.session['program_owner'] = request.POST.get('program_owner')
+            request.session['program_owner_position'] = request.POST.get('program_owner_position')
+            request.session['q1'] = json.loads(request.POST.get('q1'))
+            request.session['q2'] = json.loads(request.POST.get('q2'))
+            request.session['q3'] = json.loads(request.POST.get('q3'))
+            request.session['q4'] = json.loads(request.POST.get('q4'))
+            request.session['q5'] = json.loads(request.POST.get('q5'))
+            request.session['q6'] = json.loads(request.POST.get('q6'))
+            request.session['q7'] = json.loads(request.POST.get('q7'))
+            request.session['q8'] = json.loads(request.POST.get('q8'))
+            request.session['q18'] = json.loads(request.POST.get('q18'))
+            request.session['q19'] = json.loads(request.POST.get('q19'))
+            request.session['q20'] = json.loads(request.POST.get('q20'))
+            request.session['q21'] = json.loads(request.POST.get('q21'))
+            request.session['q22'] = json.loads(request.POST.get('q22'))
+            request.session['q23'] = json.loads(request.POST.get('q23'))
+            request.session['q24'] = json.loads(request.POST.get('q24'))
+            request.session['q25'] = json.loads(request.POST.get('q25'))
+            request.session['q26'] = json.loads(request.POST.get('q26'))
+            request.session['q27'] = json.loads(request.POST.get('q27'))
+            request.session['q1_mean'] = request.POST.get('q1_mean')
+            request.session['q2_mean'] = request.POST.get('q2_mean')
+            request.session['q3_mean'] = request.POST.get('q3_mean')
+            request.session['q4_mean'] = request.POST.get('q4_mean')
+            request.session['q5_mean'] = request.POST.get('q5_mean')
+            request.session['q6_mean'] = request.POST.get('q6_mean')
+            request.session['q7_mean'] = request.POST.get('q7_mean')
+            request.session['q8_mean'] = request.POST.get('q8_mean')
+            request.session['q18_mean'] = request.POST.get('q18_mean')
+            request.session['q19_mean'] = request.POST.get('q19_mean')
+            request.session['q20_mean'] = request.POST.get('q20_mean')
+            request.session['q21_mean'] = request.POST.get('q21_mean')
+            request.session['q22_mean'] = request.POST.get('q22_mean')
+            request.session['q23_mean'] = request.POST.get('q23_mean')
+            request.session['q24_mean'] = request.POST.get('q24_mean')
+            request.session['q25_mean'] = request.POST.get('q25_mean')
+            request.session['q26_mean'] = request.POST.get('q26_mean')
+            request.session['q27_mean'] = request.POST.get('q27_mean')
+            request.session['total_of_participant'] = request.POST.get('total_of_participant')
+            request.session['facilitator_response'] = json.loads(request.POST.get('facilitator_response'))
+            request.session['facilitator_mean'] = request.POST.get('facilitator_mean')
+            request.session['facilitator_topic'] = request.POST.get('facilitator_topic')
+            request.session['mean_1'] = request.POST.get('mean_1')
+            request.session['mean_2'] = request.POST.get('mean_2')
+            request.session['mean_3'] = request.POST.get('mean_3')
+            request.session['mean_4'] = request.POST.get('mean_4')
+            request.session['facilitator_question'] = json.loads(request.POST.get('facilitator_question'))
+            request.session['overall_mean'] = request.POST.get('overall_mean')
+            request.session['comments'] = json.loads(request.POST.get('comments'))
+            return JsonResponse({"validation":"success"})
+        return JsonResponse({'status': 'Invalid request'}, status=400)
+    else:
+        return HttpResponseBadRequest('Invalid request')
+        
 def save_summary(request):
     q1_dict = {
         "1":0,
