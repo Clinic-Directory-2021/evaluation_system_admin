@@ -1385,7 +1385,7 @@ def get_summary_data(request):
             # expected_participant = u'{}'.format(evaluation_data.to_dict()['expected_participant'])
             date = u'{}'.format(evaluation_data.to_dict()['date'])
             evaluators = evaluation_report.collection('evaluators')
-            evaluators_data = evaluators.where(u'status', u'==', "evaluated").get()
+            evaluators_data = evaluators.get()
             for data in evaluators_data:
                 for evaluator_data in evaluators_data:
                     facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
