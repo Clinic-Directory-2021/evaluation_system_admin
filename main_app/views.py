@@ -980,37 +980,38 @@ def export_evaluation(request):
     evaluator = docs.collection('evaluators').get()
     counter = 0
     for doc in evaluator:
-        rows = {
-             str(0): counter + 1,
-            str(1): u'{}'.format(doc.to_dict()['date_posted']),
-            str(2): u'{}'.format(doc.to_dict()['evaluatorEmail']),
-            str(3): u'{}'.format(doc.to_dict()['full_name']),
-            str(4): u'{}'.format(doc.to_dict()['q1']),
-            str(5): u'{}'.format(doc.to_dict()['q2']),
-            str(6): u'{}'.format(doc.to_dict()['q3']),
-            str(7): u'{}'.format(doc.to_dict()['q4']),
-            str(8): u'{}'.format(doc.to_dict()['q5']),
-            str(9): u'{}'.format(doc.to_dict()['q6']),
-            str(10): u'{}'.format(doc.to_dict()['q7']),
-            str(11): u'{}'.format(doc.to_dict()['q8']),
-            str(12): u'{}'.format(doc.to_dict()['q18']),
-            str(13): u'{}'.format(doc.to_dict()['q19']),
-            str(14): u'{}'.format(doc.to_dict()['q20']),
-            str(15): u'{}'.format(doc.to_dict()['q21']),
-            str(16): u'{}'.format(doc.to_dict()['q22']),
-            str(17): u'{}'.format(doc.to_dict()['q23']),
-            str(18): u'{}'.format(doc.to_dict()['q24']),
-            str(19): u'{}'.format(doc.to_dict()['q25']),
-            str(20): u'{}'.format(doc.to_dict()['q26']),
-            str(21): u'{}'.format(doc.to_dict()['q27']),
-            str(22): u'{}'.format(doc.to_dict()['c1']),
-            str(23): u'{}'.format(doc.to_dict()['c2']),
-            str(24): u'{}'.format(doc.to_dict()['c3']),
-            str(25): u'{}'.format(doc.to_dict()['c4']),
-        }
-        row_num += 1
-        for col_num in range(len(rows)):
-            ws.write(row_num, col_num+1, rows.get(str(col_num+1)))
+        if doc.to_dict()['status'] == "evaluated":
+            rows = {
+                str(0): counter + 1,
+                str(1): u'{}'.format(doc.to_dict()['date_posted']),
+                str(2): u'{}'.format(doc.to_dict()['evaluatorEmail']),
+                str(3): u'{}'.format(doc.to_dict()['full_name']),
+                str(4): u'{}'.format(doc.to_dict()['q1']),
+                str(5): u'{}'.format(doc.to_dict()['q2']),
+                str(6): u'{}'.format(doc.to_dict()['q3']),
+                str(7): u'{}'.format(doc.to_dict()['q4']),
+                str(8): u'{}'.format(doc.to_dict()['q5']),
+                str(9): u'{}'.format(doc.to_dict()['q6']),
+                str(10): u'{}'.format(doc.to_dict()['q7']),
+                str(11): u'{}'.format(doc.to_dict()['q8']),
+                str(12): u'{}'.format(doc.to_dict()['q18']),
+                str(13): u'{}'.format(doc.to_dict()['q19']),
+                str(14): u'{}'.format(doc.to_dict()['q20']),
+                str(15): u'{}'.format(doc.to_dict()['q21']),
+                str(16): u'{}'.format(doc.to_dict()['q22']),
+                str(17): u'{}'.format(doc.to_dict()['q23']),
+                str(18): u'{}'.format(doc.to_dict()['q24']),
+                str(19): u'{}'.format(doc.to_dict()['q25']),
+                str(20): u'{}'.format(doc.to_dict()['q26']),
+                str(21): u'{}'.format(doc.to_dict()['q27']),
+                str(22): u'{}'.format(doc.to_dict()['c1']),
+                str(23): u'{}'.format(doc.to_dict()['c2']),
+                str(24): u'{}'.format(doc.to_dict()['c3']),
+                str(25): u'{}'.format(doc.to_dict()['c4']),
+            }
+            row_num += 1
+            for col_num in range(len(rows)):
+                ws.write(row_num, col_num+1, rows.get(str(col_num+1)))
     wb.save(response)
     return response
 def view_seminar(request):
