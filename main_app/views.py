@@ -1388,6 +1388,7 @@ def get_summary_data(request):
             evaluators_data = evaluators.get()
             for data in evaluators_data:
                 for evaluator_data in evaluators_data:
+                    hello = evaluator_data.id
                     facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
                     for facilitators_data in facilitators:
                         facilitator_topic[facilitators_data.id] = facilitators_data.to_dict()['topic']
