@@ -168,6 +168,7 @@
                     "X-CSRFToken": getCookie("csrftoken"),  // don't forget to include the 'getCookie' function
                 },
             success: function (response) {
+                console.log(response)
                 // console.log()
                 // JSON.stringify({"1":"galvez"}
                 $.ajax({
@@ -236,7 +237,7 @@
                 success : function(data) {
                     $('.progress').hide()
                     $('#text').hide()
-                    console.log(data['validation'])
+                    // console.log(data['validation'])
                     flag = true
                     
                 },
@@ -245,11 +246,12 @@
                 $('.progress').hide()
                 $('#text').hide()
                 console.log(data['status'])
+                console.log(data)
                 console.log("error 1")
             }
             })
             },
-            error: function (response) {
+            error: function (response){
                 $('.progress').hide()
                     $('#text').hide()
                 // alert the error if any error occured
