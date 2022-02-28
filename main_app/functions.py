@@ -26,7 +26,7 @@ def get_facilitator_mean(response_dictionary,total_of_participants):
             output = 0
             for key3, data3 in data2.items():
                 if key3 ==  "mean":
-                    response_dictionary[key1][key2][key3] = output / total_of_participants 
+                    response_dictionary[key1][key2][key3] = float("{:.2f}".format(output / total_of_participants))
                 else:
                     output += (data3 * int(key3))
 

@@ -150,7 +150,6 @@ def report(request):
             }
         return render(request, 'report.html',pass_data)
     except Exception as e:
-        print('Your Error is: ' + str(e))
         return render(request, 'report.html')
 
 def logout(request):
@@ -180,7 +179,6 @@ def view_seminar_information(request):
     try:
         #* This will be need in the future to fetch current id of the seminar
         current_id = request.GET.get('current_id')
-        print(current_id)
         evaluators = db.collection(u'evaluators').get()
         evaluator_count = 0;
 
@@ -197,7 +195,6 @@ def view_seminar_information(request):
         date = u'{}'.format(seminar.to_dict()['date'])
         program_owner = u'{}'.format(seminar.to_dict()['program_owner'])
         program_owner_position = u'{}'.format(seminar.to_dict()['program_owner_position'])
-        print(u'{}'.format(seminar.to_dict()['date']))
         evaluation_data = evaluations.collection('evaluators').get()
         evaluation_count = 0
         evaluator_id = ""
@@ -980,37 +977,38 @@ def export_evaluation(request):
     evaluator = docs.collection('evaluators').get()
     counter = 0
     for doc in evaluator:
-        rows = {
-             str(0): counter + 1,
-            str(1): u'{}'.format(doc.to_dict()['date_posted']),
-            str(2): u'{}'.format(doc.to_dict()['evaluatorEmail']),
-            str(3): u'{}'.format(doc.to_dict()['full_name']),
-            str(4): u'{}'.format(doc.to_dict()['q1']),
-            str(5): u'{}'.format(doc.to_dict()['q2']),
-            str(6): u'{}'.format(doc.to_dict()['q3']),
-            str(7): u'{}'.format(doc.to_dict()['q4']),
-            str(8): u'{}'.format(doc.to_dict()['q5']),
-            str(9): u'{}'.format(doc.to_dict()['q6']),
-            str(10): u'{}'.format(doc.to_dict()['q7']),
-            str(11): u'{}'.format(doc.to_dict()['q8']),
-            str(12): u'{}'.format(doc.to_dict()['q18']),
-            str(13): u'{}'.format(doc.to_dict()['q19']),
-            str(14): u'{}'.format(doc.to_dict()['q20']),
-            str(15): u'{}'.format(doc.to_dict()['q21']),
-            str(16): u'{}'.format(doc.to_dict()['q22']),
-            str(17): u'{}'.format(doc.to_dict()['q23']),
-            str(18): u'{}'.format(doc.to_dict()['q24']),
-            str(19): u'{}'.format(doc.to_dict()['q25']),
-            str(20): u'{}'.format(doc.to_dict()['q26']),
-            str(21): u'{}'.format(doc.to_dict()['q27']),
-            str(22): u'{}'.format(doc.to_dict()['c1']),
-            str(23): u'{}'.format(doc.to_dict()['c2']),
-            str(24): u'{}'.format(doc.to_dict()['c3']),
-            str(25): u'{}'.format(doc.to_dict()['c4']),
-        }
-        row_num += 1
-        for col_num in range(len(rows)):
-            ws.write(row_num, col_num+1, rows.get(str(col_num+1)))
+        if doc.to_dict()['status'] == "evaluated":
+            rows = {
+                str(0): counter + 1,
+                str(1): u'{}'.format(doc.to_dict()['date_posted']),
+                str(2): u'{}'.format(doc.to_dict()['evaluatorEmail']),
+                str(3): u'{}'.format(doc.to_dict()['full_name']),
+                str(4): u'{}'.format(doc.to_dict()['q1']),
+                str(5): u'{}'.format(doc.to_dict()['q2']),
+                str(6): u'{}'.format(doc.to_dict()['q3']),
+                str(7): u'{}'.format(doc.to_dict()['q4']),
+                str(8): u'{}'.format(doc.to_dict()['q5']),
+                str(9): u'{}'.format(doc.to_dict()['q6']),
+                str(10): u'{}'.format(doc.to_dict()['q7']),
+                str(11): u'{}'.format(doc.to_dict()['q8']),
+                str(12): u'{}'.format(doc.to_dict()['q18']),
+                str(13): u'{}'.format(doc.to_dict()['q19']),
+                str(14): u'{}'.format(doc.to_dict()['q20']),
+                str(15): u'{}'.format(doc.to_dict()['q21']),
+                str(16): u'{}'.format(doc.to_dict()['q22']),
+                str(17): u'{}'.format(doc.to_dict()['q23']),
+                str(18): u'{}'.format(doc.to_dict()['q24']),
+                str(19): u'{}'.format(doc.to_dict()['q25']),
+                str(20): u'{}'.format(doc.to_dict()['q26']),
+                str(21): u'{}'.format(doc.to_dict()['q27']),
+                str(22): u'{}'.format(doc.to_dict()['c1']),
+                str(23): u'{}'.format(doc.to_dict()['c2']),
+                str(24): u'{}'.format(doc.to_dict()['c3']),
+                str(25): u'{}'.format(doc.to_dict()['c4']),
+            }
+            row_num += 1
+            for col_num in range(len(rows)):
+                ws.write(row_num, col_num+1, rows.get(str(col_num+1)))
     wb.save(response)
     return response
 def view_seminar(request):
@@ -1121,7 +1119,7 @@ def generate_seminar(request):
         html, dest=response, link_callback=link_callback)
         # if error then show some funy view
         if pisa_status.err:
-            print(html)
+            #print(html)
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
         return response
     except Exception as e:
@@ -1385,31 +1383,30 @@ def get_summary_data(request):
             # expected_participant = u'{}'.format(evaluation_data.to_dict()['expected_participant'])
             date = u'{}'.format(evaluation_data.to_dict()['date'])
             evaluators = evaluation_report.collection('evaluators')
-            evaluators_data = evaluators.get()
-            for data in evaluators_data:
-                for evaluator_data in evaluators_data:
-                    hello = evaluator_data.id
-                    facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
-                    for facilitators_data in facilitators:
-                        facilitator_topic[facilitators_data.id] = facilitators_data.to_dict()['topic']
-                        facilitator_response[facilitators_data.id] = {
-                        "q9":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                        "q10":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                        "q11":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                        "q12":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                        "q13":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                        "q14":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                        "q15":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                        "q16":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                        "q17":{"1":0,"2":0,"3":0,"4":0,"mean":0},
-                        }
-
+            evaluators_data = evaluators.where('status','==','evaluated').get()
+            for evaluator_data in evaluators_data:
+                hello = evaluator_data.id
+                facilitators = evaluators.document(evaluator_data.id).collection('facilitators').where('q17','>','0').get()
+                for facilitators_data in facilitators:
+                    facilitator_topic[facilitators_data.id] = facilitators_data.to_dict()['topic']
+                    facilitator_response[facilitators_data.id] = {
+                    "q9":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                    "q10":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                    "q11":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                    "q12":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                    "q13":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                    "q14":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                    "q15":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                    "q16":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                    "q17":{"1":0,"2":0,"3":0,"4":0,"mean":0},
+                    }
             
+   
             for evaluator_data in evaluators_data:
                 facilitators = evaluators.document(evaluator_data.id).collection('facilitators').get()
                 for facilitators_data in facilitators:
                     temp_dict = facilitators_data.to_dict()
-                    for key,data_dict in temp_dict.items():               
+                    for key,data_dict in temp_dict.items():
                                 func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)               
             for data in evaluators_data:   
                 total_of_participant += 1
@@ -1479,7 +1476,7 @@ def get_summary_data(request):
             print(mean_1)
             overall_mean = round(statistics.mean([mean_1,mean_2,mean_3,mean_4]),1)
             func.facilitator_overall_mean(facilitator_mean,facilitator_response)
-            print(q1_dict)
+            
             template_path = 'pdf_generated/generate_summary.html'
             context = {
                 'seminar_title':seminar_title,
@@ -1505,24 +1502,24 @@ def get_summary_data(request):
                 'q25':q25_dict,
                 'q26':q26_dict,
                 'q27':q27_dict,
-                "q1_mean":q1_mean,
-                "q2_mean":q2_mean,
-                "q3_mean":q3_mean,
-                "q4_mean":q4_mean,
-                "q5_mean":q5_mean,
-                "q6_mean":q6_mean,
-                "q7_mean":q7_mean,
-                "q8_mean":q8_mean,
-                "q18_mean":q18_mean,
-                "q19_mean":q19_mean,
-                "q20_mean":q20_mean,
-                "q21_mean":q21_mean,
-                "q22_mean":q22_mean,
-                "q23_mean":q23_mean,
-                "q24_mean":q24_mean,
-                "q25_mean":q25_mean,
-                "q26_mean":q26_mean,
-                "q27_mean":q27_mean,
+                "q1_mean":"{:.2f}".format(q1_mean),
+                "q2_mean":"{:.2f}".format(q2_mean),
+                "q3_mean":"{:.2f}".format(q3_mean),
+                "q4_mean":"{:.2f}".format(q4_mean),
+                "q5_mean":"{:.2f}".format(q5_mean),
+                "q6_mean":"{:.2f}".format(q6_mean),
+                "q7_mean":"{:.2f}".format(q7_mean),
+                "q8_mean":"{:.2f}".format(q8_mean),
+                "q18_mean":"{:.2f}".format(q18_mean),
+                "q19_mean":"{:.2f}".format(q19_mean),
+                "q20_mean":"{:.2f}".format(q20_mean),
+                "q21_mean":"{:.2f}".format(q21_mean),
+                "q22_mean":"{:.2f}".format(q22_mean),
+                "q23_mean":"{:.2f}".format(q23_mean),
+                "q24_mean":"{:.2f}".format(q24_mean),
+                "q25_mean":"{:.2f}".format(q25_mean),
+                "q26_mean":"{:.2f}".format(q26_mean),
+                "q27_mean":"{:.2f}".format(q27_mean),
                 "total_of_participants":total_of_participant,
                 "facilitator_response":facilitator_response,
                 "facilitator_mean":facilitator_mean,
@@ -1536,6 +1533,11 @@ def get_summary_data(request):
                 "overall_mean":overall_mean,
                 "comments":[comment_data.to_dict() for comment_data in evaluators_data]
                 }
+            print('11111111111111111111111111')
+            for key, val in facilitator_mean.items():
+                print('key is ', key)
+                print('val is ', val)
+            print('11111111111111111111111111')
             return JsonResponse(context)
         return JsonResponse({'status': 'Invalid request'}, status=400)
     else:
@@ -1606,7 +1608,6 @@ def get_summary_data3(request):
             pisa_status = pisa.CreatePDF(
             html, dest=response, link_callback=link_callback)
             print("may error dito")
-            print(html)
             # if error then show some funy view
             if pisa_status.err:
                 print("may error")
