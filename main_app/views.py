@@ -1663,7 +1663,7 @@ def get_summary_data2(request):
             request.session['facilitator_response'] = json.loads(request.POST.get('facilitator_response'))
             request.session['facilitator_mean'] = json.loads(request.POST.get('facilitator_mean'))
             request.session['facilitator_topic'] = request.POST.get('facilitator_topic')
-            request.session['mean_1'] = request.POST.get('mean_1')
+            request.session['mean_1'] = int(request.POST.get('mean_1'))
             request.session['mean_2'] = request.POST.get('mean_2')
             request.session['mean_3'] = request.POST.get('mean_3')
             request.session['mean_4'] = request.POST.get('mean_4')
