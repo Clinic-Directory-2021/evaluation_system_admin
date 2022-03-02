@@ -1410,6 +1410,7 @@ def get_summary_data(request):
                                 func.get_facilitator_rate(facilitator_response,facilitators_data.id,data_dict,key)               
             for data in evaluators_data:   
                 total_of_participant += 1
+                print(u'{}'.format(data.id))
                 q1 = u'{}'.format(data.to_dict()['q1'])
                 q2 = u'{}'.format(data.to_dict()['q2'])
                 q3 = u'{}'.format(data.to_dict()['q3'])
@@ -1658,9 +1659,9 @@ def get_summary_data2(request):
             request.session['q25_mean'] = request.POST.get('q25_mean')
             request.session['q26_mean'] = request.POST.get('q26_mean')
             request.session['q27_mean'] = request.POST.get('q27_mean')
-            request.session['total_of_participant'] = request.POST.get('total_of_participant')
+            request.session['total_of_participant'] = request.POST.get('total_of_participants')
             request.session['facilitator_response'] = json.loads(request.POST.get('facilitator_response'))
-            request.session['facilitator_mean'] = request.POST.get('facilitator_mean')
+            request.session['facilitator_mean'] = json.loads(request.POST.get('facilitator_mean'))
             request.session['facilitator_topic'] = request.POST.get('facilitator_topic')
             request.session['mean_1'] = request.POST.get('mean_1')
             request.session['mean_2'] = request.POST.get('mean_2')
