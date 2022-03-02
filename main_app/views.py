@@ -1476,7 +1476,7 @@ def get_summary_data(request):
             print(mean_1)
             overall_mean = round(statistics.mean([mean_1,mean_2,mean_3,mean_4]),1)
             func.facilitator_overall_mean(facilitator_mean,facilitator_response)
-            print(q1_dict)
+            
             template_path = 'pdf_generated/generate_summary.html'
             context = {
                 'seminar_title':seminar_title,
@@ -1533,6 +1533,11 @@ def get_summary_data(request):
                 "overall_mean":overall_mean,
                 "comments":[comment_data.to_dict() for comment_data in evaluators_data]
                 }
+            print('11111111111111111111111111')
+            for key, val in facilitator_mean.items():
+                print('key is ', key)
+                print('val is ', val)
+            print('11111111111111111111111111')
             return JsonResponse(context)
         return JsonResponse({'status': 'Invalid request'}, status=400)
     else:
